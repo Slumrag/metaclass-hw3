@@ -84,7 +84,7 @@ export default tseslint.config(
 
     rules: {
       'no-console': 'warn',
-
+      'react/prop-types': 'off',
       'import/order': [
         'error',
         {

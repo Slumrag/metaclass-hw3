@@ -1,10 +1,9 @@
 import classNames from 'classnames';
 import React, { useEffect, useRef, useState } from 'react';
-import './MultiDropdown.css';
-import useClickOutside from 'utils/hooks';
-import Input from '../Input';
-import ArrowDownIcon from '../icons/ArrowDownIcon';
+import { ArrowDownIcon, Input } from 'components/';
+import { useClickOutside } from 'utils/hooks';
 import DropdownMenu from './components/DropdownMenu';
+import './MultiDropdown.css';
 
 export type Option = {
   /** Ключ варианта, используется для отправки на бек/использования в коде */
@@ -83,16 +82,18 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({ className, options, value
       ref={ref}
       className={classNames('MultiDropdown', className)}
       onKeyDown={(e) => {
-        e.key === 'Escape' && hideMenu();
+        if (e.key === 'Escape') {
+          hideMenu();
+        }
       }}
     >
       <Input
         value={inputValue}
         onChange={(value: string) => {
-          !isMenuVisible && showMenu();
-
+          if (!isMenuVisible) {
+            showMenu();
+          }
           setInputValue(value);
-          // console.log(value);
         }}
         onFocus={showMenu}
         placeholder={getTitle(selectedOptions)}

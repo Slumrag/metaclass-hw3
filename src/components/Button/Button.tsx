@@ -1,8 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
-import Loader from '../Loader';
+import { Loader, Text } from 'components/';
 import './Button.css';
-import Text from '../Text';
 
 export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   /** Состояние загрузки */

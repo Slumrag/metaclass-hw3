@@ -1,11 +1,8 @@
+import classNames from 'classnames';
 import React from 'react';
 import './Input.css';
-import classNames from 'classnames';
 
-export type InputProps = Omit<
-  React.InputHTMLAttributes<HTMLInputElement>,
-  'onChange' | 'value'
-> & {
+export type InputProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'value'> & {
   /** Значение поля */
   value: string;
   /** Callback, вызываемый при вводе данных в поле */
@@ -31,7 +28,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         <div className="Input__slot">{afterSlot}</div>
       </div>
     );
-  }
+  },
 );
 
 export default Input;

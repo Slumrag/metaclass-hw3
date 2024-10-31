@@ -1,10 +1,6 @@
 import React from 'react';
 
-const SVGArrowDownIcon: React.FC<React.SVGAttributes<SVGElement>> = ({
-  fill,
-  stroke,
-  ...props
-}) => (
+const SVGArrowDownIcon: React.FC<React.SVGAttributes<SVGElement>> = ({ fill, ...props }) => (
   <svg
     width="24"
     height="24"
@@ -12,6 +8,7 @@ const SVGArrowDownIcon: React.FC<React.SVGAttributes<SVGElement>> = ({
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     {...props}
+    stroke="none"
   >
     <path
       fillRule="evenodd"

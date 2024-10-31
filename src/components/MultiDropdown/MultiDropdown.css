@@ -1,0 +1,15 @@
+.MultiDropdown {
+  position: relative;
+}
+
+.MultiDropdown__menu {
+  width: 100%;
+  position: absolute;
+  top: calc(var(--space-xxs) + 100%);
+}
+
+.MultiDropdown__background {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+}

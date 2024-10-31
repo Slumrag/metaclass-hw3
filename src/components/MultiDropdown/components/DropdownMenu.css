@@ -1,0 +1,22 @@
+.DropdownMenu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--dropdown-options-bg);
+  box-shadow: var(--card-shadow);
+}
+
+.DropdownMenu__item {
+  cursor: pointer;
+  padding: var(--space-s) var(--space-xs);
+}
+
+.DropdownMenu__item :hover {
+  color: var(--text-secondary);
+}
+
+.DropdownMenu__item_selected {
+  color: var(--text-accent);
+}

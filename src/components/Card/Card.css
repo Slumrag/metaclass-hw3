@@ -1,0 +1,42 @@
+.Card {
+  font-family: 'Roboto';
+  display: flex;
+  flex-direction: column;
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+}
+
+.Card:hover {
+  box-shadow: var(--card-shadow);
+}
+
+.Card__header {
+  display: flex;
+  background: var(--card-image-bg);
+}
+
+.Card__image {
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+}
+
+.Card__body {
+  padding: var(--space-xl) var(--space-xs);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-l);
+}
+
+.Card__main {
+  display: flex;
+  gap: var(--space-xxs);
+  flex-direction: column;
+}
+
+.Card__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-xxs);
+}

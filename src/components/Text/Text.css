@@ -1,0 +1,41 @@
+.Text {
+  font-family: 'Roboto';
+  color: inherit;
+  font-weight: normal;
+  text-overflow: ellipsis;
+  overflow: hidden;
+
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+
+.Text-button {
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.Text-title {
+  font-size: 44px;
+  line-height: 48px;
+  font-weight: bold;
+}
+
+.Text-p-20 {
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+.Text-p-18 {
+  font-size: 18px;
+  line-height: 20px;
+}
+
+.Text-p-16 {
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.Text-p-14 {
+  font-size: 14px;
+  line-height: 18px;
+}

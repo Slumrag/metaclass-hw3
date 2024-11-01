@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
-import './Card.css';
 import Text from '../Text';
+import style from './Card.module.scss';
 
 export type CardProps = {
   /** Дополнительный classname */
@@ -33,42 +33,31 @@ const Card: React.FC<CardProps> = ({
   actionSlot,
 }) => {
   return (
-    <div className={classNames('Card', className)} onClick={onClick}>
-      <div className="Card__header">
-        <img className="Card__image" src={image} alt="" />
+    <div className={classNames(style.card, className)} onClick={onClick}>
+      <div className={style.header}>
+        <img className={style.image} src={image} alt="" />
       </div>
-      <div className="Card__body">
-        <div className="Card__main">
+      <div className={style.body}>
+        <div className={style.main}>
           {captionSlot && (
-            <Text className="Card__caption" view="p-14" color="secondary">
+            <Text className={style.caption} view="p-14" color="secondary">
               {captionSlot}
             </Text>
           )}
-          <Text
-            className="Card__title"
-            tag="h3"
-            view="p-20"
-            weight="bold"
-            maxLines={2}
-          >
+          <Text className={style.title} tag="h3" view="p-20" weight="bold" maxLines={2}>
             {title}
           </Text>
-          <Text
-            className="Card__description"
-            view="p-16"
-            color="secondary"
-            maxLines={3}
-          >
+          <Text className={style.description} view="p-16" color="secondary" maxLines={3}>
             {subtitle}
           </Text>
         </div>
-        <div className="Card__footer">
+        <div className={style.footer}>
           {contentSlot && (
-            <Text className="Card__content" view="p-18" weight="bold">
+            <Text className={style.content} view="p-18" weight="bold">
               {contentSlot}
             </Text>
           )}
-          {actionSlot && <div className="Card__action">{actionSlot}</div>}
+          {actionSlot && <div className={style.action}>{actionSlot}</div>}
         </div>
       </div>
     </div>

@@ -1,8 +1,11 @@
 import * as React from 'react';
+import variables from 'components/_variables.module.scss';
+
 export type IconProps = React.SVGAttributes<SVGElement> & {
   className?: string;
   color?: 'primary' | 'secondary' | 'accent';
 };
+
 type WithRenderer<T> = T & {
   render: (props: T) => React.ReactElement;
 };
@@ -16,19 +19,18 @@ const Icon: React.FC<WithRenderer<IconProps>> = ({
   ...props
 }) => {
   const colorMap = {
-    primary: 'icon-primary',
-    secondary: 'icon-secondary',
-    accent: 'icon-accent',
+    primary: 'iconPrimary',
+    secondary: 'iconSecondary',
+    accent: 'iconAccent',
   };
 
-  const computedColor =
-    color !== undefined ? `var(--${colorMap[color]})` : 'inherit';
+  const computedColor = color !== undefined ? colorMap[color] : 'inherit';
   const renderProps: IconProps = {
     className,
     width,
     height,
-    fill: computedColor,
-    stroke: computedColor,
+    fill: variables[computedColor],
+    stroke: variables[computedColor],
     ...props,
   };
 

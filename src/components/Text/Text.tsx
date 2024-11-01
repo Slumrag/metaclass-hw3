@@ -1,5 +1,7 @@
+import classNames from 'classnames';
 import * as React from 'react';
-import './Text.css';
+import variables from 'components/_variables.module.scss';
+import style from './Text.module.scss';
 
 export type TextProps = {
   /** Дополнительный класс */
@@ -28,12 +30,12 @@ const Text: React.FC<TextProps> = ({
   maxLines,
   ...props
 }) => {
-  const classFullName = `Text Text-${view}${className ? ' ' + className : ''}`;
+  const classFullName = classNames(style.text, style[view], className);
 
   const colorMapping = {
-    primary: 'text-primary',
-    secondary: 'text-secondary',
-    accent: 'text-accent',
+    primary: 'textPrimary',
+    secondary: 'textSecondary',
+    accent: 'textAccent',
   };
 
   const renderProps: React.ComponentProps<'div'> = {
@@ -43,8 +45,8 @@ const Text: React.FC<TextProps> = ({
   };
 
   if (color !== undefined) {
-    const computedColor = `var(--${colorMapping[color]})`;
-    renderProps!.style!.color = computedColor;
+    const computedColor = colorMapping[color];
+    renderProps!.style!.color = variables[computedColor];
   }
 
   if (weight !== undefined) {

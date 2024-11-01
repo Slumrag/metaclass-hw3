@@ -1,6 +1,7 @@
+import classNames from 'classnames';
 import React from 'react';
-import './Loader.css';
 import LoaderIcon from '../icons/LoaderIcon';
+import style from './Loader.module.scss';
 
 export type LoaderProps = {
   /** Размер */
@@ -16,13 +17,7 @@ const Loader: React.FC<LoaderProps> = ({ size = 'l', className = '' }) => {
     l: 60,
   };
   const iconSize = sizesMapping[size];
-  return (
-    <LoaderIcon
-      className={'Loader ' + className}
-      width={iconSize}
-      height={iconSize}
-    />
-  );
+  return <LoaderIcon className={classNames(style.loader, className)} width={iconSize} height={iconSize} />;
 };
 
 export default Loader;

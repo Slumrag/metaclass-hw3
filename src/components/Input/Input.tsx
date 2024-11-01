@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import React from 'react';
-import './Input.css';
+import style from './Input.module.scss';
 
 export type InputProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'value'> & {
   /** Значение поля */
@@ -14,18 +14,18 @@ export type InputProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onCh
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ value, onChange, afterSlot, className, ...props }, ref) => {
     return (
-      <div className={classNames('Input', className)}>
+      <div className={classNames(style.input, className)}>
         <input
           ref={ref}
           type="text"
-          className="Input__text Text-p-16"
+          className={style.text}
           value={value}
           onChange={(e) => {
             onChange(e.target.value);
           }}
           {...props}
         />
-        <div className="Input__slot">{afterSlot}</div>
+        <div className={style.slot}>{afterSlot}</div>
       </div>
     );
   },

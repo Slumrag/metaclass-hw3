@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { ArrowDownIcon, Input } from 'components/';
 import { useClickOutside } from 'utils/hooks';
 import DropdownMenu from './components/DropdownMenu';
-import './MultiDropdown.css';
+import style from './MultiDropdown.module.scss';
 
 export type Option = {
   /** Ключ варианта, используется для отправки на бек/использования в коде */
@@ -47,7 +47,7 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({ className, options, value
       return newOptions;
     }
 
-    onChange([option]);
+    onChange([...selectedOptions, option]);
     return [...selectedOptions, option];
   };
 
@@ -80,7 +80,7 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({ className, options, value
   return (
     <div
       ref={ref}
-      className={classNames('MultiDropdown', className)}
+      className={classNames(style.multiDropdown, className)}
       onKeyDown={(e) => {
         if (e.key === 'Escape') {
           hideMenu();
@@ -103,7 +103,7 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({ className, options, value
 
       {isMenuVisible && (
         <DropdownMenu
-          className="MultiDropdown__menu"
+          className={style.menu}
           options={options}
           value={selectedOptions}
           onClick={(option) => {

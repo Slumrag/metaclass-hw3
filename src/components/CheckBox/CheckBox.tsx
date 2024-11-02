@@ -10,7 +10,7 @@ export type CheckBoxProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'o
 
 const CheckBox: React.FC<CheckBoxProps> = ({ className, onChange, ...props }) => {
   return (
-    <div className={classNames(style.checkBox, className)}>
+    <label className={classNames(style.checkBox, className)}>
       <input
         type="checkbox"
         className={style.element}
@@ -20,7 +20,7 @@ const CheckBox: React.FC<CheckBoxProps> = ({ className, onChange, ...props }) =>
         {...props}
       />
       <CheckIcon className={style.icon} width={40} height={40} />
-    </div>
+    </label>
   );
 };
 

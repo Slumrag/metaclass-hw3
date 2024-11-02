@@ -9,7 +9,7 @@
   border-radius: $border-radius;
 }
 
-.checkBox:has(:hover) {
+.checkBox:hover {
   background: $checkbox-bg-hover;
   border-color: $checkbox-border-hover;
 }
@@ -27,18 +27,6 @@
   stroke: $checkbox-check;
 }
 
-.element:checked ~ .icon {
-  display: block;
-}
-
-.element:hover ~ .icon {
-  stroke: $checkbox-check-hover;
-}
-
-.element:disabled ~ .icon {
-  stroke: $checkbox-check-disabled;
-}
-
 .element {
   cursor: pointer;
   position: absolute;
@@ -54,4 +42,16 @@
 
 .element:disabled {
   cursor: not-allowed;
+}
+
+:checked ~ .icon {
+  display: block;
+}
+
+:hover ~ .icon {
+  stroke: $checkbox-check-hover;
+}
+
+:disabled ~ .icon {
+  stroke: $checkbox-check-disabled;
 }

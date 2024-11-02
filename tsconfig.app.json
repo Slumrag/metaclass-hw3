@@ -25,6 +25,9 @@
     "noUncheckedSideEffectImports": true,
     "baseUrl": "src",
     "paths": {
+      "assets": [
+        "assets/*"
+      ],
       "components": [
         "components/*"
       ],

@@ -1,0 +1,28 @@
+@use "src/components/variables.module" as *;
+.header {
+  display: flex;
+  justify-content: center;
+  border-bottom: $header-border;
+}
+
+.content {
+  max-width: $max-width;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $space-m;
+  flex: 1;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-xl;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}

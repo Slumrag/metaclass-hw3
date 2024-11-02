@@ -17,7 +17,9 @@ const Loader: React.FC<LoaderProps> = ({ size = 'l', className = '' }) => {
     l: 60,
   };
   const iconSize = sizesMapping[size];
-  return <LoaderIcon className={classNames(style.loader, className)} width={iconSize} height={iconSize} />;
+  return (
+    <LoaderIcon className={classNames(style.loader, className)} width={iconSize} height={iconSize} color="accent" />
+  );
 };
 
 export default Loader;

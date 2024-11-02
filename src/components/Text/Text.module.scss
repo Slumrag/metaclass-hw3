@@ -1,3 +1,5 @@
+@use "src/components/variables.module" as *;
+
 .text {
   font-family: "Roboto";
   color: inherit;
@@ -8,7 +10,7 @@
   display: -webkit-box;
   -webkit-box-orient: vertical;
 }
-
+// view
 .button {
   font-size: 18px;
   line-height: 24px;
@@ -38,4 +40,30 @@
 .p-14 {
   font-size: 14px;
   line-height: 18px;
+}
+
+// color
+.primary {
+  color: $text-primary;
+}
+
+.secondary {
+  color: $text-secondary;
+}
+
+.accent {
+  color: $text-accent;
+}
+
+// fontWeight
+.bold {
+  font-weight: bold;
+}
+
+.medium {
+  font-weight: medium;
+}
+
+.normal {
+  font-weight: normal;
 }

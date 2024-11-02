@@ -1,6 +1,5 @@
 import classNames from 'classnames';
 import * as React from 'react';
-import variables from 'components/_variables.module.scss';
 import style from './Text.module.scss';
 
 export type TextProps = {
@@ -30,28 +29,13 @@ const Text: React.FC<TextProps> = ({
   maxLines,
   ...props
 }) => {
-  const classFullName = classNames(style.text, style[view], className);
-
-  const colorMapping = {
-    primary: 'textPrimary',
-    secondary: 'textSecondary',
-    accent: 'textAccent',
-  };
+  const classFullName = classNames(style.text, style[view], style[color as string], style[weight as string], className);
 
   const renderProps: React.ComponentProps<'div'> = {
     className: classFullName,
     style: {},
     ...props,
   };
-
-  if (color !== undefined) {
-    const computedColor = colorMapping[color];
-    renderProps!.style!.color = variables[computedColor];
-  }
-
-  if (weight !== undefined) {
-    renderProps!.style!.fontWeight = weight;
-  }
 
   if (maxLines !== undefined) {
     renderProps!.style!.lineClamp = maxLines;

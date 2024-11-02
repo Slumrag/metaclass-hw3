@@ -7,11 +7,23 @@ export type ContainerProps = React.ComponentProps<'div'> & {
   pad?: boolean;
   // направление главной оси флекс контейнера
   direction?: 'row' | 'column';
+  // выравнивание относительно главной оси флекс контейнера
+  align?: 'start' | 'center' | 'end';
 };
 
-const Container: React.FC<ContainerProps> = ({ className, children, direction = 'column', pad = true, ...props }) => {
+const Container: React.FC<ContainerProps> = ({
+  className,
+  children,
+  direction = 'column',
+  pad = true,
+  align = 'center',
+  ...props
+}) => {
   return (
-    <div className={classNames(style.container, style[direction], { [style.padding]: pad }, className)} {...props}>
+    <div
+      className={classNames(style.container, style[direction], { [style.padding]: pad }, style[align], className)}
+      {...props}
+    >
       {children}
     </div>
   );

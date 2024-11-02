@@ -5,6 +5,7 @@
   flex-direction: column;
   background: $card-bg;
   border-radius: $border-radius;
+  overflow: hidden;
 }
 
 .card:hover {

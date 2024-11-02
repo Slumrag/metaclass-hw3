@@ -6,3 +6,6 @@ export * from './icons/';
 export { default as Text } from './Text';
 export { default as Loader } from './Loader';
 export { default as MultiDropdown } from './MultiDropdown';
+export { default as Layout } from './Layout';
+export { default as Header } from './Header';
+export { default as Container } from './Container';

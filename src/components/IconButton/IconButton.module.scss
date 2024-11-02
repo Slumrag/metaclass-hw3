@@ -1,0 +1,42 @@
+@use "src/components/variables.module" as *;
+
+.button {
+  cursor: pointer;
+  font-family: "Roboto";
+  padding: $space-s $space-l;
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-xxs;
+
+  border-radius: $border-radius;
+  background: $button-primary-bg;
+  color: $button-primary-text;
+
+  appearance: none;
+  border: none;
+}
+
+.button {
+  fill: $button-primary-text;
+  stroke: $button-primary-text;
+  .loader {
+  }
+}
+
+.button:hover {
+  background: $button-primary-bg-hover;
+  color: $button-primary-text-hover;
+}
+
+.button:active {
+  background: $button-primary-bg-active;
+  color: $button-primary-text-active;
+}
+
+.button.disabled {
+  cursor: not-allowed;
+  background: $button-primary-bg-disabled;
+  color: $button-primary-text-disabled;
+}

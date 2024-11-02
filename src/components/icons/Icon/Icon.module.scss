@@ -1,0 +1,20 @@
+@use "src/components/variables.module" as *;
+.icon {
+  fill: inherit;
+  stroke: inherit;
+}
+
+.primary {
+  fill: $icon-primary;
+  stroke: $icon-primary;
+}
+
+.secondary {
+  fill: $icon-secondary;
+  stroke: $icon-secondary;
+}
+
+.accent {
+  fill: $icon-accent;
+  stroke: $icon-accent;
+}

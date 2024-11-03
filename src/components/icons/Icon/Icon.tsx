@@ -16,9 +16,8 @@ const Icon: React.FC<WithRenderer<IconProps>> = ({
   render,
   ...props
 }) => {
-  const computedColor = color !== undefined ? style[color] : '';
   const renderProps: IconProps = {
-    className: classNames(style.icon, computedColor, className),
+    className: classNames(style.icon, style[color as string], className),
     width,
     height,
     ...props,

@@ -4,7 +4,7 @@ import { RequestPaginationOptions, MinimalRepository } from './types';
 
 export async function getOrgRepos(
   org: string,
-  { page, per_page }: RequestPaginationOptions,
+  options?: RequestPaginationOptions,
 ): Promise<AxiosResponse<MinimalRepository[]>> {
-  return await githubApiCore.get(`/orgs/${org}/repos`, { params: { page, per_page } });
+  return await githubApiCore.get(`/orgs/${org}/repos`, { params: options });
 }

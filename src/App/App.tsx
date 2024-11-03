@@ -1,15 +1,11 @@
 import React from 'react';
 import './App.scss';
 
-import MainPage from 'App/pages/MainPage';
-import { Layout } from 'components/';
+import { RouterProvider } from 'react-router-dom';
+import { router } from './router';
 
 const App: React.FC = () => {
-  return (
-    <Layout>
-      <MainPage></MainPage>
-    </Layout>
-  );
+  return <RouterProvider router={router} />;
 };
 
 export default App;

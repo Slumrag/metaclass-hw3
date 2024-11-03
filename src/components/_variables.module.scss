@@ -29,6 +29,16 @@ $button-primary-text-hover: #ffffff;
 $button-primary-text-active: #ffffff;
 $button-primary-text-disabled: #ffffff;
 
+$button-transparent-bg: transparent;
+$button-transparent-bg-hover: transparent;
+$button-transparent-bg-active: transparent;
+$button-transparent-bg-disabled: transparent;
+
+$button-transparent-text: #000000;
+$button-transparent-text-hover: $brand-hover;
+$button-transparent-text-active: $brand-active;
+$button-transparent-text-disabled: #afadb5;
+
 /*input*/
 $input-bg: #ffffff;
 $input-border: #ffffff;
@@ -110,6 +120,16 @@ $max-width: 1280px;
   buttonPrimaryTextHover: $button-primary-text-hover;
   buttonPrimaryTextActive: $button-primary-text-active;
   buttonPrimaryTextDisabled: $button-primary-text-disabled;
+
+  buttonTransparentBg: $button-transparent-bg;
+  buttonTransparentBgHover: $button-transparent-bg-hover;
+  buttonTransparentBgActive: $button-transparent-bg-active;
+  buttonTransparentBgDisabled: $button-transparent-bg-disabled;
+
+  buttonTransparentText: $button-transparent-text;
+  buttonTransparentTextHover: $button-transparent-text-hover;
+  buttonTransparentTextActive: $button-transparent-text-active;
+  buttonTransparentTextDisabled: $button-transparent-text-disabled;
 
   /*input*/
   inputBg: $input-bg;

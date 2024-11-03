@@ -3,17 +3,19 @@ import React, { ReactElement } from 'react';
 import { Loader } from 'components/';
 import style from './IconButton.module.scss';
 
-export type ButtonProps = Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'children'> & {
+export type IconButtonProps = Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'children'> & {
   /** Состояние загрузки */
   loading?: boolean;
+  /** вариант кнопки  */
+  variant?: 'solid' | 'transparent';
   /** Иконка кнопки */
   icon: ReactElement;
 };
 
-const Button: React.FC<ButtonProps> = ({ loading, className, disabled, icon, ...props }) => {
+const IconButton: React.FC<IconButtonProps> = ({ loading, className, disabled, icon, variant = 'solid', ...props }) => {
   return (
     <button
-      className={classNames(style.button, { [style.disabled]: disabled }, className)}
+      className={classNames(style.button, style[variant], { [style.disabled]: disabled }, className)}
       disabled={loading || disabled}
       {...props}
     >
@@ -22,4 +24,4 @@ const Button: React.FC<ButtonProps> = ({ loading, className, disabled, icon, ...
   );
 };
 
-export default Button;
+export default IconButton;

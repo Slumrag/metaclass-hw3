@@ -11,31 +11,64 @@
   gap: $space-xxs;
 
   border-radius: $border-radius;
-  background: $button-primary-bg;
-  color: $button-primary-text;
 
   appearance: none;
   border: none;
 }
 
-.button {
+.solid {
+  background: $button-primary-bg;
+  color: $button-primary-text;
   .loader {
     fill: $button-primary-text;
   }
 }
 
-.button:hover {
+.solid:hover {
   background: $button-primary-bg-hover;
   color: $button-primary-text-hover;
 }
 
-.button:active {
+.solid:active {
   background: $button-primary-bg-active;
   color: $button-primary-text-active;
 }
 
-.button.disabled {
+.solid.disabled {
   cursor: not-allowed;
   background: $button-primary-bg-disabled;
   color: $button-primary-text-disabled;
+}
+
+.transparent {
+  background: $button-transparent-bg;
+  color: $button-transparent-text;
+  .loader {
+    fill: $button-transparent-text;
+  }
+}
+
+.transparent:hover {
+  background: $button-transparent-bg-hover;
+  color: $button-transparent-text-hover;
+  .loader {
+    fill: $button-transparent-text-hover;
+  }
+}
+
+.transparent:active {
+  background: $button-transparent-bg-active;
+  color: $button-transparent-text-active;
+  .loader {
+    fill: $button-transparent-text-active;
+  }
+}
+
+.transparent.disabled {
+  cursor: not-allowed;
+  background: $button-transparent-bg-disabled;
+  color: $button-transparent-text-disabled;
+  .loader {
+    fill: $button-transparent-text-disabled;
+  }
 }

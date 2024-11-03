@@ -1,5 +1,10 @@
 @use "src/components/variables.module" as *;
 
+@mixin colorSvg($color) {
+  fill: $color;
+  stroke: $color;
+}
+
 .button {
   cursor: pointer;
   font-family: "Roboto";
@@ -11,32 +16,65 @@
   gap: $space-xxs;
 
   border-radius: $border-radius;
-  background: $button-primary-bg;
-  color: $button-primary-text;
 
   appearance: none;
   border: none;
 }
 
-.button {
-  fill: $button-primary-text;
-  stroke: $button-primary-text;
+.solid {
+  background: $button-primary-bg;
+  @include colorSvg($button-primary-text);
   .loader {
+    fill: $button-primary-text;
   }
 }
 
-.button:hover {
+.solid:hover {
   background: $button-primary-bg-hover;
-  color: $button-primary-text-hover;
+  @include colorSvg($button-primary-text-hover);
 }
 
-.button:active {
+.solid:active {
   background: $button-primary-bg-active;
-  color: $button-primary-text-active;
+  @include colorSvg($button-primary-text-active);
 }
 
-.button.disabled {
+.solid.disabled {
   cursor: not-allowed;
   background: $button-primary-bg-disabled;
-  color: $button-primary-text-disabled;
+  @include colorSvg($button-primary-text-disabled);
+}
+
+.transparent {
+  background: $button-transparent-bg;
+  @include colorSvg($button-transparent-text);
+
+  .loader {
+    fill: $button-transparent-text;
+  }
+}
+
+.transparent:hover {
+  background: $button-transparent-bg-hover;
+  @include colorSvg($button-transparent-text-hover);
+  .loader {
+    fill: $button-transparent-text-hover;
+  }
+}
+
+.transparent:active {
+  background: $button-transparent-bg-active;
+  @include colorSvg($button-transparent-text-active);
+  .loader {
+    fill: $button-transparent-text-active;
+  }
+}
+
+.transparent.disabled {
+  cursor: not-allowed;
+  background: $button-transparent-bg-disabled;
+  @include colorSvg($button-transparent-text-disabled);
+  .loader {
+    fill: $button-transparent-text-disabled;
+  }
 }

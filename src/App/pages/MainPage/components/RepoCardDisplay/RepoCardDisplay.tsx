@@ -1,23 +1,27 @@
+import classNames from 'classnames';
 import React from 'react';
+import { RepositoryDisplayProps } from '../../types';
 import RepoCard from '../RepoCard';
 import style from './RepoCardDisplay.module.scss';
 
-type Repo = {
-  title: string;
-  subtitle: string;
-  updateTimestamp: string;
-  starCount: number;
-};
-
 export type RepoCardDisplayProps = {
-  data: Repo[];
+  className?: string;
+  data: RepositoryDisplayProps[];
+  onClick?: (name: string) => void;
 };
 
-const RepoCardDisplay: React.FC<RepoCardDisplayProps> = ({ data }) => {
+const RepoCardDisplay: React.FC<RepoCardDisplayProps> = ({ data, className, onClick }) => {
   return (
-    <div className={style.cardDisplay}>
-      {data.map((repo, i) => (
-        <RepoCard key={i} {...repo} />
+    <div className={classNames(style.cardDisplay, className)}>
+      {data.map(({ id, title, subtitle, starCount, updateTimestamp }) => (
+        <RepoCard
+          key={id}
+          title={title}
+          subtitle={subtitle!}
+          updateTimestamp={updateTimestamp!}
+          starCount={starCount!}
+          onClick={onClick}
+        />
       ))}
     </div>
   );

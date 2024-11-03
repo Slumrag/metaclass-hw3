@@ -1,9 +1,13 @@
 import React from 'react';
 import { createBrowserRouter, Outlet } from 'react-router-dom';
-import { MainPage, RepoPage } from 'App/pages';
+import { MainPage, RepoPage, NotFoundPage } from 'App/pages';
 import { Layout } from 'components/';
 
 export const router = createBrowserRouter([
+  {
+    path: '*',
+    element: <NotFoundPage />,
+  },
   {
     path: '/',
     element: (

@@ -1,11 +1,15 @@
+import dayjs from 'dayjs';
 import React from 'react';
-import Card, { CardProps } from 'components/Card';
+import Card from 'components/Card';
 import { StarIcon } from 'components/icons';
 import style from './RepoCard.module.scss';
 
-export type RepoCardProps = Pick<CardProps, 'title' | 'subtitle' | 'onClick'> & {
+export type RepoCardProps = {
+  title: string;
+  subtitle?: string;
   updateTimestamp?: string;
   starCount?: number;
+  onClick?: (name: string) => void;
 };
 
 const RepoCard: React.FC<RepoCardProps> = ({ title, subtitle, onClick, updateTimestamp, starCount }) => {
@@ -22,12 +26,12 @@ const RepoCard: React.FC<RepoCardProps> = ({ title, subtitle, onClick, updateTim
             <StarIcon />
           </span>
           <span className={style.starCounter}>{starCount}</span>
-          <span>{updateTimestamp}</span>
+          {updateTimestamp && <span>{`Updated ${dayjs(updateTimestamp).format('D MMM YYYY')}`}</span>}
         </span>
       }
-      onClick={(e) => {
+      onClick={() => {
         if (onClick !== undefined) {
-          onClick(e);
+          onClick(title);
         }
       }}
     />

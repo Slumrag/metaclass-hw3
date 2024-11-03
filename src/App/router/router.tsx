@@ -1,7 +1,7 @@
 import React from 'react';
-import { createBrowserRouter, Outlet } from 'react-router-dom';
+import { createBrowserRouter } from 'react-router-dom';
 import { MainPage, RepoPage, NotFoundPage } from 'App/pages';
-import { Layout } from 'components/';
+import Root from './Root';
 
 export const router = createBrowserRouter([
   {
@@ -10,11 +10,7 @@ export const router = createBrowserRouter([
   },
   {
     path: '/',
-    element: (
-      <Layout>
-        <Outlet />
-      </Layout>
-    ),
+    element: <Root />,
     children: [
       {
         path: ':org',

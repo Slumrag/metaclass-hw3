@@ -12,22 +12,24 @@ const RepoPage: React.FC = () => {
   const navigate = useNavigate();
   const { org } = useParams();
   return (
-    <Container className={style.container}>
-      <div className={style.title}>
-        <IconButton
-          className={style.backButton}
-          variant="transparent"
-          icon={<ArrowLeftIcon width={32} height={32} />}
-          onClick={() => navigate('/' + org!)}
-        />
-        <Avatar src="/placeholder.png" alt="" variant="rounded" />
-        <Text tag={'h2'} view="title">
-          {repo.name}
-        </Text>
-      </div>
-      <RepoInfo {...repo} />
-      <DisplayReadMe src={readme.download_url!} className={style.markdown} />
-    </Container>
+    <div className={style.wrapper}>
+      <Container className={style.container} align="start">
+        <div className={style.title}>
+          <IconButton
+            className={style.backButton}
+            variant="transparent"
+            icon={<ArrowLeftIcon width={32} height={32} />}
+            onClick={() => navigate('/' + org!)}
+          />
+          <Avatar src="/placeholder.png" alt="" variant="rounded" />
+          <Text tag={'h2'} view="title">
+            {repo.name}
+          </Text>
+        </div>
+        <RepoInfo className={style.info} {...repo} />
+        <DisplayReadMe src={readme.download_url!} className={style.markdown} />
+      </Container>
+    </div>
   );
 };
 

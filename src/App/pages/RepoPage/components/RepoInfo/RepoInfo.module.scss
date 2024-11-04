@@ -1,0 +1,23 @@
+@use "src/components/variables.module" as v;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: v.$space-l;
+}
+
+.topics {
+  display: flex;
+  gap: v.$space-xxs;
+}
+
+.stats {
+  display: flex;
+  flex-direction: column;
+  gap: v.$space-xxs;
+}
+
+.body {
+  display: flex;
+  gap: 50px;
+}

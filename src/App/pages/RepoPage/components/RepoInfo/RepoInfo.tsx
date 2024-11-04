@@ -1,36 +1,53 @@
+import classNames from 'classnames';
 import React from 'react';
+import { EyeIcon, ForkIcon, StarIcon, Token, Text } from 'components/';
 import { FullRepositoryDisplayProps } from '../../types';
+import HomePageLink from './components/HomePageLink';
+import IconStat from './components/IconStat';
+import UserList from './components/UserList';
+import style from './RepoInfo.module.scss';
 
 export type RepoInfoProps = FullRepositoryDisplayProps & {
   className?: string;
 };
 
-const RepoInfo: React.FC<RepoInfoProps> = ({ homepage, forks, stars, watchers, topics, languages, contributors }) => {
+const RepoInfo: React.FC<RepoInfoProps> = ({
+  className,
+  homepage,
+  forks,
+  stars,
+  watchers,
+  topics,
+  languages,
+  contributors,
+}) => {
   return (
-    <div>
-      {homepage}
-      {topics && <div className="">{topics?.map((el, i) => <span key={i}>{el}</span>)}</div>}
-      <div className="">
-        forks {forks}
-        stars {stars}
-        watchers {watchers}
+    <div className={classNames(style.container, className)}>
+      {homepage && <HomePageLink href={homepage} />}
+
+      {topics && <div className={style.topics}>{topics?.map((el, i) => <Token key={i}>{el}</Token>)}</div>}
+
+      <div className={style.stats}>
+        <IconStat icon={<StarIcon />} count={stars} title="stars" />
+        <IconStat icon={<EyeIcon />} count={watchers} title="watching" />
+        <IconStat icon={<ForkIcon />} count={forks} title="forks" />
       </div>
-      {contributors && (
-        <ul className="">
-          {contributors.map((el) => (
-            <li key={el.id}>{el.login + ' ' + el?.name}</li>
-          ))}
-        </ul>
-      )}
-      {languages && (
-        <ul>
-          {Object.entries(languages).map(([lang, lines]) => (
-            <li key={lang}>
-              {lang}:{lines}
-            </li>
-          ))}
-        </ul>
-      )}
+      <div className={style.body}>
+        {contributors && <UserList title="Contributors" users={contributors} />}
+
+        {languages && (
+          <div className="">
+            <Text weight="bold">Languages</Text>
+            <ul>
+              {Object.entries(languages).map(([lang, lines]) => (
+                <li key={lang}>
+                  {lang}:{lines}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

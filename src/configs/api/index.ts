@@ -1,2 +1,2 @@
-export * from './githubApiBase';
+export * from './baseURLs';
 export * from './defaultOrg';

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GITHUB_API_BASE } from 'configs/api/githubApiBase';
+import { GITHUB_API_BASE } from 'configs/api/baseURLs';
 
 export const githubApiCore = axios.create({
   baseURL: GITHUB_API_BASE,

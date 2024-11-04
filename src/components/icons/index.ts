@@ -6,4 +6,5 @@ export { default as SearchIcon } from './SearchIcon';
 export { default as LoaderIcon } from './LoaderIcon';
 export { default as GithubIcon } from './GithubIcon';
 export { default as StarIcon } from './StarIcon';
+export { default as LinkIcon } from './LinkIcon';
 export * from './Icon';

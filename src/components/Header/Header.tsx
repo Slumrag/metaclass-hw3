@@ -1,6 +1,6 @@
 import React from 'react';
 import avatar from 'assets/avatar.png';
-import { Text } from 'components/';
+import { Avatar, Text } from 'components/';
 import { GithubIcon } from 'components/icons';
 import style from './Header.module.scss';
 
@@ -14,7 +14,7 @@ const Header: React.FC = () => {
             GitHub Client
           </Text>
         </div>
-        <img className={style.avatar} src={avatar} />
+        <Avatar variant="circle" src={avatar} />
       </div>
     </header>
   );

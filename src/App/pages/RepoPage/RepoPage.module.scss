@@ -1,5 +1,4 @@
 @use "src/components/variables.module" as c;
-$image-size: 32px;
 
 .container {
   padding-top: 40px;
@@ -13,12 +12,6 @@ $image-size: 32px;
   align-self: start;
   gap: c.$space-m;
   margin-bottom: c.$space-m;
-}
-
-.image {
-  width: $image-size;
-  height: $image-size;
-  border-radius: c.$border-radius;
 }
 
 .backButton {

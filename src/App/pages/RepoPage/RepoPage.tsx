@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useLoaderData } from 'react-router-typesafe';
-import { ArrowLeftIcon, Container, IconButton, Text } from 'components/';
+import { ArrowLeftIcon, Avatar, Container, IconButton, Text } from 'components/';
 import DisplayReadMe from './components/DisplayReadMe';
 import RepoInfo from './components/RepoInfo';
 import { loader } from './loader/loader';
@@ -20,7 +20,7 @@ const RepoPage: React.FC = () => {
           icon={<ArrowLeftIcon width={32} height={32} />}
           onClick={() => navigate('/' + org!)}
         />
-        <img src="/placeholder.png" alt="" className={style.image} />
+        <Avatar src="/placeholder.png" alt="" variant="rounded" />
         <Text tag={'h2'} view="title">
           {repo.name}
         </Text>

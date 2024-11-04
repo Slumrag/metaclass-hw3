@@ -1,23 +1,24 @@
-@use "src/components/variables.module" as *;
+@use "src/components/variables.module" as c;
+$image-size: 32px;
 
 .container {
   padding-top: 40px;
   padding-bottom: 40px;
-  gap: $space-xl;
+  gap: c.$space-xl;
 }
 
 .title {
   display: flex;
   align-items: center;
   align-self: start;
-  gap: $space-m;
-  margin-bottom: $space-m;
+  gap: c.$space-m;
+  margin-bottom: c.$space-m;
 }
 
 .image {
-  width: 32px;
-  height: 32px;
-  border-radius: $border-radius;
+  width: $image-size;
+  height: $image-size;
+  border-radius: c.$border-radius;
 }
 
 .backButton {

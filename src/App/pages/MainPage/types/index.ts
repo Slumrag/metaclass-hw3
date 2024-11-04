@@ -1,1 +1,1 @@
-export type * from './RepositoryDisplayProps';
+export type * from './MinimalRepositoryDisplayProps';

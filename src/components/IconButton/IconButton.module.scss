@@ -1,9 +1,5 @@
 @use "src/components/variables.module" as *;
-
-@mixin colorSvg($color) {
-  fill: $color;
-  stroke: $color;
-}
+@use "src/components/mixins.module" as m;
 
 .button {
   cursor: pointer;
@@ -23,7 +19,7 @@
 
 .solid {
   background: $button-primary-bg;
-  @include colorSvg($button-primary-text);
+  @include m.colorSvg($button-primary-text);
   .loader {
     fill: $button-primary-text;
   }
@@ -31,23 +27,23 @@
 
 .solid:hover {
   background: $button-primary-bg-hover;
-  @include colorSvg($button-primary-text-hover);
+  @include m.colorSvg($button-primary-text-hover);
 }
 
 .solid:active {
   background: $button-primary-bg-active;
-  @include colorSvg($button-primary-text-active);
+  @include m.colorSvg($button-primary-text-active);
 }
 
 .solid.disabled {
   cursor: not-allowed;
   background: $button-primary-bg-disabled;
-  @include colorSvg($button-primary-text-disabled);
+  @include m.colorSvg($button-primary-text-disabled);
 }
 
 .transparent {
   background: $button-transparent-bg;
-  @include colorSvg($button-transparent-text);
+  @include m.colorSvg($button-transparent-text);
 
   .loader {
     fill: $button-transparent-text;
@@ -56,7 +52,7 @@
 
 .transparent:hover {
   background: $button-transparent-bg-hover;
-  @include colorSvg($button-transparent-text-hover);
+  @include m.colorSvg($button-transparent-text-hover);
   .loader {
     fill: $button-transparent-text-hover;
   }
@@ -64,7 +60,7 @@
 
 .transparent:active {
   background: $button-transparent-bg-active;
-  @include colorSvg($button-transparent-text-active);
+  @include m.colorSvg($button-transparent-text-active);
   .loader {
     fill: $button-transparent-text-active;
   }
@@ -73,7 +69,7 @@
 .transparent.disabled {
   cursor: not-allowed;
   background: $button-transparent-bg-disabled;
-  @include colorSvg($button-transparent-text-disabled);
+  @include m.colorSvg($button-transparent-text-disabled);
   .loader {
     fill: $button-transparent-text-disabled;
   }

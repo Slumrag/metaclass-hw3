@@ -1,39 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import { getOrgRepos } from 'App/api';
-import { RepositoryDisplayProps } from 'App/pages/MainPage/types';
+import { useNavigate } from 'react-router-dom';
+import { useLoaderData } from 'react-router-typesafe';
+
 import { Container, Text } from 'components/';
 
-import { DEFAULT_ORG } from 'configs/api';
 import Pagination from './components/Pagination';
 import RepoCardDisplay from './components/RepoCardDisplay';
 import SearchRepo, { type SearchParameters } from './components/SearchRepo';
+import { loader } from './loader/loader';
 import style from './MainPage.module.scss';
 
 const MainPage: React.FC<React.ComponentProps<'div'>> = () => {
-  const ITEMS_PER_PAGE = 9;
-
-  const [repos, setRepos] = useState<RepositoryDisplayProps[]>([]);
-  useEffect(() => {
-    getOrgRepos(DEFAULT_ORG)
-      .then((result) => {
-        setRepos(
-          result.data.map((el) => ({
-            id: el.id,
-            title: el.name,
-            subtitle: el.description,
-            updateTimestamp: el.updated_at,
-            starCount: el.stargazers_count,
-          })),
-        );
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }, []);
+  // const ITEMS_PER_PAGE = 9;
+  const navigate = useNavigate();
+  const { repos } = useLoaderData<typeof loader>();
 
   const handlePage = (page: number): void => {
     console.log('page', page);
-    // throw new Error('Function not implemented.');
+    throw new Error('Function not implemented.');
   };
 
   const handleSubmit = function (search: SearchParameters): void {
@@ -41,8 +25,7 @@ const MainPage: React.FC<React.ComponentProps<'div'>> = () => {
   };
 
   const handleRepo = function (name: string): void {
-    console.log('repo', name);
-    // throw new Error('Function not implemented.');
+    navigate(name);
   };
 
   return (

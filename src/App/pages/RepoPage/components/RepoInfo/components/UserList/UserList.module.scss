@@ -1,0 +1,42 @@
+@use "src/components/variables.module" as v;
+@use "src/components/mixins.module" as m;
+
+$badge-color-text: rgba(0, 0, 0, 0.62);
+$badge-color-bg: #d9d9d9;
+$badge-size: 16px;
+
+$font-size: 10px;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: v.$space-xxs;
+}
+
+.title {
+  margin-bottom: v.$space-xxs;
+  position: relative;
+  width: fit-content;
+  overflow: visible;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.counter {
+  @include m.square($badge-size);
+  font-weight: bold;
+  font-size: $font-size;
+  color: $badge-color-text;
+  background: $badge-color-bg;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: calc(0px - $badge-size - 1px);
+  top: calc(-1px);
+}

@@ -1,0 +1,16 @@
+@use "src/components/variables.module" as v;
+@use "src/components/mixins.module" as m;
+$icon-size: 16px;
+
+.body {
+  display: inline-flex;
+  align-items: center;
+  gap: v.$space-xxs;
+  span {
+    font-weight: bold;
+  }
+  svg {
+    @include m.square($icon-size);
+    @include m.colorSvg(v.$text-secondary);
+  }
+}

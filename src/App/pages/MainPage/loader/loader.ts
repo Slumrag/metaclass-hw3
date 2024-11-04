@@ -1,7 +1,7 @@
 // import { LoaderFunction } from 'react-router-typesafe';
 import { makeLoader } from 'react-router-typesafe';
 import { getOrgRepos } from 'App/api';
-import { RepositoryDisplayProps } from '../types';
+import { MinimalRepositoryDisplayProps } from '../types';
 
 export const loader = makeLoader(async ({ params }) => {
   const { data } = await getOrgRepos(params.org!);
@@ -14,7 +14,7 @@ export const loader = makeLoader(async ({ params }) => {
         subtitle: el.description,
         updateTimestamp: el.updated_at,
         starCount: el.stargazers_count,
-      }) as RepositoryDisplayProps,
+      }) as MinimalRepositoryDisplayProps,
   );
   return { repos };
 });

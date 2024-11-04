@@ -1,12 +1,12 @@
 import classNames from 'classnames';
 import React from 'react';
-import { RepositoryDisplayProps } from '../../types';
+import { MinimalRepositoryDisplayProps } from '../../types';
 import RepoCard from '../RepoCard';
 import style from './RepoCardDisplay.module.scss';
 
 export type RepoCardDisplayProps = {
   className?: string;
-  data: RepositoryDisplayProps[];
+  data: MinimalRepositoryDisplayProps[];
   onClick?: (name: string) => void;
 };
 

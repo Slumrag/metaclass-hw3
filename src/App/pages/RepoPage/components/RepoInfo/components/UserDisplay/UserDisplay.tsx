@@ -14,7 +14,7 @@ export type UserDisplayProps = {
 const UserDisplay: React.FC<UserDisplayProps> = ({ className, login, avatar, name }) => {
   return (
     <div className={classNames(style.body, className)}>
-      {avatar && <Avatar src={avatar} alt={login} variant="circle" />}
+      {avatar && <Avatar src={avatar} alt={login} variant="circle" hasBorder />}
       <Text weight="bold">{login}</Text>
       {name && <Text color="secondary">{name}</Text>}
     </div>

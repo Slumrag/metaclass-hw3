@@ -4,9 +4,14 @@
 $small: 24px;
 $medium: 32px;
 $large: 40px;
+$avatar-color-border: #ecebeb;
 
 .avatar {
   object-fit: cover;
+}
+
+.border {
+  border: 1px solid $avatar-color-border;
 }
 
 .small {

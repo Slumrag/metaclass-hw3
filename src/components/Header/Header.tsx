@@ -14,7 +14,7 @@ const Header: React.FC = () => {
             GitHub Client
           </Text>
         </div>
-        <Avatar variant="circle" src={avatar} />
+        <Avatar variant="circle" hasBorder src={avatar} />
       </div>
     </header>
   );

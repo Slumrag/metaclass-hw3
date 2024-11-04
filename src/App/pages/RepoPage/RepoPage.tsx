@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useLoaderData } from 'react-router-typesafe';
 import { ArrowLeftIcon, Container, IconButton, Text } from 'components/';
 import DisplayReadMe from './components/DisplayReadMe';
+import RepoInfo from './components/RepoInfo';
 import { loader } from './loader/loader';
 import style from './RepoPage.module.scss';
 
@@ -24,6 +25,7 @@ const RepoPage: React.FC = () => {
           {repo.name}
         </Text>
       </div>
+      <RepoInfo {...repo} />
       <DisplayReadMe src={readme.download_url!} className={style.markdown} />
     </Container>
   );

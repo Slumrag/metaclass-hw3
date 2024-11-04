@@ -24,6 +24,7 @@ export const router = createBrowserRouter([
       },
       {
         path: ':org/:repo',
+        loader: repoPageLoader,
         element: <RepoPage />,
       },
     ],

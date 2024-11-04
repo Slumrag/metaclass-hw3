@@ -1,0 +1,29 @@
+@use "src/components/variables.module" as *;
+
+.container {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  gap: $space-xl;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  align-self: start;
+  gap: $space-m;
+  margin-bottom: $space-m;
+}
+
+.image {
+  width: 32px;
+  height: 32px;
+  border-radius: $border-radius;
+}
+
+.backButton {
+  padding: 0;
+}
+
+.markdown {
+  align-self: stretch;
+}

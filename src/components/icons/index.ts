@@ -8,4 +8,5 @@ export { default as GithubIcon } from './GithubIcon';
 export { default as StarIcon } from './StarIcon';
 export { default as LinkIcon } from './LinkIcon';
 export { default as EyeIcon } from './EyeIcon';
+export { default as ForkIcon } from './ForkIcon';
 export * from './Icon';

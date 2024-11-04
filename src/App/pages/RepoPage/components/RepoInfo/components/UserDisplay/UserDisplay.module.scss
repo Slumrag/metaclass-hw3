@@ -1,0 +1,7 @@
+@use "src/components/variables.module" as v;
+
+.body {
+  display: inline-flex;
+  align-items: center;
+  gap: v.$space-xxs;
+}

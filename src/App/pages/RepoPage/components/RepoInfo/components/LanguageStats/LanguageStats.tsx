@@ -18,7 +18,7 @@ export type LanguageStatsProps = {
 
 const LanguageStats: React.FC<LanguageStatsProps> = ({ className, languages, title }) => {
   const MAX_ITEMS = 6;
-  const THRESHOLD = 0.1;
+  const THRESHOLD = 0.2;
   const DEFAULT_COLOR = '#EDEDED';
 
   function sumLines(items: [string, number][]): number {

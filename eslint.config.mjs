@@ -11,6 +11,7 @@ import { fileURLToPath } from 'node:url';
 import js from '@eslint/js';
 import { FlatCompat } from '@eslint/eslintrc';
 import tseslint from 'typescript-eslint';
+import pluginMobx from 'eslint-plugin-mobx';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -34,6 +35,7 @@ export default tseslint.config(
         'plugin:import/typescript',
         'plugin:@typescript-eslint/recommended',
         'plugin:react-hooks/recommended',
+        'plugin:mobx/recommended',
       ),
     ),
     files: ['src/**/*.{js,jsx,ts,tsx}'],
@@ -43,6 +45,7 @@ export default tseslint.config(
       prettier,
       react: fixupPluginRules(react),
       'react-hooks': fixupPluginRules(reactHooks),
+      pluginMobx,
     },
 
     languageOptions: {

@@ -15,11 +15,3 @@ export async function getRepoContributors(
   const response = await githubApiCore.get(`/repos/${owner}/${repo}/contributors`, { params: options });
   return response;
 }
-
-export async function getRepoContributorsCount(owner: string, repo: string): Promise<AxiosResponse<number>> {
-  const response = await getRepoContributors(owner, repo, { anon: true, per_page: 1 });
-  const count = response.headers.link.match(/.*<(?:.*page=(\d+))>; rel="last"/)[1];
-  // console.log(count);
-  // response.data=response.data.length
-  return { ...response, data: count };
-}

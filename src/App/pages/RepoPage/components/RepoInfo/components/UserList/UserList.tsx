@@ -9,19 +9,20 @@ export type UserListProps = {
   className?: string;
   title?: string;
   users: SimpleUser[];
-  count: number;
+  count: number | null;
   showCounter?: boolean;
   maxCount?: number;
 };
 
 const UserList: React.FC<UserListProps> = ({ className, title, users, count, showCounter = true, maxCount = 5 }) => {
+  const localCount = count ?? users.length;
   return (
     <div className={classNames(style.container, className)}>
       <span className={style.header}>
         <Text className={style.title} view="p-18" weight="bold">
           {title}
         </Text>
-        {showCounter && <span className={style.counter}>{count}</span>}
+        {showCounter && <span className={style.counter}>{localCount}</span>}
       </span>
       <ul className={style.list}>
         {users.slice(0, maxCount).map((el) => (
@@ -29,9 +30,9 @@ const UserList: React.FC<UserListProps> = ({ className, title, users, count, sho
             <UserDisplay login={el.login} name={el.name!} avatar={el.avatar_url} />
           </li>
         ))}
-        {count > maxCount && (
+        {localCount > maxCount && (
           <li>
-            <Text>...and {count - maxCount} others</Text>
+            <Text>...and {localCount - maxCount} others</Text>
           </li>
         )}
       </ul>

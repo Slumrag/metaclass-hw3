@@ -11,5 +11,5 @@ export type FullRepositoryDisplayProps = {
   topics: FullRepository['topics'];
   languages: LanguagesTuple[];
   contributors: SimpleUser[];
-  contributorsCount: number;
+  contributorsCount: number | null;
 };

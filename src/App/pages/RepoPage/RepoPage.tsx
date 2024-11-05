@@ -27,7 +27,7 @@ const RepoPage: React.FC = () => {
           </Text>
         </div>
         <RepoInfo className={style.info} {...repo} />
-        <DisplayReadMe src={readme.download_url!} className={style.markdown} />
+        {readme && <DisplayReadMe src={readme.download_url!} className={style.markdown} />}
       </Container>
     </div>
   );

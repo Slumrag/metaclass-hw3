@@ -16,20 +16,28 @@ const DisplayReadMe: React.FC<DisplayReadMeProps> = ({ src, className }) => {
   const [markdown, setMarkdown] = useState('');
 
   useEffect(() => {
-    downloadReadMe(src).then(({ data }) => {
-      setMarkdown(data as string);
-    });
+    if (src !== undefined) {
+      downloadReadMe(src)
+        .then(({ data }) => {
+          setMarkdown(data as string);
+        })
+        .catch((err) => console.error(err));
+    }
   }, [src]);
 
   return (
-    <div className={classNames(style.container, className)}>
-      <Text className={style.title} weight="bold">
-        README.md
-      </Text>
-      <Markdown className={style.markdown} remarkPlugins={[remarkGfm]}>
-        {markdown}
-      </Markdown>
-    </div>
+    <>
+      {markdown && (
+        <div className={classNames(style.container, className)}>
+          <Text className={style.title} weight="bold">
+            README.md
+          </Text>
+          <Markdown className={style.markdown} remarkPlugins={[remarkGfm]}>
+            {markdown}
+          </Markdown>
+        </div>
+      )}
+    </>
   );
 };
 

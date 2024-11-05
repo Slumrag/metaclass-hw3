@@ -35,9 +35,9 @@ const RepoInfo: React.FC<RepoInfoProps> = ({
         <IconStat icon={<ForkIcon />} count={forks} title="forks" />
       </div>
       <div className={style.body}>
-        {contributors && <UserList title="Contributors" users={contributors} count={contributorsCount} />}
+        {contributors?.length > 0 && <UserList title="Contributors" users={contributors} count={contributorsCount} />}
 
-        {languages && <LanguageStats title="Languages" className={style.languages} languages={languages} />}
+        {languages?.length > 0 && <LanguageStats title="Languages" className={style.languages} languages={languages} />}
       </div>
     </div>
   );

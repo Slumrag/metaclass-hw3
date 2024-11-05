@@ -1,9 +1,10 @@
 import classNames from 'classnames';
 import React from 'react';
-import { EyeIcon, ForkIcon, StarIcon, Token, Text } from 'components/';
+import { EyeIcon, ForkIcon, StarIcon, Token } from 'components/';
 import { FullRepositoryDisplayProps } from '../../types';
 import HomePageLink from './components/HomePageLink';
 import IconStat from './components/IconStat';
+import LanguageStats from './components/LanguageStats';
 import UserList from './components/UserList';
 import style from './RepoInfo.module.scss';
 
@@ -35,18 +36,7 @@ const RepoInfo: React.FC<RepoInfoProps> = ({
       <div className={style.body}>
         {contributors && <UserList title="Contributors" users={contributors} />}
 
-        {languages && (
-          <div className="">
-            <Text weight="bold">Languages</Text>
-            <ul>
-              {Object.entries(languages).map(([lang, lines]) => (
-                <li key={lang}>
-                  {lang}:{lines}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+        {languages && <LanguageStats title="Languages" className={style.languages} languages={languages} />}
       </div>
     </div>
   );

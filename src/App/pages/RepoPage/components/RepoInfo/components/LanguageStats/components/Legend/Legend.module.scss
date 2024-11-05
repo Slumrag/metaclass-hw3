@@ -1,0 +1,26 @@
+@use "src/components/variables.module" as v;
+@use "src/components/mixins.module" as m;
+$dot-size: 8px;
+
+.legend {
+  @include m.resetList;
+  display: flex;
+  gap: 4px v.$space-l;
+  flex-wrap: wrap;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+}
+.text {
+  display: inline-flex;
+  text-wrap: nowrap;
+  white-space: pre;
+}
+
+.dot {
+  @include m.square($dot-size);
+  border-radius: 50%;
+  margin-right: v.$space-xxs;
+}

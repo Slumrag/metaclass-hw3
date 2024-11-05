@@ -14,14 +14,28 @@ export type LanguageStatsProps = {
   title: string;
 };
 
+function calculateFraction(value: number, total: number) {
+  return (value / total) * 100;
+}
+
 const LanguageStats: React.FC<LanguageStatsProps> = ({ className, languages, title }) => {
-  const items = Object.entries(languages);
-  const totalLines = items.reduce((acc, cur) => acc + cur[1], 0);
+  const MAX_ITEMS = 6;
+  const DEFAULT_COLOR = '#EDEDED';
+  let items = Object.entries(languages);
+  const totalLines = sumLines(items);
+  let subtotal = 0;
+
+  if (items.length > MAX_ITEMS) {
+    items = items.slice(0, MAX_ITEMS);
+    subtotal = sumLines(items);
+    const others = ['other', totalLines - subtotal] as [string, number];
+    items.push(others);
+  }
 
   const progressItems = items.map(([lang, lines]) => ({
     text: lang,
-    value: (lines / totalLines) * 100,
-    color: (colorMapping as mapping)[lang].color ?? 'white',
+    value: calculateFraction(lines, totalLines),
+    color: (colorMapping as mapping)[lang]?.color ?? DEFAULT_COLOR,
   }));
 
   return (
@@ -33,6 +47,10 @@ const LanguageStats: React.FC<LanguageStatsProps> = ({ className, languages, tit
       <Legend items={progressItems} />
     </div>
   );
+
+  function sumLines(items: [string, number][]): number {
+    return items.reduce((acc, cur) => acc + cur[1], 0);
+  }
 };
 
 export default LanguageStats;

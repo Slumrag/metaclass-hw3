@@ -1,5 +1,5 @@
 import { makeLoader } from 'react-router-typesafe';
-import { getRepoContributors, getRepoInfo, getRepoLanguages, getRepoReadMe } from 'App/api';
+import { getRepoContributors, getRepoContributorsCount, getRepoInfo, getRepoLanguages, getRepoReadMe } from 'App/api';
 import { FullRepositoryDisplayProps } from '../types';
 
 export const loader = makeLoader(async ({ params }) => {
@@ -8,6 +8,7 @@ export const loader = makeLoader(async ({ params }) => {
   } = await getRepoInfo(params.org!, params.repo!);
   const { data: languages } = await getRepoLanguages(params.org!, params.repo!);
   const { data: contributors } = await getRepoContributors(params.org!, params.repo!);
+  const { data: contributorsCount } = await getRepoContributorsCount(params.org!, params.repo!);
   const { data: readme } = await getRepoReadMe(params.org!, params.repo!);
 
   const languagesSorted = Object.entries(languages);
@@ -22,6 +23,7 @@ export const loader = makeLoader(async ({ params }) => {
     topics,
     languages: languagesSorted,
     contributors,
+    contributorsCount,
   };
 
   return { repo, readme };

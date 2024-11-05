@@ -12,7 +12,10 @@ $font-size: 10px;
   flex-direction: column;
   gap: v.$space-xxs;
 }
-
+.header {
+  display: flex;
+  gap: 2px;
+}
 .title {
   position: relative;
   width: fit-content;
@@ -26,16 +29,16 @@ $font-size: 10px;
 }
 
 .counter {
-  @include m.square($badge-size);
+  align-items: end;
+  padding: 5px;
+  display: flex;
+  height: $badge-size;
+  width: fit-content;
+  align-items: center;
+  justify-content: center;
   font-weight: bold;
   font-size: $font-size;
   color: $badge-color-text;
   background: $badge-color-bg;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  right: calc(0px - $badge-size - 1px);
-  top: calc(-1px);
+  border-radius: $badge-size;
 }

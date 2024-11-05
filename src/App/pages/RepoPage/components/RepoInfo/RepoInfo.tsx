@@ -21,6 +21,7 @@ const RepoInfo: React.FC<RepoInfoProps> = ({
   topics,
   languages,
   contributors,
+  contributorsCount,
 }) => {
   return (
     <div className={classNames(style.container, className)}>
@@ -34,7 +35,7 @@ const RepoInfo: React.FC<RepoInfoProps> = ({
         <IconStat icon={<ForkIcon />} count={forks} title="forks" />
       </div>
       <div className={style.body}>
-        {contributors && <UserList title="Contributors" users={contributors} />}
+        {contributors && <UserList title="Contributors" users={contributors} count={contributorsCount} />}
 
         {languages && <LanguageStats title="Languages" className={style.languages} languages={languages} />}
       </div>

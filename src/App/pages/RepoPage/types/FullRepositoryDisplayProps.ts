@@ -1,4 +1,6 @@
-import { FullRepository, RepositoryLanguages, SimpleUser } from 'App/api/githubApi/types';
+import { FullRepository, SimpleUser } from 'App/api/githubApi/types';
+
+export type LanguagesTuple = [string, number];
 
 export type FullRepositoryDisplayProps = {
   name: FullRepository['name'];
@@ -7,6 +9,6 @@ export type FullRepositoryDisplayProps = {
   stars: FullRepository['stargazers_count'];
   watchers: FullRepository['watchers_count'];
   topics: FullRepository['topics'];
-  languages: RepositoryLanguages;
+  languages: LanguagesTuple[];
   contributors: SimpleUser[];
 };

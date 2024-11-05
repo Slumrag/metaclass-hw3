@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
-import { RepositoryLanguages } from 'App/api/githubApi/types';
+import { LanguagesTuple } from 'App/pages/RepoPage/types';
+
 import { ProgressBar, Text } from 'components/';
 import colorMapping from 'styles/githubColors.json';
 import { calculateFraction } from 'utils/helpers/calculateFraction';
@@ -11,7 +12,7 @@ type mapping = Record<string, { color: null | string }>;
 
 export type LanguageStatsProps = {
   className?: string;
-  languages: RepositoryLanguages;
+  languages: LanguagesTuple[];
   title: string;
 };
 
@@ -24,7 +25,7 @@ const LanguageStats: React.FC<LanguageStatsProps> = ({ className, languages, tit
     return items.reduce((acc, cur) => acc + cur[1], 0);
   }
 
-  let items = Object.entries(languages);
+  let items = languages;
   const totalLines = sumLines(items);
   let subtotal = 0;
 

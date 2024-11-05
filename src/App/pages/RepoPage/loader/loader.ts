@@ -10,6 +10,9 @@ export const loader = makeLoader(async ({ params }) => {
   const { data: contributors } = await getRepoContributors(params.org!, params.repo!);
   const { data: readme } = await getRepoReadMe(params.org!, params.repo!);
 
+  const languagesSorted = Object.entries(languages);
+  languagesSorted.sort((a, b) => b[1] - a[1]);
+
   const repo: FullRepositoryDisplayProps = {
     name,
     homepage,
@@ -17,7 +20,7 @@ export const loader = makeLoader(async ({ params }) => {
     stars: stargazers_count,
     watchers: watchers_count,
     topics,
-    languages,
+    languages: languagesSorted,
     contributors,
   };
 

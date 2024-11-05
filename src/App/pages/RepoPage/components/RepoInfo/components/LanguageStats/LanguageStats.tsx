@@ -3,6 +3,7 @@ import React from 'react';
 import { RepositoryLanguages } from 'App/api/githubApi/types';
 import { ProgressBar, Text } from 'components/';
 import colorMapping from 'styles/githubColors.json';
+import { calculateFraction } from 'utils/helpers/calculateFraction';
 import Legend from './components/Legend';
 import style from './LanguageStats.module.scss';
 
@@ -14,19 +15,32 @@ export type LanguageStatsProps = {
   title: string;
 };
 
-function calculateFraction(value: number, total: number) {
-  return (value / total) * 100;
-}
-
 const LanguageStats: React.FC<LanguageStatsProps> = ({ className, languages, title }) => {
   const MAX_ITEMS = 6;
+  const THRESHOLD = 0.1;
   const DEFAULT_COLOR = '#EDEDED';
+
+  function sumLines(items: [string, number][]): number {
+    return items.reduce((acc, cur) => acc + cur[1], 0);
+  }
+
   let items = Object.entries(languages);
   const totalLines = sumLines(items);
   let subtotal = 0;
 
-  if (items.length > MAX_ITEMS) {
-    items = items.slice(0, MAX_ITEMS);
+  const compareToThreshold = (el: [string, number]): boolean => calculateFraction(el[1], totalLines) > THRESHOLD;
+
+  const isAboveThreshold = items.every(compareToThreshold);
+
+  if (!isAboveThreshold || items.length > MAX_ITEMS) {
+    if (!isAboveThreshold) {
+      items = items.filter(compareToThreshold);
+    }
+
+    if (items.length > MAX_ITEMS) {
+      items = items.slice(0, MAX_ITEMS);
+    }
+
     subtotal = sumLines(items);
     const others = ['other', totalLines - subtotal] as [string, number];
     items.push(others);
@@ -47,10 +61,6 @@ const LanguageStats: React.FC<LanguageStatsProps> = ({ className, languages, tit
       <Legend items={progressItems} />
     </div>
   );
-
-  function sumLines(items: [string, number][]): number {
-    return items.reduce((acc, cur) => acc + cur[1], 0);
-  }
 };
 
 export default LanguageStats;

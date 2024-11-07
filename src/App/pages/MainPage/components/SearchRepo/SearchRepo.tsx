@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { MultiDropdown, Input, SearchIcon, IconButton } from 'components/';
 import { type Option } from 'components/MultiDropdown';
@@ -14,7 +15,7 @@ export type SearchRepoProps = {
   onSubmit: (search: SearchParameters) => void;
 };
 
-const SearchRepo: React.FC<SearchRepoProps> = ({ className, onSubmit }) => {
+const SearchRepo: React.FC<SearchRepoProps> = observer(({ className, onSubmit }) => {
   const getTitle = (value: Option[]) => {
     if (value.length === 0) {
       return 'Type';
@@ -50,6 +51,6 @@ const SearchRepo: React.FC<SearchRepoProps> = ({ className, onSubmit }) => {
       </div>
     </form>
   );
-};
+});
 
 export default SearchRepo;

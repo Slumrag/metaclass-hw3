@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import { observer } from 'mobx-react-lite';
 import React from 'react';
 import Card from 'components/Card';
 import { StarIcon } from 'components/icons';
@@ -12,7 +13,7 @@ export type RepoCardProps = {
   onClick?: (name: string) => void;
 };
 
-const RepoCard: React.FC<RepoCardProps> = ({ title, subtitle, onClick, updateTimestamp, starCount }) => {
+const RepoCard: React.FC<RepoCardProps> = observer(({ title, subtitle, onClick, updateTimestamp, starCount }) => {
   const placeholder = '/placeholder.png';
   return (
     <Card
@@ -36,6 +37,6 @@ const RepoCard: React.FC<RepoCardProps> = ({ title, subtitle, onClick, updateTim
       }}
     />
   );
-};
+});
 
 export default RepoCard;

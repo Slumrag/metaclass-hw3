@@ -1,9 +1,10 @@
+import { observer } from 'mobx-react-lite';
 import React, { useEffect } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { Layout } from 'components/';
 import { DEFAULT_ORG } from 'configs/api';
 
-const Root = () => {
+const Root = observer(() => {
   const navigate = useNavigate();
   const location = useLocation();
   useEffect(() => {
@@ -14,6 +15,6 @@ const Root = () => {
       <Outlet />
     </Layout>
   );
-};
+});
 
 export default Root;

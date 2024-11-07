@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { observer } from 'mobx-react-lite';
 import React, { useState } from 'react';
 import { ArrowLeftIcon, ArrowRightIcon, Button, IconButton } from 'components/';
 import { range } from 'utils/';
@@ -11,7 +12,7 @@ export type PaginationProps = {
   onClick: (page: number) => void;
 };
 
-const Pagination: React.FC<PaginationProps> = ({ className, currentPage = 1, pages, onClick }) => {
+const Pagination: React.FC<PaginationProps> = observer(({ className, currentPage = 1, pages, onClick }) => {
   const CURRENT_INDEX_PADDING = 2;
   const [current, setCurrent] = useState<number>(currentPage);
   const handleNext = (): void => {
@@ -97,6 +98,6 @@ const Pagination: React.FC<PaginationProps> = ({ className, currentPage = 1, pag
       />
     </div>
   );
-};
+});
 
 export default Pagination;

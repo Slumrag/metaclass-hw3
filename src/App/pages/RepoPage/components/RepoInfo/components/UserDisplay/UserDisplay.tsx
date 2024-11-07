@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { Avatar, Text } from 'components/';
 import style from './UserDisplay.module.scss';
@@ -11,7 +12,7 @@ export type UserDisplayProps = {
   name?: string;
 };
 
-const UserDisplay: React.FC<UserDisplayProps> = ({ className, login, avatar, name }) => {
+const UserDisplay: React.FC<UserDisplayProps> = observer(({ className, login, avatar, name }) => {
   return (
     <div className={classNames(style.body, className)}>
       {avatar && <Avatar src={avatar} alt={login} variant="circle" hasBorder />}
@@ -19,6 +20,6 @@ const UserDisplay: React.FC<UserDisplayProps> = ({ className, login, avatar, nam
       {name && <Text color="secondary">{name}</Text>}
     </div>
   );
-};
+});
 
 export default UserDisplay;

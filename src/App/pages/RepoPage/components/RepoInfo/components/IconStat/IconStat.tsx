@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { Text } from 'components/';
 import style from './IconStat.module.scss';
@@ -10,7 +11,7 @@ export type IconStatProps = {
   title: string;
 };
 
-const IconStat: React.FC<IconStatProps> = ({ className, icon, count, title }) => {
+const IconStat: React.FC<IconStatProps> = observer(({ className, icon, count, title }) => {
   return (
     <Text className={classNames(style.body, className)} tag="span" color="secondary" view="p-14">
       {icon}
@@ -18,6 +19,6 @@ const IconStat: React.FC<IconStatProps> = ({ className, icon, count, title }) =>
       {title}
     </Text>
   );
-};
+});
 
 export default IconStat;

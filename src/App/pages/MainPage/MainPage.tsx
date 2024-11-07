@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLoaderData } from 'react-router-typesafe';
@@ -10,7 +11,7 @@ import SearchRepo, { type SearchParameters } from './components/SearchRepo';
 import { loader } from './loader/loader';
 import style from './MainPage.module.scss';
 
-const MainPage: React.FC<React.ComponentProps<'div'>> = () => {
+const MainPage: React.FC<React.ComponentProps<'div'>> = observer(() => {
   // const ITEMS_PER_PAGE = 9;
   const navigate = useNavigate();
   const { repos } = useLoaderData<typeof loader>();
@@ -38,6 +39,6 @@ const MainPage: React.FC<React.ComponentProps<'div'>> = () => {
       <Pagination className={style.pagination} pages={10} onClick={handlePage} />
     </Container>
   );
-};
+});
 
 export default MainPage;

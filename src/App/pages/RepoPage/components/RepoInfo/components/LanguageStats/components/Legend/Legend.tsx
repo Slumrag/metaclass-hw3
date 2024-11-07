@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { Text } from 'components/';
 import style from './Legend.module.scss';
@@ -8,7 +9,7 @@ export type LegendProps = {
   items: { color: string; value: number; text: string }[];
 };
 
-const Legend: React.FC<LegendProps> = ({ className, items }) => {
+const Legend: React.FC<LegendProps> = observer(({ className, items }) => {
   return (
     <ul className={classNames(style.legend, className)}>
       {items.map(({ text, value, color }) => (
@@ -27,6 +28,6 @@ const Legend: React.FC<LegendProps> = ({ className, items }) => {
       ))}
     </ul>
   );
-};
+});
 
 export default Legend;

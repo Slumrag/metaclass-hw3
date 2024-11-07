@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useLoaderData } from 'react-router-typesafe';
@@ -7,7 +8,7 @@ import RepoInfo from './components/RepoInfo';
 import { loader } from './loader/loader';
 import style from './RepoPage.module.scss';
 
-const RepoPage: React.FC = () => {
+const RepoPage: React.FC = observer(() => {
   const { repo, readme } = useLoaderData<typeof loader>();
   const navigate = useNavigate();
   const { org } = useParams();
@@ -31,6 +32,6 @@ const RepoPage: React.FC = () => {
       </Container>
     </div>
   );
-};
+});
 
 export default RepoPage;

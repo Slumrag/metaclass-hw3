@@ -1,15 +1,15 @@
-import { FullRepository, SimpleUser } from 'App/api/githubApi/types';
+import { FullRepositoryApi, SimpleUserApi } from 'App/api/githubApi/types';
 
 export type LanguagesTuple = [string, number];
 
 export type FullRepositoryDisplayProps = {
-  name: FullRepository['name'];
-  homepage: FullRepository['homepage'];
-  forks: FullRepository['forks_count'];
-  stars: FullRepository['stargazers_count'];
-  watchers: FullRepository['watchers_count'];
-  topics: FullRepository['topics'];
+  name: FullRepositoryApi['name'];
+  homepage: FullRepositoryApi['homepage'];
+  forks: FullRepositoryApi['forks_count'];
+  stars: FullRepositoryApi['stargazers_count'];
+  watchers: FullRepositoryApi['watchers_count'];
+  topics: FullRepositoryApi['topics'];
   languages: LanguagesTuple[];
-  contributors: SimpleUser[];
+  contributors: SimpleUserApi[];
   contributorsCount: number | null;
 };

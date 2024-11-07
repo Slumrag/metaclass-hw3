@@ -1,6 +1,7 @@
+import { observer } from 'mobx-react-lite';
 import React from 'react';
 
-const SVGCheckIcon: React.FC<React.SVGAttributes<SVGElement>> = ({ ...props }) => (
+const SVGCheckIcon: React.FC<React.SVGAttributes<SVGElement>> = observer(({ ...props }) => (
   <svg
     width="24"
     height="24"
@@ -12,5 +13,5 @@ const SVGCheckIcon: React.FC<React.SVGAttributes<SVGElement>> = ({ ...props }) =
   >
     <path d="M4 11.6129L9.87755 18L20 7" strokeWidth="2" />
   </svg>
-);
+));
 export default SVGCheckIcon;

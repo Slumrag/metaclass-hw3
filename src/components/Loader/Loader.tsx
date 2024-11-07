@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { observer } from 'mobx-react-lite';
 import React from 'react';
 import LoaderIcon from '../icons/LoaderIcon';
 import style from './Loader.module.scss';
@@ -10,7 +11,7 @@ export type LoaderProps = {
   className?: string;
 };
 
-const Loader: React.FC<LoaderProps> = ({ size = 'l', className = '' }) => {
+const Loader: React.FC<LoaderProps> = observer(({ size = 'l', className = '' }) => {
   const sizesMapping = {
     s: 24,
     m: 48,
@@ -20,6 +21,6 @@ const Loader: React.FC<LoaderProps> = ({ size = 'l', className = '' }) => {
   return (
     <LoaderIcon className={classNames(style.loader, className)} width={iconSize} height={iconSize} color="accent" />
   );
-};
+});
 
 export default Loader;

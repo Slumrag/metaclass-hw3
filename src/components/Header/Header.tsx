@@ -1,10 +1,11 @@
+import { observer } from 'mobx-react-lite';
 import React from 'react';
 import avatar from 'assets/avatar.png';
 import { Avatar, Text } from 'components/';
 import { GithubIcon } from 'components/icons';
 import style from './Header.module.scss';
 
-const Header: React.FC = () => {
+const Header: React.FC = observer(() => {
   return (
     <header className={style.header}>
       <div className={style.content}>
@@ -18,6 +19,6 @@ const Header: React.FC = () => {
       </div>
     </header>
   );
-};
+});
 
 export default Header;

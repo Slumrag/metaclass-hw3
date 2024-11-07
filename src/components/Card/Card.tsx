@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { observer } from 'mobx-react-lite';
 import React from 'react';
 import Text from '../Text';
 import style from './Card.module.scss';
@@ -22,46 +23,39 @@ export type CardProps = {
   actionSlot?: React.ReactNode;
 };
 
-const Card: React.FC<CardProps> = ({
-  className,
-  image,
-  captionSlot,
-  title,
-  subtitle,
-  contentSlot,
-  onClick,
-  actionSlot,
-}) => {
-  return (
-    <div className={classNames(style.card, className)} onClick={onClick}>
-      <div className={style.header}>
-        <img className={style.image} src={image} alt="" />
-      </div>
-      <div className={style.body}>
-        <div className={style.main}>
-          {captionSlot && (
-            <Text className={style.caption} view="p-14" color="secondary">
-              {captionSlot}
-            </Text>
-          )}
-          <Text className={style.title} tag="h3" view="p-20" weight="bold" maxLines={2}>
-            {title}
-          </Text>
-          <Text className={style.description} view="p-16" color="secondary" maxLines={3}>
-            {subtitle}
-          </Text>
+const Card: React.FC<CardProps> = observer(
+  ({ className, image, captionSlot, title, subtitle, contentSlot, onClick, actionSlot }) => {
+    return (
+      <div className={classNames(style.card, className)} onClick={onClick}>
+        <div className={style.header}>
+          <img className={style.image} src={image} alt="" />
         </div>
-        <div className={style.footer}>
-          {contentSlot && (
-            <Text className={style.content} view="p-18" weight="bold">
-              {contentSlot}
+        <div className={style.body}>
+          <div className={style.main}>
+            {captionSlot && (
+              <Text className={style.caption} view="p-14" color="secondary">
+                {captionSlot}
+              </Text>
+            )}
+            <Text className={style.title} tag="h3" view="p-20" weight="bold" maxLines={2}>
+              {title}
             </Text>
-          )}
-          {actionSlot && <div className={style.action}>{actionSlot}</div>}
+            <Text className={style.description} view="p-16" color="secondary" maxLines={3}>
+              {subtitle}
+            </Text>
+          </div>
+          <div className={style.footer}>
+            {contentSlot && (
+              <Text className={style.content} view="p-18" weight="bold">
+                {contentSlot}
+              </Text>
+            )}
+            {actionSlot && <div className={style.action}>{actionSlot}</div>}
+          </div>
         </div>
       </div>
-    </div>
-  );
-};
+    );
+  },
+);
 
 export default Card;

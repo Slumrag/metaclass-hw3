@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { observer } from 'mobx-react-lite';
 import React from 'react';
 import CheckIcon from '../icons/CheckIcon';
 import style from './CheckBox.module.scss';
@@ -8,7 +9,7 @@ export type CheckBoxProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'o
   onChange: (checked: boolean) => void;
 };
 
-const CheckBox: React.FC<CheckBoxProps> = ({ className, onChange, ...props }) => {
+const CheckBox: React.FC<CheckBoxProps> = observer(({ className, onChange, ...props }) => {
   return (
     <label className={classNames(style.checkBox, className)}>
       <input
@@ -22,6 +23,6 @@ const CheckBox: React.FC<CheckBoxProps> = ({ className, onChange, ...props }) =>
       <CheckIcon className={style.icon} width={40} height={40} />
     </label>
   );
-};
+});
 
 export default CheckBox;

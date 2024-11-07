@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { observer } from 'mobx-react-lite';
 import React, { useEffect, useRef, useState } from 'react';
 import { ArrowDownIcon, Input } from 'components/';
 import { useClickOutside } from 'utils/hooks';
@@ -27,93 +28,95 @@ export type MultiDropdownProps = {
   getTitle: (value: Option[]) => string;
 };
 
-const MultiDropdown: React.FC<MultiDropdownProps> = ({ className, options, value, onChange, disabled, getTitle }) => {
-  const [inputValue, setInputValue] = useState('');
-  const [selectedOptions, setSelectedOptions] = useState(value);
-  const [isMenuVisible, setIsMenuVisible] = useState(false);
+const MultiDropdown: React.FC<MultiDropdownProps> = observer(
+  ({ className, options, value, onChange, disabled, getTitle }) => {
+    const [inputValue, setInputValue] = useState('');
+    const [selectedOptions, setSelectedOptions] = useState(value);
+    const [isMenuVisible, setIsMenuVisible] = useState(false);
 
-  const removeOption = (opts: Option[], removedIndex: number) => {
-    const newOpts = [...opts];
-    newOpts.splice(removedIndex, 1);
-    return newOpts;
-  };
+    const removeOption = (opts: Option[], removedIndex: number) => {
+      const newOpts = [...opts];
+      newOpts.splice(removedIndex, 1);
+      return newOpts;
+    };
 
-  const handleOption = (option: Option) => {
-    const optionIndex = selectedOptions.findIndex((e) => e.key === option.key);
+    const handleOption = (option: Option) => {
+      const optionIndex = selectedOptions.findIndex((e) => e.key === option.key);
 
-    if (optionIndex > -1) {
-      const newOptions = removeOption(selectedOptions, optionIndex);
-      onChange(newOptions);
-      return newOptions;
-    }
+      if (optionIndex > -1) {
+        const newOptions = removeOption(selectedOptions, optionIndex);
+        onChange(newOptions);
+        return newOptions;
+      }
 
-    onChange([...selectedOptions, option]);
-    return [...selectedOptions, option];
-  };
+      onChange([...selectedOptions, option]);
+      return [...selectedOptions, option];
+    };
 
-  const showMenu = () => !disabled && setIsMenuVisible(true);
-  const hideMenu = () => setIsMenuVisible(false);
-  const toggleMenu = () => !disabled && setIsMenuVisible((s) => !s);
+    const showMenu = () => !disabled && setIsMenuVisible(true);
+    const hideMenu = () => setIsMenuVisible(false);
+    const toggleMenu = () => !disabled && setIsMenuVisible((s) => !s);
 
-  const constructInputValue = (): string => (selectedOptions.length > 0 ? getTitle(selectedOptions) : '');
+    const constructInputValue = (): string => (selectedOptions.length > 0 ? getTitle(selectedOptions) : '');
 
-  const filterOptions = (opt: Option) => opt.value.includes(inputValue);
+    const filterOptions = (opt: Option) => opt.value.includes(inputValue);
 
-  useEffect(() => {
-    setInputValue(getTitle(selectedOptions));
-  }, []);
+    useEffect(() => {
+      setInputValue(getTitle(selectedOptions));
+    }, []);
 
-  useEffect(() => {
-    if (disabled) {
-      hideMenu();
-    }
-  }, [disabled]);
+    useEffect(() => {
+      if (disabled) {
+        hideMenu();
+      }
+    }, [disabled]);
 
-  useEffect(() => {
-    setInputValue(constructInputValue());
-  }, [selectedOptions]);
+    useEffect(() => {
+      setInputValue(constructInputValue());
+    }, [selectedOptions]);
 
-  const ref = useRef<HTMLDivElement>(null);
+    const ref = useRef<HTMLDivElement>(null);
 
-  useClickOutside(ref, hideMenu);
+    useClickOutside(ref, hideMenu);
 
-  return (
-    <div
-      ref={ref}
-      className={classNames(style.multiDropdown, className)}
-      onKeyDown={(e) => {
-        if (e.key === 'Escape') {
-          hideMenu();
-        }
-      }}
-    >
-      <Input
-        value={inputValue}
-        onChange={(value: string) => {
-          if (!isMenuVisible) {
-            showMenu();
+    return (
+      <div
+        ref={ref}
+        className={classNames(style.multiDropdown, className)}
+        onKeyDown={(e) => {
+          if (e.key === 'Escape') {
+            hideMenu();
           }
-          setInputValue(value);
         }}
-        onFocus={showMenu}
-        placeholder={getTitle(selectedOptions)}
-        afterSlot={<ArrowDownIcon color="secondary" onClick={toggleMenu} />}
-        disabled={disabled}
-      />
-
-      {isMenuVisible && (
-        <DropdownMenu
-          className={style.menu}
-          options={options}
-          value={selectedOptions}
-          onClick={(option) => {
-            setSelectedOptions(handleOption(option));
+      >
+        <Input
+          value={inputValue}
+          onChange={(value: string) => {
+            if (!isMenuVisible) {
+              showMenu();
+            }
+            setInputValue(value);
           }}
-          filterCb={filterOptions}
+          onFocus={showMenu}
+          placeholder={getTitle(selectedOptions)}
+          afterSlot={<ArrowDownIcon color="secondary" onClick={toggleMenu} />}
+          disabled={disabled}
         />
-      )}
-    </div>
-  );
-};
+
+        {isMenuVisible && (
+          <DropdownMenu
+            className={style.menu}
+            options={options}
+            value={selectedOptions}
+            onClick={(option) => {
+              setSelectedOptions(handleOption(option));
+            }}
+            filterCb={filterOptions}
+          />
+        )}
+      </div>
+    );
+  },
+);
 
 export default MultiDropdown;

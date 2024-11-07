@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { observer } from 'mobx-react-lite';
 import React from 'react';
 import style from './ProgressBar.module.scss';
 
@@ -9,7 +10,7 @@ export type ProgressBarProps = {
   items?: { value: number; color: string }[];
 };
 
-const ProgressBar: React.FC<ProgressBarProps> = ({ className, items, size = 'medium' }) => {
+const ProgressBar: React.FC<ProgressBarProps> = observer(({ className, items, size = 'medium' }) => {
   return (
     <div className={classNames(style.bar, style[size], className)}>
       {items?.map(({ color, value }, i) => (
@@ -17,6 +18,6 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ className, items, size = 'med
       ))}
     </div>
   );
-};
+});
 
 export default ProgressBar;

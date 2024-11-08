@@ -1,9 +1,6 @@
 import { RefObject, useEffect } from 'react';
 
-function useClickOutside(
-  ref: RefObject<HTMLElement | undefined>,
-  callback: () => void
-) {
+function useClickOutside(ref: RefObject<HTMLElement | undefined>, callback: () => void) {
   const handleClick = (event: MouseEvent) => {
     if (ref.current && !ref.current.contains(event.target as HTMLElement)) {
       callback();
@@ -16,7 +13,7 @@ function useClickOutside(
     return () => {
       document.removeEventListener('click', handleClick);
     };
-  });
+  }, []);
 }
 
 export default useClickOutside;

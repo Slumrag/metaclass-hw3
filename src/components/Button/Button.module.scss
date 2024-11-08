@@ -1,0 +1,74 @@
+@use "src/components/variables.module" as *;
+
+.button {
+  cursor: pointer;
+  font-family: "Roboto";
+  padding: $space-s $space-l;
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-xxs;
+
+  border-radius: $border-radius;
+
+  appearance: none;
+  border: none;
+}
+
+.solid {
+  background: $button-primary-bg;
+  color: $button-primary-text;
+  .loader {
+    fill: $button-primary-text;
+  }
+}
+
+.solid:hover {
+  background: $button-primary-bg-hover;
+  color: $button-primary-text-hover;
+}
+
+.solid:active {
+  background: $button-primary-bg-active;
+  color: $button-primary-text-active;
+}
+
+.solid.disabled {
+  cursor: not-allowed;
+  background: $button-primary-bg-disabled;
+  color: $button-primary-text-disabled;
+}
+
+.transparent {
+  background: $button-transparent-bg;
+  color: $button-transparent-text;
+  .loader {
+    fill: $button-transparent-text;
+  }
+}
+
+.transparent:hover {
+  background: $button-transparent-bg-hover;
+  color: $button-transparent-text-hover;
+  .loader {
+    fill: $button-transparent-text-hover;
+  }
+}
+
+.transparent:active {
+  background: $button-transparent-bg-active;
+  color: $button-transparent-text-active;
+  .loader {
+    fill: $button-transparent-text-active;
+  }
+}
+
+.transparent.disabled {
+  cursor: not-allowed;
+  background: $button-transparent-bg-disabled;
+  color: $button-transparent-text-disabled;
+  .loader {
+    fill: $button-transparent-text-disabled;
+  }
+}

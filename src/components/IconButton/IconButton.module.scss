@@ -1,0 +1,76 @@
+@use "src/components/variables.module" as *;
+@use "src/components/mixins.module" as m;
+
+.button {
+  cursor: pointer;
+  font-family: "Roboto";
+  padding: $space-s $space-l;
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-xxs;
+
+  border-radius: $border-radius;
+
+  appearance: none;
+  border: none;
+}
+
+.solid {
+  background: $button-primary-bg;
+  @include m.colorSvg($button-primary-text);
+  .loader {
+    fill: $button-primary-text;
+  }
+}
+
+.solid:hover {
+  background: $button-primary-bg-hover;
+  @include m.colorSvg($button-primary-text-hover);
+}
+
+.solid:active {
+  background: $button-primary-bg-active;
+  @include m.colorSvg($button-primary-text-active);
+}
+
+.solid.disabled {
+  cursor: not-allowed;
+  background: $button-primary-bg-disabled;
+  @include m.colorSvg($button-primary-text-disabled);
+}
+
+.transparent {
+  background: $button-transparent-bg;
+  @include m.colorSvg($button-transparent-text);
+
+  .loader {
+    fill: $button-transparent-text;
+  }
+}
+
+.transparent:hover {
+  background: $button-transparent-bg-hover;
+  @include m.colorSvg($button-transparent-text-hover);
+  .loader {
+    fill: $button-transparent-text-hover;
+  }
+}
+
+.transparent:active {
+  background: $button-transparent-bg-active;
+  @include m.colorSvg($button-transparent-text-active);
+  .loader {
+    fill: $button-transparent-text-active;
+  }
+}
+
+.transparent.disabled {
+  cursor: not-allowed;
+  background: $button-transparent-bg-disabled;
+  @include m.colorSvg($button-transparent-text-disabled);
+  .loader {
+    fill: $button-transparent-text-disabled;
+  }
+}

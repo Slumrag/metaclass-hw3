@@ -1,0 +1,19 @@
+@use "src/components/variables.module" as c;
+
+$border: 1px solid #d9d9d9;
+$border-radius: 4px;
+$font-size-title: 12px;
+$container-padding: 32px;
+
+.container {
+  border: $border;
+  border-radius: $border-radius;
+}
+.title {
+  font-size: $font-size-title;
+  line-height: auto;
+  padding: c.$space-m;
+}
+.markdown {
+  padding: $container-padding;
+}

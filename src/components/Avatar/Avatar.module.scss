@@ -1,0 +1,39 @@
+@use "src/components/variables.module" as c;
+@use "src/components/mixins.module" as m;
+
+$small: 24px;
+$medium: 32px;
+$large: 40px;
+$avatar-color-border: #ecebeb;
+
+.avatar {
+  object-fit: cover;
+}
+
+.border {
+  border: 1px solid $avatar-color-border;
+}
+
+.small {
+  @include m.square($small);
+}
+
+.medium {
+  @include m.square($medium);
+}
+
+.large {
+  @include m.square($large);
+}
+
+.square {
+  border-radius: 0;
+}
+
+.rounded {
+  border-radius: c.$border-radius;
+}
+
+.circle {
+  border-radius: 50%;
+}

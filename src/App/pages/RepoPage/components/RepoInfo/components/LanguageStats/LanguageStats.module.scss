@@ -1,0 +1,11 @@
+@use "src/components/variables.module" as v;
+@use "src/components/mixins.module" as m;
+
+.container {
+  display: flex;
+  gap: v.$space-xxs;
+  flex-direction: column;
+}
+.bar {
+  align-self: stretch;
+}

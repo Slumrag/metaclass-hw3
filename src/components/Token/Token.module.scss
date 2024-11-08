@@ -1,0 +1,23 @@
+@use "src/components/variables.module" as *;
+
+$token-border-radius: 20px;
+$token-font-size: 12px;
+
+.token {
+  color: $token-text;
+  background: $token-bg;
+  font-size: $token-font-size;
+  font-weight: bold;
+  padding: 4px $space-m;
+  border-radius: $token-border-radius;
+}
+
+.token:hover {
+  color: $token-text-hover;
+  background: $token-bg-hover;
+}
+
+.token:active {
+  color: $token-text-active;
+  background: $token-bg-active;
+}

@@ -1,0 +1,22 @@
+@use "src/components/variables.module" as *;
+$max-width: 300px;
+
+.search {
+  display: flex;
+  flex-direction: column;
+  gap: $space-l;
+}
+
+.dropdown {
+  max-width: $max-width;
+}
+
+.searchBar {
+  display: flex;
+  align-items: stretch;
+  gap: $space-l;
+}
+.input {
+  height: auto;
+  flex: 1;
+}

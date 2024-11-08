@@ -1,0 +1,21 @@
+@use "src/components/variables.module" as c;
+$link-color: #0080ff;
+$font-size: 16px;
+
+.link {
+  display: inline-flex;
+  align-items: center;
+}
+.anchor {
+  text-decoration: none;
+  color: $link-color;
+  font-size: $font-size;
+  font-weight: bold;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.icon {
+  margin-right: c.$space-xxs;
+}

@@ -1,0 +1,69 @@
+@use "src/components/variables.module" as *;
+
+.text {
+  font-family: "Roboto";
+  color: inherit;
+  font-weight: normal;
+  text-overflow: ellipsis;
+  overflow: hidden;
+
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+// view
+.button {
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.title {
+  font-size: 44px;
+  line-height: 48px;
+  font-weight: bold;
+}
+
+.p-20 {
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+.p-18 {
+  font-size: 18px;
+  line-height: 20px;
+}
+
+.p-16 {
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.p-14 {
+  font-size: 14px;
+  line-height: 18px;
+}
+
+// color
+.primary {
+  color: $text-primary;
+}
+
+.secondary {
+  color: $text-secondary;
+}
+
+.accent {
+  color: $text-accent;
+}
+
+// fontWeight
+.bold {
+  font-weight: bold;
+}
+
+.medium {
+  font-weight: medium;
+}
+
+.normal {
+  font-weight: normal;
+}

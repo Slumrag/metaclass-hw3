@@ -1,0 +1,15 @@
+@mixin square($size) {
+  width: $size;
+  height: $size;
+}
+
+@mixin colorSvg($color) {
+  fill: $color;
+  stroke: $color;
+}
+
+@mixin resetList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}

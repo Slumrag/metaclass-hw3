@@ -1,0 +1,31 @@
+@use "src/components/variables.module" as *;
+
+.container {
+  display: flex;
+  max-width: $max-width;
+  margin: 0 auto;
+}
+
+.padding {
+  padding: 0 $space-m;
+}
+
+.row {
+  flex-direction: row;
+}
+
+.column {
+  flex-direction: column;
+}
+
+.start {
+  align-items: start;
+}
+
+.center {
+  align-items: center;
+}
+
+.end {
+  align-items: end;
+}

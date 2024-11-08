@@ -1,0 +1,10 @@
+$row-gap: 80px;
+$column-gap: 80px;
+
+.cardDisplay {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto;
+  grid-auto-flow: row;
+  gap: $row-gap $column-gap;
+}

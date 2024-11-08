@@ -1,0 +1,17 @@
+@use "src/components/variables.module" as *;
+
+.multiDropdown {
+  position: relative;
+}
+
+.menu {
+  width: 100%;
+  position: absolute;
+  top: calc($space-xxs + 100%);
+}
+
+.background {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+}

@@ -1,0 +1,44 @@
+@use "src/components/variables.module" as *;
+.card {
+  font-family: "Roboto";
+  display: flex;
+  flex-direction: column;
+  background: $card-bg;
+  border-radius: $border-radius;
+  overflow: hidden;
+}
+
+.card:hover {
+  box-shadow: $card-shadow;
+}
+
+.header {
+  display: flex;
+  background: $card-image-bg;
+}
+
+.image {
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+}
+
+.body {
+  padding: $space-xl $space-xs;
+  display: flex;
+  flex-direction: column;
+  gap: $space-l;
+}
+
+.main {
+  display: flex;
+  gap: $space-xxs;
+  flex-direction: column;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: $space-xxs;
+}

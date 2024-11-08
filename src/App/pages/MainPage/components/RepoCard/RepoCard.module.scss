@@ -1,0 +1,22 @@
+@use "src/styles/variables.module.scss" as *;
+@use "src/components/variables.module.scss" as *;
+
+.repoCard {
+  max-width: 360px;
+}
+
+.caption {
+  span:has(svg) {
+    vertical-align: middle;
+  }
+  svg {
+    margin-right: 2px;
+    width: 14px;
+    height: 14px;
+    fill: $star-accent;
+  }
+}
+
+.starCounter {
+  margin-right: $space-xl;
+}

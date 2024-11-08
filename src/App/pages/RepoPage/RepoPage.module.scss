@@ -1,0 +1,25 @@
+@use "src/components/variables.module" as c;
+$background: #ffffff;
+.wrapper {
+  background: $background;
+}
+.container {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  gap: c.$space-xl;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: c.$space-m;
+  margin-bottom: c.$space-m;
+}
+
+.backButton {
+  padding: 0;
+}
+
+.markdown {
+  align-self: stretch;
+}

@@ -1,0 +1,188 @@
+$border-radius: 6px;
+
+/*colors*/
+$brand: #1f883d;
+$brand-hover: rgba(31, 136, 61, 0.7);
+$brand-active: #08531d;
+
+/*icon*/
+$icon-primary: #000000;
+$icon-secondary: #afadb5;
+$icon-accent: $brand;
+
+/* text*/
+$text-primary: #000000;
+$text-secondary: #afadb5;
+$text-accent: $brand;
+
+/* loader */
+$loader-bg: $brand;
+
+/* button */
+$button-primary-bg: $brand;
+$button-primary-bg-hover: $brand-hover;
+$button-primary-bg-active: $brand-active;
+$button-primary-bg-disabled: #d9d9d9;
+
+$button-primary-text: #ffffff;
+$button-primary-text-hover: #ffffff;
+$button-primary-text-active: #ffffff;
+$button-primary-text-disabled: #ffffff;
+
+$button-transparent-bg: transparent;
+$button-transparent-bg-hover: transparent;
+$button-transparent-bg-active: transparent;
+$button-transparent-bg-disabled: transparent;
+
+$button-transparent-text: #000000;
+$button-transparent-text-hover: $brand-hover;
+$button-transparent-text-active: $brand-active;
+$button-transparent-text-disabled: #afadb5;
+
+/*input*/
+$input-bg: #ffffff;
+$input-border: #ffffff;
+$input-text: #000000;
+$input-placeholder: #afadb5;
+
+$input-bg-focus: #ffffff;
+$input-border-focus: $brand;
+$input-text-focus: #000000;
+
+$input-bg-disabled: #ffffff;
+$input-border-disabled: #ffffff;
+$input-text-disabled: rgba(0, 0, 0, 0.2);
+
+/* checkbox */
+$checkbox-bg: #ffffff;
+$checkbox-border: #ffffff;
+
+$checkbox-bg-hover: #ffffff;
+$checkbox-border-hover: $brand;
+
+$checkbox-bg-disabled: rgba(255, 255, 255, 0.5);
+$checkbox-border-disabled: rgba(255, 255, 255, 0);
+
+$checkbox-check: $brand;
+$checkbox-check-hover: $brand;
+$checkbox-check-disabled: rgba(0, 0, 0, 0.2);
+
+/* card */
+$card-image-bg: #d9d9d9;
+$card-bg: #ffffff;
+$card-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 25%);
+
+/*dropdown*/
+$dropdown-options-bg: #ffffff;
+
+/*token*/
+
+$token-text: #0066cc;
+$token-bg: #daedff;
+
+$token-text-hover: #0066cc;
+$token-bg-hover: #daedff;
+
+$token-text-active: #0066cc;
+$token-bg-active: #daedff;
+
+/*header*/
+$header-border: 2px solid #d9d9d9;
+
+/*spacing*/
+$space-xl: 24px;
+$space-l: 20px;
+$space-m: 16px;
+$space-s: 14px;
+$space-xs: 12px;
+$space-xxs: 8px;
+
+/* width*/
+$max-width: 1280px;
+
+:export {
+  borderRadius: $border-radius;
+
+  /*colors*/
+  brand: $brand;
+  brandHover: $brand-hover;
+  brandActive: $brand-active;
+
+  /*icon*/
+  iconPrimary: $icon-primary;
+  iconSecondary: $icon-secondary;
+  iconAccent: $icon-accent;
+
+  /* text*/
+  textPrimary: $text-primary;
+  textSecondary: $text-secondary;
+  textAccent: $text-accent;
+
+  /* loader */
+  loaderBg: $loader-bg;
+
+  /* button */
+  buttonPrimaryBg: $button-primary-bg;
+  buttonPrimaryBgHover: $button-primary-bg-hover;
+  buttonPrimaryBgActive: $button-primary-bg-active;
+  buttonPrimaryBgDisabled: $button-primary-bg-disabled;
+
+  buttonPrimaryText: $button-primary-text;
+  buttonPrimaryTextHover: $button-primary-text-hover;
+  buttonPrimaryTextActive: $button-primary-text-active;
+  buttonPrimaryTextDisabled: $button-primary-text-disabled;
+
+  buttonTransparentBg: $button-transparent-bg;
+  buttonTransparentBgHover: $button-transparent-bg-hover;
+  buttonTransparentBgActive: $button-transparent-bg-active;
+  buttonTransparentBgDisabled: $button-transparent-bg-disabled;
+
+  buttonTransparentText: $button-transparent-text;
+  buttonTransparentTextHover: $button-transparent-text-hover;
+  buttonTransparentTextActive: $button-transparent-text-active;
+  buttonTransparentTextDisabled: $button-transparent-text-disabled;
+
+  /*input*/
+  inputBg: $input-bg;
+  inputBorder: $input-border;
+  inputText: $input-text;
+  inputPlaceholder: $input-placeholder;
+
+  inputBgFocus: $input-bg-focus;
+  inputBorderFocus: $input-border-focus;
+  inputTextFocus: $input-text-focus;
+
+  inputBgDisabled: $input-bg-disabled;
+  inputBorderDisabled: $input-border-disabled;
+  inputTextDisabled: $input-text-disabled;
+
+  /* checkbox */
+  checkboxBg: $checkbox-bg;
+  checkboxBorder: $checkbox-border;
+
+  checkboxBgHover: $checkbox-bg-hover;
+  checkboxBorderHover: $checkbox-border-hover;
+
+  checkboxBgDisabled: $checkbox-bg-disabled;
+  checkboxBorderDisabled: $checkbox-border-disabled;
+
+  checkboxCheck: $checkbox-check;
+  checkboxCheckHover: $checkbox-check-hover;
+  checkboxCheckDisabled: $checkbox-check-disabled;
+
+  /* card */
+  cardImageBg: $card-image-bg;
+  cardBg: $card-bg;
+  cardShadow: $card-shadow;
+
+  /*dropdown*/
+  dropdownOptionsBg: $dropdown-options-bg;
+
+  /*spacing*/
+  spaceXl: $space-xl;
+  spaceL: $space-l;
+  spaceM: $space-m;
+  spaceS: $space-s;
+  spaceXs: $space-xs;
+  spaceXxs: $space-xxs;
+}

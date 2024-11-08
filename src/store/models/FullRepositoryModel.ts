@@ -2,7 +2,7 @@ import { FullRepositoryApi, SimpleUserApi } from 'App/api/githubApi/types';
 
 export type LanguagesTuple = [string, number];
 
-export type FullRepositoryDisplayProps = {
+export type FullRepositoryModel = {
   name: FullRepositoryApi['name'];
   homepage: FullRepositoryApi['homepage'];
   forks: FullRepositoryApi['forks_count'];

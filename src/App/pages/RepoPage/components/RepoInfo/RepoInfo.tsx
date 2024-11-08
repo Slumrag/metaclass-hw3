@@ -2,14 +2,14 @@ import classNames from 'classnames';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { EyeIcon, ForkIcon, StarIcon, Token } from 'components/';
-import { FullRepositoryDisplayProps } from '../../types';
+import { FullRepositoryModel } from 'store/models';
 import HomePageLink from './components/HomePageLink';
 import IconStat from './components/IconStat';
 import LanguageStats from './components/LanguageStats';
 import UserList from './components/UserList';
 import style from './RepoInfo.module.scss';
 
-export type RepoInfoProps = FullRepositoryDisplayProps & {
+export type RepoInfoProps = FullRepositoryModel & {
   className?: string;
 };
 

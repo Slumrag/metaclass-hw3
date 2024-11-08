@@ -1,6 +1,6 @@
 import { MinimalRepositoryApi } from 'App/api/githubApi/types/schema';
 
-export type MinimalRepositoryDisplayProps = {
+export type MinimalRepositoryModel = {
   id: MinimalRepositoryApi['id'];
   title: MinimalRepositoryApi['name'];
   subtitle: MinimalRepositoryApi['description'];

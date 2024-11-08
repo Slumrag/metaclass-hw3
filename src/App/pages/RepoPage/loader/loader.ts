@@ -1,9 +1,9 @@
 import { makeLoader } from 'react-router-typesafe';
 import { getRepoContributors, getRepoContributorsCount, getRepoInfo, getRepoLanguages, getRepoReadMe } from 'App/api';
-import { FullRepositoryDisplayProps } from '../types';
+import { FullRepositoryModel } from 'store/models';
 
 export const loader = makeLoader(async ({ params }) => {
-  const repo: FullRepositoryDisplayProps = {
+  const repo: FullRepositoryModel = {
     name: '',
     homepage: null,
     forks: 0,

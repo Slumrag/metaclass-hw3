@@ -1,13 +1,13 @@
 import classNames from 'classnames';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { MinimalRepositoryDisplayProps } from '../../types';
+import { MinimalRepositoryModel } from 'store/models';
 import RepoCard from '../RepoCard';
 import style from './RepoCardDisplay.module.scss';
 
 export type RepoCardDisplayProps = {
   className?: string;
-  data: MinimalRepositoryDisplayProps[];
+  data: MinimalRepositoryModel[];
   onClick?: (name: string) => void;
 };
 

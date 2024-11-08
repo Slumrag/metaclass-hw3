@@ -3,8 +3,8 @@ import * as React from 'react';
 import Icon, { IconProps } from '../Icon';
 import SVGEyeIcon from './SVGEyeIcon';
 
-const EyeIcon: React.FC<IconProps> = observer((props1) => (
-  <Icon render={(props) => <SVGEyeIcon {...props} />} {...props1}></Icon>
+const EyeIcon: React.FC<IconProps> = observer((props) => (
+  <Icon render={(props) => <SVGEyeIcon {...props} />} {...props}></Icon>
 ));
 
 export default EyeIcon;

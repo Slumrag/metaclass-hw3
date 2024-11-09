@@ -31,9 +31,11 @@ const DropdownMenu: React.FC<DropdownMenuProps> = observer(
             </li>
           ))
         ) : (
-          <Text color="secondary" view="p-16">
-            Пусто
-          </Text>
+          <li className={style.item}>
+            <Text color="secondary" view="p-16">
+              Пусто
+            </Text>
+          </li>
         )}
       </menu>
     );

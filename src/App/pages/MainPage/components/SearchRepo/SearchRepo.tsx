@@ -61,7 +61,7 @@ const SearchRepo: React.FC<SearchRepoProps> = observer(({ className, typeOptions
           placeholder="Enter organization name"
           onChange={handleInput}
         />
-        <IconButton type="submit" icon={<SearchIcon />} />
+        <IconButton type="submit" disabled={!organization} icon={<SearchIcon />} />
       </div>
     </form>
   );

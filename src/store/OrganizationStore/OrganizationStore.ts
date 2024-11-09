@@ -1,6 +1,5 @@
 import { makeAutoObservable, runInAction } from 'mobx';
-import { getOrgRepos } from 'App/api';
-import { RequestPaginationOptions } from 'App/api/githubApi/types';
+import { getOrgRepos, OrgReposOptions } from 'App/api';
 import { MinimalRepositoryModel, normalizeMinimalRepository, SimpleUserModel } from 'store/models';
 import { META } from 'utils/const';
 
@@ -25,7 +24,7 @@ class OrganizationStore {
     return this._organization;
   }
 
-  public async getRepos(org: string, options?: RequestPaginationOptions) {
+  public async getRepos(org: string, options?: OrgReposOptions) {
     this._meta = META.LOADING;
     try {
       const response = await getOrgRepos(org, options);

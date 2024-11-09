@@ -1,8 +1,9 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Container, Text } from 'components/';
+import { Container, Loader, Text } from 'components/';
 import rootStore from 'store/RootStore';
+import { META } from 'utils/const';
 import Pagination from './components/Pagination';
 import RepoCardDisplay from './components/RepoCardDisplay';
 import SearchRepo, { type SearchParameters } from './components/SearchRepo';
@@ -34,8 +35,13 @@ const MainPage: React.FC<React.ComponentProps<'div'>> = observer(() => {
       <Text view="title" tag="h2" className={style.title}>
         List of organization repositories
       </Text>
-      <SearchRepo className={style.search} onSubmit={handleSubmit} />
-      <RepoCardDisplay data={organizationStore.repos} onClick={handleRepo} />
+      <SearchRepo className={style.search} onSubmit={handleSubmit} typeOptions={[]} />
+      {organizationStore.meta === META.LOADING ? (
+        <Loader />
+      ) : (
+        <RepoCardDisplay data={organizationStore.repos} onClick={handleRepo} />
+      )}
+
       <Pagination className={style.pagination} pages={10} onClick={handlePage} />
     </Container>
   );

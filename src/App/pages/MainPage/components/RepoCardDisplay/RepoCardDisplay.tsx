@@ -14,13 +14,14 @@ export type RepoCardDisplayProps = {
 const RepoCardDisplay: React.FC<RepoCardDisplayProps> = observer(({ data, className, onClick }) => {
   return (
     <div className={classNames(style.cardDisplay, className)}>
-      {data.map(({ id, title, subtitle, starCount, updateTimestamp }) => (
+      {data.map(({ id, name, description, stargazersCount, updatedAt, owner: { avatarUrl } }) => (
         <RepoCard
           key={id}
-          title={title}
-          subtitle={subtitle!}
-          updateTimestamp={updateTimestamp!}
-          starCount={starCount!}
+          title={name}
+          image={avatarUrl}
+          subtitle={description!}
+          updateTimestamp={updatedAt}
+          starCount={stargazersCount!}
           onClick={onClick}
         />
       ))}

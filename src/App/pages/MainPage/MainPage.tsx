@@ -1,20 +1,17 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useLoaderData } from 'react-router-typesafe';
-
 import { Container, Text } from 'components/';
-
+import rootStore from 'store/RootStore';
 import Pagination from './components/Pagination';
 import RepoCardDisplay from './components/RepoCardDisplay';
 import SearchRepo, { type SearchParameters } from './components/SearchRepo';
-import { loader } from './loader/loader';
 import style from './MainPage.module.scss';
 
 const MainPage: React.FC<React.ComponentProps<'div'>> = observer(() => {
   // const ITEMS_PER_PAGE = 9;
+  const { organizationStore } = rootStore;
   const navigate = useNavigate();
-  const { repos } = useLoaderData<typeof loader>();
 
   const handlePage = (page: number): void => {
     console.log('page', page);
@@ -22,7 +19,10 @@ const MainPage: React.FC<React.ComponentProps<'div'>> = observer(() => {
   };
 
   const handleSubmit = function (search: SearchParameters): void {
-    throw new Error('Function not implemented.');
+    if (search.organization) {
+      organizationStore.getRepos(search.organization);
+    }
+    // throw new Error('Function not implemented.');
   };
 
   const handleRepo = function (name: string): void {
@@ -35,7 +35,7 @@ const MainPage: React.FC<React.ComponentProps<'div'>> = observer(() => {
         List of organization repositories
       </Text>
       <SearchRepo className={style.search} onSubmit={handleSubmit} />
-      <RepoCardDisplay data={repos} onClick={handleRepo} />
+      <RepoCardDisplay data={organizationStore.repos} onClick={handleRepo} />
       <Pagination className={style.pagination} pages={10} onClick={handlePage} />
     </Container>
   );

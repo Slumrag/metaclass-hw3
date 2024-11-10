@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { observer } from 'mobx-react-lite';
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { ArrowLeftIcon, ArrowRightIcon, Button, IconButton } from 'components/';
 import { range } from 'utils/';
 import style from './PaginationControls.module.scss';
@@ -16,24 +16,25 @@ const PaginationControls: React.FC<PaginationControlsProps> = observer(
   ({ className, currentPage = 1, pages, onClick }) => {
     const CURRENT_INDEX_PADDING = 2;
     const [current, setCurrent] = useState<number>(currentPage);
-    const handleNext = (): void => {
+    useEffect(() => {
+      onClick(current);
+    }, [current, onClick]);
+
+    const handleNext = useCallback((): void => {
       const next = Math.min(current + 1, pages);
       setCurrent(next);
-      onClick(next);
-    };
-    const handlePrevious = (): void => {
+    }, [current, pages]);
+
+    const handlePrevious = useCallback((): void => {
       const prev = Math.max(current - 1, 1);
       setCurrent(prev);
+    }, [current]);
 
-      onClick(prev);
-    };
-
-    const handleClick = (page: number): void => {
+    const handleClick = useCallback((page: number): void => {
       setCurrent(page);
-      onClick(page);
-    };
+    }, []);
 
-    const renderPageButtons = () => {
+    const pageButtons = useMemo(() => {
       const firstPage = (
         <Button
           key={1}
@@ -78,7 +79,7 @@ const PaginationControls: React.FC<PaginationControlsProps> = observer(
           {lastPage}
         </>
       );
-    };
+    }, [current, handleClick, pages]);
 
     return (
       <div className={classNames(style.pagination, className)}>
@@ -89,7 +90,7 @@ const PaginationControls: React.FC<PaginationControlsProps> = observer(
           disabled={current === 1}
           onClick={handlePrevious}
         />
-        <div className={style.pageControls}>{renderPageButtons()}</div>
+        <div className={style.pageControls}>{pageButtons}</div>
         <IconButton
           className={style.controls}
           variant="transparent"

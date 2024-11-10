@@ -1,35 +1,59 @@
 import { observer } from 'mobx-react-lite';
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { OrgReposOptions } from 'App/api';
 import { TYPE_OPTIONS } from 'App/api/githubApi/types';
 import { Container, Loader, Text } from 'components/';
-import rootStore from 'store/RootStore';
+import { useRootStore } from 'store/RootStore';
 import { META } from 'utils/const';
-import Pagination from './components/Pagination';
+import PaginationControls from './components/PaginationControls';
 import RepoCardDisplay from './components/RepoCardDisplay';
 import SearchRepo, { type SearchParameters } from './components/SearchRepo';
 import style from './MainPage.module.scss';
 
 const MainPage: React.FC<React.ComponentProps<'div'>> = observer(() => {
-  // const ITEMS_PER_PAGE = 9;
-  const typeFilterOptions: { key: string; value: TYPE_OPTIONS }[] = [
-    { key: 'private', value: TYPE_OPTIONS.private },
-    { key: 'public', value: TYPE_OPTIONS.public },
-    { key: 'forks', value: TYPE_OPTIONS.forks },
-    { key: 'sources', value: TYPE_OPTIONS.sources },
-    { key: 'member', value: TYPE_OPTIONS.member },
+  const { organization, query } = useRootStore();
+  const [_, setSearchParams] = useSearchParams();
+  useEffect(() => {
+    // console.count('effect');
+    const org = query.getRouterParam('org');
+    const type = query.getSearchParm('type') as TYPE_OPTIONS;
+    const page = query.getSearchParm('page');
+    const params: OrgReposOptions = {
+      type,
+      page: page ? Number(page) : undefined,
+    };
+    if (org) {
+      organization.getRepos(org, params);
+    }
+    return () => {};
+  }, []);
+
+  const typeFilterOptions: { key: TYPE_OPTIONS; value: string }[] = [
+    { key: TYPE_OPTIONS.all, value: 'all' },
+    { key: TYPE_OPTIONS.private, value: 'private' },
+    { key: TYPE_OPTIONS.public, value: 'public' },
+    { key: TYPE_OPTIONS.forks, value: 'forks' },
+    { key: TYPE_OPTIONS.sources, value: 'sources' },
+    { key: TYPE_OPTIONS.member, value: 'member' },
   ];
-  const { organizationStore } = rootStore;
   const navigate = useNavigate();
 
   const handlePage = (page: number): void => {
-    console.log('page', page);
-    throw new Error('Function not implemented.');
+    // console.log('page', page);
+    organization.goToPage(page).then(() => {
+      // setSearchParams({ page: page.toString() });
+    });
   };
 
   const handleSubmit = function (search: SearchParameters): void {
     if (search.organization) {
-      organizationStore.getRepos(search.organization, { type: search?.type as TYPE_OPTIONS });
+      organization.getRepos(search.organization, { type: search?.type as TYPE_OPTIONS }).then(() => {
+        navigate(`/${search.organization!}`);
+        if (search?.type) {
+          setSearchParams({ type: search?.type });
+        }
+      });
     }
     // throw new Error('Function not implemented.');
   };
@@ -44,13 +68,22 @@ const MainPage: React.FC<React.ComponentProps<'div'>> = observer(() => {
         List of organization repositories
       </Text>
       <SearchRepo className={style.search} onSubmit={handleSubmit} typeOptions={typeFilterOptions} />
-      {organizationStore.meta === META.LOADING ? (
-        <Loader />
-      ) : (
-        <RepoCardDisplay data={organizationStore.repos} onClick={handleRepo} />
-      )}
+      {organization.meta === META.LOADING && <Loader />}
 
-      <Pagination className={style.pagination} pages={10} onClick={handlePage} />
+      {organization.meta === META.SUCCESS && (
+        <>
+          <RepoCardDisplay data={organization.data} onClick={handleRepo} />
+          {organization.pages && (
+            <PaginationControls
+              className={style.pagination}
+              pages={organization.pages}
+              currentPage={organization.currentPage}
+              onClick={handlePage}
+            />
+          )}
+        </>
+      )}
+      {organization.meta === META.ERROR && <Text>Ошибка</Text>}
     </Container>
   );
 });

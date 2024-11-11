@@ -13,9 +13,9 @@ import style from './MainPage.module.scss';
 
 const MainPage: React.FC<React.ComponentProps<'div'>> = observer(() => {
   const { organization, query } = useRootStore();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, setSearchParams] = useSearchParams();
   useEffect(() => {
-    // console.count('effect');
     const org = query.getRouterParam('org');
     const type = query.getSearchParm('type') as TYPE_OPTIONS;
     const page = query.getSearchParm('page');
@@ -26,7 +26,6 @@ const MainPage: React.FC<React.ComponentProps<'div'>> = observer(() => {
     if (org) {
       organization.getRepos(org, params);
     }
-    return () => {};
   }, []);
 
   const typeFilterOptions: { key: TYPE_OPTIONS; value: string }[] = [
@@ -40,9 +39,8 @@ const MainPage: React.FC<React.ComponentProps<'div'>> = observer(() => {
   const navigate = useNavigate();
 
   const handlePage = (page: number): void => {
-    // console.log('page', page);
     organization.goToPage(page).then(() => {
-      // setSearchParams({ page: page.toString() });
+      setSearchParams({ page: page.toString() });
     });
   };
 
@@ -55,7 +53,6 @@ const MainPage: React.FC<React.ComponentProps<'div'>> = observer(() => {
         }
       });
     }
-    // throw new Error('Function not implemented.');
   };
 
   const handleRepo = function (name: string): void {
@@ -73,7 +70,7 @@ const MainPage: React.FC<React.ComponentProps<'div'>> = observer(() => {
       {organization.meta === META.SUCCESS && (
         <>
           <RepoCardDisplay data={organization.data} onClick={handleRepo} />
-          {organization.pages && (
+          {organization.pages && organization.pages > 1 && (
             <PaginationControls
               className={style.pagination}
               pages={organization.pages}

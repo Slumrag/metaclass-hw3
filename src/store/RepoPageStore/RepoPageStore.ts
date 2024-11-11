@@ -1,4 +1,4 @@
-import { AxiosError } from 'axios';
+import { AxiosResponse } from 'axios';
 import { makeAutoObservable, runInAction } from 'mobx';
 import { getRepoContributors, getRepoContributorsCount, getRepoInfo, getRepoLanguages, getRepoReadMe } from 'App/api';
 import { FullRepositoryModel, normalizeFullRepository } from 'store/';
@@ -20,19 +20,23 @@ class RepoPageStore implements ILocalStore {
       this._meta = META.LOADING;
     });
     try {
-      const { data } = await getRepoInfo(org, repo);
+      const responses = await Promise.allSettled([
+        getRepoInfo(org, repo),
+        getRepoLanguages(org, repo),
+        getRepoContributors(org, repo),
+        getRepoContributorsCount(org, repo),
+      ]);
 
-      const { data: languages } = await getRepoLanguages(org, repo);
-
-      const { data: contributors } = await getRepoContributors(org, repo);
-
-      const { data: contributorsCount } = await getRepoContributorsCount(org, repo);
-
-      this._repo = normalizeFullRepository(data, {
-        languages,
-        contributors,
-        contributorsCount: contributorsCount as number,
-      });
+      if (responses.every((res) => res.status === 'fulfilled')) {
+        const [repo, languages, contributors, contributorsCount] = responses as PromiseFulfilledResult<AxiosResponse>[];
+        this._repo = normalizeFullRepository(repo.value.data, {
+          languages: languages.value.data,
+          contributors: contributors.value.data,
+          contributorsCount: contributorsCount.value.data as number,
+        });
+      } else {
+        throw responses.filter((el) => el.status === 'rejected');
+      }
 
       const { data: readme } = await getRepoReadMe(org, repo);
 
@@ -40,7 +44,11 @@ class RepoPageStore implements ILocalStore {
       this._meta = META.SUCCESS;
     } catch (error) {
       this._meta = META.ERROR;
-      console.error(error as AxiosError);
+      if (Array.isArray(error)) {
+        (error as PromiseRejectedResult[]).map((e) => console.error(e.reason));
+      } else {
+        console.error(error);
+      }
     }
   }
 

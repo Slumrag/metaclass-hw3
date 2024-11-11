@@ -38,7 +38,7 @@ const MainPage: React.FC<React.ComponentProps<'div'>> = observer(() => {
 
   const handleSubmit = function (search: SearchParameters): void {
     if (search.organization) {
-      organization.getRepos(search.organization, { type: search?.type as TYPE_OPTIONS }).then(() => {
+      organization.getRepos(search.organization, { type: search?.type as TYPE_OPTIONS, page: 1 }).then(() => {
         navigate(`/${search.organization!}`);
         if (search?.type) {
           query.setSearchParams({

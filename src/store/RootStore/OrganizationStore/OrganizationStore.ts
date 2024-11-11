@@ -124,8 +124,10 @@ class OrganizationStore implements IPaginationStore<MinimalRepositoryModel> {
         this._organization = this.data[0]?.owner;
       });
     } catch (error) {
-      this._meta = META.ERROR;
-      this._error = error as AxiosError;
+      runInAction(() => {
+        this._meta = META.ERROR;
+        this._error = error as AxiosError;
+      });
       console.error(error);
     }
   }

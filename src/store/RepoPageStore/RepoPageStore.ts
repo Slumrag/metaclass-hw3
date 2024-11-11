@@ -29,21 +29,26 @@ class RepoPageStore implements ILocalStore {
 
       if (responses.every((res) => res.status === 'fulfilled')) {
         const [repo, languages, contributors, contributorsCount] = responses as PromiseFulfilledResult<AxiosResponse>[];
-        this._repo = normalizeFullRepository(repo.value.data, {
-          languages: languages.value.data,
-          contributors: contributors.value.data,
-          contributorsCount: contributorsCount.value.data as number,
+        runInAction(() => {
+          this._repo = normalizeFullRepository(repo.value.data, {
+            languages: languages.value.data,
+            contributors: contributors.value.data,
+            contributorsCount: contributorsCount.value.data as number,
+          });
         });
       } else {
         throw responses.filter((el) => el.status === 'rejected');
       }
 
       const { data: readme } = await getRepoReadMe(org, repo);
-
-      this._readme = readme.download_url;
-      this._meta = META.SUCCESS;
+      runInAction(() => {
+        this._readme = readme.download_url;
+        this._meta = META.SUCCESS;
+      });
     } catch (error) {
-      this._meta = META.ERROR;
+      runInAction(() => {
+        this._meta = META.ERROR;
+      });
       if (Array.isArray(error)) {
         (error as PromiseRejectedResult[]).map((e) => console.error(e.reason));
       } else {

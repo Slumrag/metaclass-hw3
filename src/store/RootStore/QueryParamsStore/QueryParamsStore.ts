@@ -1,29 +1,34 @@
-import { makeAutoObservable, observable } from 'mobx';
-import { Params } from 'react-router-dom';
+import { makeAutoObservable } from 'mobx';
+import { Params, SetURLSearchParams } from 'react-router-dom';
 import RootStore from 'store/RootStore/RootStore';
 
-type PrivateFields = '_search' | '_routeParams' | '_searchParams' | '_path';
+type PrivateFields = '_search' | '_routeParams' | '_searchParams' | '_path' | '_setSearchParams';
 
 export default class QueryParamsStore {
   private _routeParams: Params<string> = {};
   private _searchParams?: URLSearchParams;
   private _search: string = '';
   private _path: string = '';
+  private _setSearchParams: SetURLSearchParams | null = null;
   readonly root: RootStore;
 
   constructor(root: RootStore) {
-    makeAutoObservable<QueryParamsStore, PrivateFields>(this, {
-      _search: true,
-      _routeParams: observable,
-      _searchParams: true,
-      _path: observable,
-      // getSearchParm: observable,
-    });
+    makeAutoObservable<QueryParamsStore, PrivateFields>(this);
     this.root = root;
   }
+  init([params, setter]: [URLSearchParams, SetURLSearchParams]) {
+    this._searchParams = params;
+    this._setSearchParams = setter;
+  }
 
-  setSearchParams(searchParams: URLSearchParams) {
-    this._searchParams = searchParams;
+  setSearchParams(searchParams: Record<string, string>) {
+    const newParams = Object.entries(searchParams).filter((el) => el[1] !== undefined);
+
+    if (this._setSearchParams) {
+      this._setSearchParams(newParams);
+    }
+
+    this._searchParams = new URLSearchParams(newParams);
   }
 
   setRouterParams(params: Params<string>) {

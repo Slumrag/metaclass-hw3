@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import React, { useEffect } from 'react';
-import { Outlet, useNavigate, useSearchParams } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import { OrgReposOptions } from 'App/api';
 import { TYPE_OPTIONS } from 'App/api/githubApi/types';
 import { Container, ErrorText, Loader, Text } from 'components/';
@@ -13,8 +13,7 @@ import style from './MainPage.module.scss';
 const MainPage: React.FC<React.ComponentProps<'div'>> = observer(() => {
   const { organization, query } = useRootStore();
   const navigate = useNavigate();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_, setSearchParams] = useSearchParams();
+
   useEffect(() => {
     const org = query.getRouterParam('org');
     const type = query.getSearchParm('type') as TYPE_OPTIONS;
@@ -42,7 +41,9 @@ const MainPage: React.FC<React.ComponentProps<'div'>> = observer(() => {
       organization.getRepos(search.organization, { type: search?.type as TYPE_OPTIONS }).then(() => {
         navigate(`/${search.organization!}`);
         if (search?.type) {
-          setSearchParams({ type: search?.type });
+          query.setSearchParams({
+            type: search?.type,
+          });
         }
       });
     }

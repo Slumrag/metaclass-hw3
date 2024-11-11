@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { ErrorText } from 'components/';
 import { useRootStore } from 'store/';
 import PaginationControls from '../PaginationControls';
@@ -10,18 +10,19 @@ import style from './PaginationDisplay.module.scss';
 export type PaginationDisplayProps = React.ComponentProps<'div'>;
 
 const PaginationDisplay: React.FC<PaginationDisplayProps> = observer(() => {
-  const { organization } = useRootStore();
+  const { organization, query } = useRootStore();
   const navigate = useNavigate();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_, setSearchParams] = useSearchParams();
+
   const handlePage = (page: number): void => {
     organization.goToPage(page).then(() => {
-      setSearchParams({ page: page.toString() });
+      query.setSearchParams({ type: query.getSearchParm('type') as string, page: page.toString() });
     });
   };
+
   const handleRepo = function (name: string): void {
     navigate(name);
   };
+
   return (
     <>
       {organization.data.length > 0 ? (

@@ -12,7 +12,6 @@ export const RootContext = createContext<RootStore | null>(null);
 const RootStoreProvider: React.FC<PropsWithChildren> = ({ children }) => {
   //only create the store once ( store is a singleton)
   const root = rootStore ?? new RootStore();
-  // console.log(root);
 
   return <RootContext.Provider value={root}>{children}</RootContext.Provider>;
 };

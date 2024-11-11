@@ -1,6 +1,6 @@
 import { makeAutoObservable } from 'mobx';
-import OrganizationStore from 'store/OrganizationStore';
-import QueryParamsStore from 'store/QueryParamsStore';
+import OrganizationStore from './OrganizationStore';
+import QueryParamsStore from './QueryParamsStore';
 
 type PrivateFields = '_organizationStore' | '_queryParamsStore';
 

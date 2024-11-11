@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { OrgReposOptions } from 'App/api';
 import { TYPE_OPTIONS } from 'App/api/githubApi/types';
-import { Container, Loader, Text } from 'components/';
+import { Container, ErrorText, Loader, Text } from 'components/';
 import { useRootStore } from 'store/RootStore';
 import { META } from 'utils/const';
 import PaginationControls from './components/PaginationControls';
@@ -69,7 +69,11 @@ const MainPage: React.FC<React.ComponentProps<'div'>> = observer(() => {
 
       {organization.meta === META.SUCCESS && (
         <>
-          <RepoCardDisplay data={organization.data} onClick={handleRepo} />
+          {organization.data.length > 0 ? (
+            <RepoCardDisplay data={organization.data} onClick={handleRepo} />
+          ) : (
+            <ErrorText>Not found</ErrorText>
+          )}
           {organization.pages && organization.pages > 1 && (
             <PaginationControls
               className={style.pagination}
@@ -80,7 +84,7 @@ const MainPage: React.FC<React.ComponentProps<'div'>> = observer(() => {
           )}
         </>
       )}
-      {organization.meta === META.ERROR && <Text>Ошибка</Text>}
+      {organization.meta === META.ERROR && <ErrorText>{organization.error?.message}</ErrorText>}
     </Container>
   );
 });

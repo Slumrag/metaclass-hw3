@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios';
 import { makeAutoObservable, runInAction } from 'mobx';
 import { getOrgRepos, OrgReposOptions } from 'App/api';
 import { TYPE_OPTIONS } from 'App/api/githubApi/types';
@@ -5,7 +6,7 @@ import RootStore from 'store/RootStore/RootStore';
 import { MinimalRepositoryModel, normalizeMinimalRepository, SimpleUserModel } from 'store/models';
 import { parseGitHubLinkHeader, clamp, META, IPaginationStore } from 'utils/';
 
-type PrivateFields = '_repos' | '_meta' | '_organization' | '_currentPage' | '_pages' | '_perPage' | '_type';
+type PrivateFields = '_repos' | '_meta' | '_organization' | '_currentPage' | '_pages' | '_perPage' | '_type' | '_error';
 
 class OrganizationStore implements IPaginationStore<MinimalRepositoryModel> {
   private _data: MinimalRepositoryModel[] = [];
@@ -15,6 +16,7 @@ class OrganizationStore implements IPaginationStore<MinimalRepositoryModel> {
   private _pages: number = 1;
   private _perPage: number = 30;
   private _type: `${TYPE_OPTIONS}` = TYPE_OPTIONS.all;
+  private _error: AxiosError | null = null;
   readonly root: RootStore;
 
   constructor(root: RootStore) {
@@ -26,6 +28,7 @@ class OrganizationStore implements IPaginationStore<MinimalRepositoryModel> {
       _perPage: true,
       _repos: true,
       _type: true,
+      _error: true,
     });
     this.root = root;
   }
@@ -56,6 +59,10 @@ class OrganizationStore implements IPaginationStore<MinimalRepositoryModel> {
     return this._type;
   }
 
+  get error() {
+    return this._error;
+  }
+
   set type(type: `${TYPE_OPTIONS}` | undefined) {
     if (type !== undefined) {
       this._type = type;
@@ -77,6 +84,8 @@ class OrganizationStore implements IPaginationStore<MinimalRepositoryModel> {
     if (!org) {
       return;
     }
+    this._error = null;
+
     runInAction(() => {
       this._meta = META.LOADING;
     });
@@ -116,6 +125,7 @@ class OrganizationStore implements IPaginationStore<MinimalRepositoryModel> {
       });
     } catch (error) {
       this._meta = META.ERROR;
+      this._error = error as AxiosError;
       console.error(error);
     }
   }

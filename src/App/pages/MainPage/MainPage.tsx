@@ -1,18 +1,18 @@
 import { observer } from 'mobx-react-lite';
 import React, { useEffect } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { Outlet, useNavigate, useSearchParams } from 'react-router-dom';
 import { OrgReposOptions } from 'App/api';
 import { TYPE_OPTIONS } from 'App/api/githubApi/types';
 import { Container, ErrorText, Loader, Text } from 'components/';
 import { useRootStore } from 'store/RootStore';
 import { META } from 'utils/const';
-import PaginationDisplay from './components/PaginationDisplay';
 
 import SearchRepo, { type SearchParameters } from './components/SearchRepo';
 import style from './MainPage.module.scss';
 
 const MainPage: React.FC<React.ComponentProps<'div'>> = observer(() => {
   const { organization, query } = useRootStore();
+  const navigate = useNavigate();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, setSearchParams] = useSearchParams();
   useEffect(() => {
@@ -36,13 +36,6 @@ const MainPage: React.FC<React.ComponentProps<'div'>> = observer(() => {
     { key: TYPE_OPTIONS.sources, value: 'sources' },
     { key: TYPE_OPTIONS.member, value: 'member' },
   ];
-  const navigate = useNavigate();
-
-  const handlePage = (page: number): void => {
-    organization.goToPage(page).then(() => {
-      setSearchParams({ page: page.toString() });
-    });
-  };
 
   const handleSubmit = function (search: SearchParameters): void {
     if (search.organization) {
@@ -55,10 +48,6 @@ const MainPage: React.FC<React.ComponentProps<'div'>> = observer(() => {
     }
   };
 
-  const handleRepo = function (name: string): void {
-    navigate(name);
-  };
-
   return (
     <Container className={style.container}>
       <Text view="title" tag="h2" className={style.title}>
@@ -66,16 +55,7 @@ const MainPage: React.FC<React.ComponentProps<'div'>> = observer(() => {
       </Text>
       <SearchRepo className={style.search} onSubmit={handleSubmit} typeOptions={typeFilterOptions} />
       {organization.meta === META.LOADING && <Loader />}
-
-      {organization.meta === META.SUCCESS && (
-        <PaginationDisplay
-          repos={organization.data}
-          handleCardClick={handleRepo}
-          handlePage={handlePage}
-          pages={organization.pages}
-          currentPage={organization.currentPage}
-        />
-      )}
+      {organization.meta === META.SUCCESS && <Outlet />}
       {organization.meta === META.ERROR && <ErrorText>{organization.error?.message}</ErrorText>}
     </Container>
   );

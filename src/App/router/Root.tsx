@@ -9,7 +9,6 @@ const Root = observer(() => {
   const navigate = useNavigate();
   const location = useLocation();
   useQueryParamsStoreInit();
-  // const { organization, query } = useRootStore();
   useEffect(() => {
     if (location.pathname === '/') navigate(DEFAULT_ORG);
   }, []);

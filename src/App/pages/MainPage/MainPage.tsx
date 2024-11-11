@@ -6,8 +6,8 @@ import { TYPE_OPTIONS } from 'App/api/githubApi/types';
 import { Container, ErrorText, Loader, Text } from 'components/';
 import { useRootStore } from 'store/RootStore';
 import { META } from 'utils/const';
-import PaginationControls from './components/PaginationControls';
-import RepoCardDisplay from './components/RepoCardDisplay';
+import PaginationDisplay from './components/PaginationDisplay';
+
 import SearchRepo, { type SearchParameters } from './components/SearchRepo';
 import style from './MainPage.module.scss';
 
@@ -68,21 +68,13 @@ const MainPage: React.FC<React.ComponentProps<'div'>> = observer(() => {
       {organization.meta === META.LOADING && <Loader />}
 
       {organization.meta === META.SUCCESS && (
-        <>
-          {organization.data.length > 0 ? (
-            <RepoCardDisplay data={organization.data} onClick={handleRepo} />
-          ) : (
-            <ErrorText>Not found</ErrorText>
-          )}
-          {organization.pages && organization.pages > 1 && (
-            <PaginationControls
-              className={style.pagination}
-              pages={organization.pages}
-              currentPage={organization.currentPage}
-              onClick={handlePage}
-            />
-          )}
-        </>
+        <PaginationDisplay
+          repos={organization.data}
+          handleCardClick={handleRepo}
+          handlePage={handlePage}
+          pages={organization.pages}
+          currentPage={organization.currentPage}
+        />
       )}
       {organization.meta === META.ERROR && <ErrorText>{organization.error?.message}</ErrorText>}
     </Container>

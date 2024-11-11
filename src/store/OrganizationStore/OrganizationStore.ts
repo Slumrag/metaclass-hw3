@@ -14,7 +14,7 @@ class OrganizationStore implements IPaginationStore<MinimalRepositoryModel> {
   private _meta: META = META.INITIAL;
   private _organization: SimpleUserModel | null = null;
   private _currentPage: number = 1;
-  private _pages: number | null = null;
+  private _pages: number = 1;
   private _perPage: number = 3;
   private _type: `${TYPE_OPTIONS}` = TYPE_OPTIONS.all;
   readonly root: RootStore;
@@ -51,8 +51,8 @@ class OrganizationStore implements IPaginationStore<MinimalRepositoryModel> {
   get perPage() {
     return this._perPage;
   }
-  get name() {
-    return this.organization?.name;
+  get login() {
+    return this.organization?.login;
   }
   get type() {
     return this._type;
@@ -65,12 +65,14 @@ class OrganizationStore implements IPaginationStore<MinimalRepositoryModel> {
   }
 
   set currentPage(page: number) {
-    this._currentPage = clamp(1, page, this.pages!);
+    this._currentPage = clamp(1, page, this.pages);
   }
 
   public async goToPage(page: number) {
+    if (this.login) {
+      await this.getRepos(this.login, { page });
+    }
     this.currentPage = page;
-    await this.getRepos(this.name!, { page: this.currentPage });
   }
 
   public async getRepos(org: string, options?: OrgReposOptions) {
@@ -91,23 +93,29 @@ class OrganizationStore implements IPaginationStore<MinimalRepositoryModel> {
       runInAction(() => {
         this._meta = META.SUCCESS;
 
-        this.type = options?.type;
+        console.log('current pages ', newOptions?.page);
+        const linkParams = response.headers?.link ? parseGitHubLinkHeader(response.headers?.link) : null;
 
-        this._perPage = options?.per_page ?? this._perPage;
-        this.currentPage = options?.page ?? this.currentPage;
+        if (linkParams) {
+          if (linkParams?.last) {
+            const page = linkParams.last.searchParams.get('page');
+
+            this._pages = Number(page);
+          } else {
+            this._pages = newOptions?.page ?? this._pages;
+          }
+        } else {
+          this._pages = 1;
+        }
+
+        this.type = newOptions?.type;
+
+        this._perPage = newOptions?.per_page ?? this._perPage;
+        this._currentPage = newOptions?.page ?? this._currentPage;
 
         this._data = response.data.map(normalizeMinimalRepository);
 
         this._organization = this.data[0]?.owner;
-
-        const linkParams = response.headers?.link ? parseGitHubLinkHeader(response.headers?.link) : null;
-
-        if (linkParams) {
-          const page = linkParams.last.searchParams.get('page');
-          this._pages = page ? Number(page) : null;
-        } else {
-          this._pages = 1;
-        }
       });
     } catch (error) {
       this._meta = META.ERROR;

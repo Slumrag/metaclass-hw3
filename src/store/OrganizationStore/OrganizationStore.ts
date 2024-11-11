@@ -13,7 +13,7 @@ class OrganizationStore implements IPaginationStore<MinimalRepositoryModel> {
   private _organization: SimpleUserModel | null = null;
   private _currentPage: number = 1;
   private _pages: number = 1;
-  private _perPage: number = 3;
+  private _perPage: number = 30;
   private _type: `${TYPE_OPTIONS}` = TYPE_OPTIONS.all;
   readonly root: RootStore;
 
@@ -91,7 +91,6 @@ class OrganizationStore implements IPaginationStore<MinimalRepositoryModel> {
       runInAction(() => {
         this._meta = META.SUCCESS;
 
-        console.log('current pages ', newOptions?.page);
         const linkParams = response.headers?.link ? parseGitHubLinkHeader(response.headers?.link) : null;
 
         if (linkParams) {

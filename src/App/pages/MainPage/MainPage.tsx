@@ -23,7 +23,7 @@ const MainPage: React.FC<React.ComponentProps<'div'>> = observer(() => {
       type,
       page: page ? Number(page) : undefined,
     };
-    if (org) {
+    if (org && organization.meta === META.INITIAL) {
       organization.getRepos(org, params);
     }
   }, []);

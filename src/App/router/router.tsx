@@ -1,7 +1,6 @@
 import React from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 import { MainPage, RepoPage, ErrorPage } from 'App/pages';
-import { loader as repoPageLoader } from 'App/pages/RepoPage/loader/loader';
 import Root from './Root';
 
 export const router = createBrowserRouter([
@@ -19,7 +18,6 @@ export const router = createBrowserRouter([
       {
         path: ':org/:repo',
         errorElement: <ErrorPage />,
-        loader: repoPageLoader,
         element: <RepoPage />,
       },
     ],

@@ -8,6 +8,16 @@ export type SimpleUserModel = {
   type: SimpleUserApi['type'];
   url: SimpleUserApi['url'];
 };
+export function initializeSimpleUser(): SimpleUserModel {
+  return {
+    id: 0,
+    name: '',
+    login: '',
+    avatarUrl: '',
+    type: '',
+    url: '',
+  };
+}
 
 export function normalizeSimpleUser(from: SimpleUserApi): SimpleUserModel {
   const model = {

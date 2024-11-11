@@ -71,7 +71,7 @@ const PaginationControls: React.FC<PaginationControlsProps> = observer(
           {padStartIndex - 1 >= CURRENT_INDEX_PADDING && '...'}
           {currentPadded}
           {pages - padEndIndex >= CURRENT_INDEX_PADDING && '...'}
-          {lastPage}
+          {pages > 1 && lastPage}
         </>
       );
     };

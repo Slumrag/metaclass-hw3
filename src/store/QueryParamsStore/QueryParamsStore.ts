@@ -1,4 +1,4 @@
-import { action, makeAutoObservable, observable } from 'mobx';
+import { makeAutoObservable, observable } from 'mobx';
 import { Params } from 'react-router-dom';
 import RootStore from 'store/RootStore/RootStore';
 
@@ -60,7 +60,6 @@ export default class QueryParamsStore {
 
     if (this._search !== search) {
       this._search = search;
-      // this._routeParams = qs.parse(search);
     }
   }
 }

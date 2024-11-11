@@ -13,12 +13,16 @@ export type SearchParameters = {
 export type SearchRepoProps = {
   className?: string;
   typeOptions: Option[];
+  typeVal?: Option;
+  input?: string;
   onSubmit: (search: SearchParameters) => void;
 };
 
-const SearchRepo: React.FC<SearchRepoProps> = observer(({ className, typeOptions, onSubmit }) => {
-  const [organization, setOrganization] = useState('');
-  const [type, setType] = useState<Option[]>([]);
+const SearchRepo: React.FC<SearchRepoProps> = observer(({ className, typeOptions, typeVal, input, onSubmit }) => {
+  const [organization, setOrganization] = useState(input ?? '');
+  const initialVal = typeOptions.find((el) => el.key === typeVal?.key);
+
+  const [type, setType] = useState<Option[]>(initialVal ? [initialVal] : []);
 
   const getTitle = useCallback((value: Option[]) => {
     if (value.length === 0) {

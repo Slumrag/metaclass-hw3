@@ -53,7 +53,13 @@ const MainPage: React.FC<React.ComponentProps<'div'>> = observer(() => {
       <Text view="title" tag="h2" className={style.title}>
         List of organization repositories
       </Text>
-      <SearchRepo className={style.search} onSubmit={handleSubmit} typeOptions={typeFilterOptions} />
+      <SearchRepo
+        className={style.search}
+        input={query.getRouterParam('org')}
+        typeVal={{ key: query.getSearchParm('type') as string, value: query.getSearchParm('type') as string }}
+        onSubmit={handleSubmit}
+        typeOptions={typeFilterOptions}
+      />
       {organization.meta === META.LOADING && <Loader />}
       {organization.meta === META.SUCCESS && <Outlet />}
       {organization.meta === META.ERROR && <ErrorText>{organization.error?.message}</ErrorText>}

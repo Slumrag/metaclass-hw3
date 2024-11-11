@@ -3,9 +3,7 @@ import { getOrgRepos, OrgReposOptions } from 'App/api';
 import { TYPE_OPTIONS } from 'App/api/githubApi/types';
 import RootStore from 'store/RootStore/RootStore';
 import { MinimalRepositoryModel, normalizeMinimalRepository, SimpleUserModel } from 'store/models';
-import { META } from 'utils/const';
-import { parseGitHubLinkHeader, clamp } from 'utils/helpers';
-import { IPaginationStore } from 'utils/types';
+import { parseGitHubLinkHeader, clamp, META, IPaginationStore } from 'utils/';
 
 type PrivateFields = '_repos' | '_meta' | '_organization' | '_currentPage' | '_pages' | '_perPage' | '_type';
 

@@ -1,4 +1,4 @@
-$app-bg: #f6f8fa;
+@use "src/styles/variables.module" as *;
 
 #root {
   background: $app-bg;

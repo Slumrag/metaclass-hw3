@@ -1,5 +1,4 @@
 import classNames from 'classnames';
-import { observer } from 'mobx-react-lite';
 import React from 'react';
 import Text from 'components/Text';
 import { type Option } from '../MultiDropdown';
@@ -13,33 +12,31 @@ export type DropdownMenuProps = {
   onClick: (option: Option) => void;
 };
 
-const DropdownMenu: React.FC<DropdownMenuProps> = observer(
-  ({ className, options, value, filterCb = () => true, onClick }) => {
-    const newOptions = value.length > 0 ? options : options.filter(filterCb);
+const DropdownMenu: React.FC<DropdownMenuProps> = ({ className, options, value, filterCb = () => true, onClick }) => {
+  const newOptions = value.length > 0 ? options : options.filter(filterCb);
 
-    return (
-      <menu className={classNames(style.dropdownMenu, className)}>
-        {newOptions.length > 0 ? (
-          newOptions.map((e) => (
-            <li
-              key={e.key}
-              id={e.key}
-              className={classNames(style.item, { [style.item_selected]: value.includes(e) })}
-              onClick={() => onClick(e)}
-            >
-              <Text view="p-16">{e.value}</Text>
-            </li>
-          ))
-        ) : (
-          <li className={style.item}>
-            <Text color="secondary" view="p-16">
-              Пусто
-            </Text>
+  return (
+    <menu className={classNames(style.dropdownMenu, className)}>
+      {newOptions.length > 0 ? (
+        newOptions.map((e) => (
+          <li
+            key={e.key}
+            id={e.key}
+            className={classNames(style.item, { [style.item_selected]: value.includes(e) })}
+            onClick={() => onClick(e)}
+          >
+            <Text view="p-16">{e.value}</Text>
           </li>
-        )}
-      </menu>
-    );
-  },
-);
+        ))
+      ) : (
+        <li className={style.item}>
+          <Text color="secondary" view="p-16">
+            Пусто
+          </Text>
+        </li>
+      )}
+    </menu>
+  );
+};
 
 export default DropdownMenu;

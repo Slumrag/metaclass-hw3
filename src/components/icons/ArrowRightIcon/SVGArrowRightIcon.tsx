@@ -1,7 +1,6 @@
-import { observer } from 'mobx-react-lite';
 import React from 'react';
 
-const SVGArrowRightIcon: React.FC<React.SVGAttributes<SVGElement>> = observer(({ ...props }) => (
+const SVGArrowRightIcon: React.FC<React.SVGAttributes<SVGElement>> = ({ ...props }) => (
   <svg
     width="33"
     height="32"
@@ -19,6 +18,6 @@ const SVGArrowRightIcon: React.FC<React.SVGAttributes<SVGElement>> = observer(({
       strokeLinejoin="round"
     />
   </svg>
-));
+);
 
 export default SVGArrowRightIcon;

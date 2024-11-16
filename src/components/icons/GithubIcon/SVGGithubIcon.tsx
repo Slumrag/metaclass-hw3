@@ -1,7 +1,6 @@
-import { observer } from 'mobx-react-lite';
 import React from 'react';
 
-const SVGGithubIcon: React.FC<React.SVGAttributes<SVGElement>> = observer(({ ...props }) => (
+const SVGGithubIcon: React.FC<React.SVGAttributes<SVGElement>> = ({ ...props }) => (
   <svg
     width="32"
     height="32"
@@ -20,5 +19,5 @@ const SVGGithubIcon: React.FC<React.SVGAttributes<SVGElement>> = observer(({ ...
       </clipPath>
     </defs>
   </svg>
-));
+);
 export default SVGGithubIcon;

@@ -110,5 +110,21 @@ module.exports = {
     port: 3000, // порт, по которому к нему можно обращаться
     hot: true,
     historyApiFallback: true,
+    proxy: [
+      {
+        context: ['/githubApi'],
+        target: 'https://api.github.com/',
+        changeOrigin: true,
+        secure: false,
+        pathRewrite: { '^/githubApi': '' },
+      },
+      {
+        context: ['/githubDownload'],
+        target: 'https://raw.githubusercontent.com',
+        changeOrigin: true,
+        secure: false,
+        pathRewrite: { '^/githubDownload': '' },
+      },
+    ],
   },
 };

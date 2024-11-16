@@ -2,14 +2,14 @@ import { observer } from 'mobx-react-lite';
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeftIcon, Avatar, Container, IconButton, Text } from 'components/';
-import { RepoPageStore, useRootStore } from 'store/';
+import { RepoPageStore, rootStore } from 'store/';
 import { useLocalStore } from 'utils/';
 import DisplayReadMe from './components/DisplayReadMe';
 import RepoInfo from './components/RepoInfo';
 import style from './RepoPage.module.scss';
 
 const RepoPage: React.FC = observer(() => {
-  const { query } = useRootStore();
+  const { query } = rootStore;
   const repoStore = useLocalStore(() => new RepoPageStore());
 
   useEffect(() => {

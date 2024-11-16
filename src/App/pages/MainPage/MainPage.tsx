@@ -4,14 +4,14 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import { OrgReposOptions } from 'App/api';
 import { TYPE_OPTIONS } from 'App/api/githubApi/types';
 import { Container, ErrorText, Loader, Text } from 'components/';
-import { useRootStore } from 'store/RootStore';
+import { rootStore } from 'store/';
 import { META } from 'utils/const';
 
 import SearchRepo, { type SearchParameters } from './components/SearchRepo';
 import style from './MainPage.module.scss';
 
 const MainPage: React.FC<React.ComponentProps<'div'>> = observer(() => {
-  const { organization, query } = useRootStore();
+  const { organization, query } = rootStore;
   const navigate = useNavigate();
 
   useEffect(() => {

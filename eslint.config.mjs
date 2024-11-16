@@ -89,6 +89,7 @@ export default tseslint.config(
       'react/prop-types': 'off',
       'react/display-name': 'off',
       'no-console': 'warn',
+      'mobx/missing-observer': 'off',
       'import/order': [
         'error',
         {

@@ -55,7 +55,7 @@ class OrganizationStore implements IPaginationStore<MinimalRepositoryModel> {
   }
 
   set type(type: TYPE_OPTIONS | undefined) {
-    if (type !== undefined) {
+    if (type) {
       this._type = type;
     }
   }
@@ -75,11 +75,9 @@ class OrganizationStore implements IPaginationStore<MinimalRepositoryModel> {
     if (!org) {
       return;
     }
-    this._error = null;
 
-    runInAction(() => {
-      this._meta = META.LOADING;
-    });
+    this._error = null;
+    this._meta = META.LOADING;
 
     try {
       const defaultOptions: OrgReposOptions = { type: this.type, per_page: this.perPage, page: this.currentPage };

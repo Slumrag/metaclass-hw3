@@ -1,11 +1,10 @@
 import { AxiosError } from 'axios';
-import { observer } from 'mobx-react-lite';
 import React, { useEffect } from 'react';
 import { useRouteError } from 'react-router-dom';
 import { Container, Text } from 'components/';
 import style from './ErrorPage.module.scss';
 
-const ErrorPage: React.FC = observer(() => {
+const ErrorPage: React.FC = () => {
   const error = useRouteError() as AxiosError;
   useEffect(() => {
     console.error(error);
@@ -17,6 +16,6 @@ const ErrorPage: React.FC = observer(() => {
       <Text view="p-18">{error.message}</Text>
     </Container>
   );
-});
+};
 
 export default ErrorPage;

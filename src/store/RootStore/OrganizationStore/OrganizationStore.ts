@@ -15,21 +15,12 @@ class OrganizationStore implements IPaginationStore<MinimalRepositoryModel> {
   private _currentPage: number = 1;
   private _pages: number = 1;
   private _perPage: number = 30;
-  private _type: `${TYPE_OPTIONS}` = TYPE_OPTIONS.all;
+  private _type: TYPE_OPTIONS = TYPE_OPTIONS.all;
   private _error: AxiosError | null = null;
   readonly root: RootStore;
 
   constructor(root: RootStore) {
-    makeAutoObservable<OrganizationStore, PrivateFields>(this, {
-      _meta: true,
-      _currentPage: true,
-      _organization: true,
-      _pages: true,
-      _perPage: true,
-      _repos: true,
-      _type: true,
-      _error: true,
-    });
+    makeAutoObservable<OrganizationStore, PrivateFields>(this);
     this.root = root;
   }
 
@@ -63,7 +54,7 @@ class OrganizationStore implements IPaginationStore<MinimalRepositoryModel> {
     return this._error;
   }
 
-  set type(type: `${TYPE_OPTIONS}` | undefined) {
+  set type(type: TYPE_OPTIONS | undefined) {
     if (type !== undefined) {
       this._type = type;
     }

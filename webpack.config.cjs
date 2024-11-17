@@ -3,6 +3,7 @@ const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin'
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+const TsCheckerPlugin = require('fork-ts-checker-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 
 const isProd = process.env.NODE_ENV === 'production';
@@ -49,23 +50,14 @@ module.exports = {
       src: path.resolve(__dirname, './src'),
     },
 
-    plugins: [
-      new TsconfigPathsPlugin({
-        configFile: 'tsconfig.app.json',
-      }),
-    ],
+    plugins: [new TsconfigPathsPlugin()],
   },
 
   module: {
     rules: [
-      // {
-      //   test: /\.jsx?/,
-      //   use: 'babel-loader',
-      // },
       {
-        test: /\.ts|tsx?$/,
-        use: [{ loader: 'ts-loader', options: { configFile: 'tsconfig.app.json' } }],
-        exclude: '/node_modules/',
+        test: /\.[tj]sx?$/,
+        use: 'babel-loader',
       },
       {
         test: /\.module\.s?css$/,
@@ -102,6 +94,7 @@ module.exports = {
         // Для того чтобы файл со стилями не кэшировался в браузере добавим filename
         filename: '[name]-[hash].css',
       }),
+    new TsCheckerPlugin(),
     new Dotenv(),
   ].filter(Boolean),
 

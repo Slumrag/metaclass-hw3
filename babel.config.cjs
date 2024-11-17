@@ -4,9 +4,12 @@ module.exports = (api) => {
   api.cache.using(() => process.env.NODE_ENV);
 
   return {
-    presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript', '@babel/preset-mobx'],
-    plugins: [isDev && 'react-refresh/babel', 'module:fast-async', '@babel/plugin-transform-optional-chaining'].filter(
-      Boolean,
-    ),
+    presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript'],
+
+    plugins: [
+      isDev && 'react-refresh/babel',
+      '@babel/plugin-transform-optional-chaining',
+      ['@babel/plugin-proposal-decorators', { version: '2023-11' }],
+    ].filter(Boolean),
   };
 };

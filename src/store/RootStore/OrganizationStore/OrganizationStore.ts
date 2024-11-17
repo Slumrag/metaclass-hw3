@@ -1,7 +1,7 @@
 import { AxiosError } from 'axios';
 import { makeAutoObservable, runInAction } from 'mobx';
 import { getOrgRepos, OrgReposOptions } from 'App/api';
-import { TYPE_OPTIONS } from 'App/api/githubApi/types';
+import { RepoTypeOptions } from 'App/api/githubApi/types';
 import RootStore from 'store/RootStore/RootStore';
 import { MinimalRepositoryModel, normalizeMinimalRepository, SimpleUserModel } from 'store/models';
 import { parseGitHubLinkHeader, clamp, META, IPaginationStore } from 'utils/';
@@ -15,7 +15,7 @@ class OrganizationStore implements IPaginationStore<MinimalRepositoryModel> {
   private _currentPage: number = 1;
   private _pages: number = 1;
   private _perPage: number = 30;
-  private _type: TYPE_OPTIONS = TYPE_OPTIONS.all;
+  private _type: RepoTypeOptions = RepoTypeOptions.all;
   private _error: AxiosError | null = null;
   readonly root: RootStore;
 
@@ -54,7 +54,7 @@ class OrganizationStore implements IPaginationStore<MinimalRepositoryModel> {
     return this._error;
   }
 
-  set type(type: TYPE_OPTIONS | undefined) {
+  set type(type: RepoTypeOptions | undefined) {
     if (type) {
       this._type = type;
     }

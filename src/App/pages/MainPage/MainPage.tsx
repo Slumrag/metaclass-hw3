@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite';
 import React, { useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { OrgReposOptions } from 'App/api';
-import { TYPE_OPTIONS } from 'App/api/githubApi/types';
+import { RepoTypeOptions } from 'App/api/githubApi/types';
 import { Container, ErrorText, Loader, Text } from 'components/';
 import { rootStore } from 'store/';
 import { META } from 'utils/const';
@@ -16,7 +16,7 @@ const MainPage: React.FC<React.ComponentProps<'div'>> = observer(() => {
 
   useEffect(() => {
     const org = query.getRouterParam('org');
-    const type = query.getSearchParm('type') as TYPE_OPTIONS;
+    const type = query.getSearchParm('type') as RepoTypeOptions;
     const page = query.getSearchParm('page');
     const params: OrgReposOptions = {
       type,
@@ -27,18 +27,18 @@ const MainPage: React.FC<React.ComponentProps<'div'>> = observer(() => {
     }
   }, []);
 
-  const typeFilterOptions: { key: TYPE_OPTIONS; value: string }[] = [
-    { key: TYPE_OPTIONS.all, value: 'all' },
-    { key: TYPE_OPTIONS.private, value: 'private' },
-    { key: TYPE_OPTIONS.public, value: 'public' },
-    { key: TYPE_OPTIONS.forks, value: 'forks' },
-    { key: TYPE_OPTIONS.sources, value: 'sources' },
-    { key: TYPE_OPTIONS.member, value: 'member' },
+  const typeFilterOptions: { key: RepoTypeOptions; value: string }[] = [
+    { key: RepoTypeOptions.all, value: 'all' },
+    { key: RepoTypeOptions.private, value: 'private' },
+    { key: RepoTypeOptions.public, value: 'public' },
+    { key: RepoTypeOptions.forks, value: 'forks' },
+    { key: RepoTypeOptions.sources, value: 'sources' },
+    { key: RepoTypeOptions.member, value: 'member' },
   ];
 
   const handleSubmit = function (search: SearchParameters): void {
     if (search.organization) {
-      organization.getRepos(search.organization, { type: search?.type as TYPE_OPTIONS, page: 1 }).then(() => {
+      organization.getRepos(search.organization, { type: search?.type as RepoTypeOptions, page: 1 }).then(() => {
         navigate(`/${search.organization!}`);
         if (search?.type) {
           query.setSearchParams({

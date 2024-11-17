@@ -1,4 +1,4 @@
-export enum TYPE_OPTIONS {
+export enum RepoTypeOptions {
   all = 'all',
   public = 'public',
   private = 'private',

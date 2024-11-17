@@ -8,7 +8,6 @@ module.exports = (api) => {
 
     plugins: [
       isDev && 'react-refresh/babel',
-      '@babel/plugin-transform-optional-chaining',
       ['@babel/plugin-proposal-decorators', { version: '2023-11' }],
     ].filter(Boolean),
   };

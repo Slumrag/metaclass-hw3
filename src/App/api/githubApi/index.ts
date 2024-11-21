@@ -1,4 +1,6 @@
 export * from './core/githubApiCore';
+export * from './const';
+export * from './types';
 export * from './getOrgRepos';
 export * from './getRepoInfo';
 export * from './getRepoReadMe';

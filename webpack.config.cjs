@@ -97,7 +97,7 @@ module.exports = {
         filename: '[name]-[hash].css',
       }),
     new TsCheckerPlugin(),
-    new Dotenv(),
+    new Dotenv({ systemvars: true }),
   ].filter(Boolean),
 
   devServer: {

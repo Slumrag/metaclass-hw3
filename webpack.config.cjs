@@ -7,6 +7,7 @@ const TsCheckerPlugin = require('fork-ts-checker-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 
 const isProd = process.env.NODE_ENV === 'production';
+
 const getSettingsForStyles = (withModules = false) => {
   return [
     isProd ? MiniCssExtractPlugin.loader : 'style-loader',
@@ -35,7 +36,7 @@ const getSettingsForStyles = (withModules = false) => {
 };
 
 module.exports = {
-  mode: 'none',
+  mode: isProd ? 'production' : 'development',
   devtool: isProd ? 'hidden-source-map' : 'eval-source-map',
   entry: {
     app: path.join(__dirname, 'src', 'main.tsx'),

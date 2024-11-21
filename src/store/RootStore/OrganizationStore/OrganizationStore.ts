@@ -1,7 +1,6 @@
 import { AxiosError } from 'axios';
 import { makeAutoObservable, runInAction } from 'mobx';
-import { getOrgRepos, OrgReposOptions } from 'App/api';
-import { RepoTypeOptions } from 'App/api/githubApi/types';
+import { getOrgRepos, OrgReposOptions, RepoTypeOptions } from 'App/api';
 import RootStore from 'store/RootStore/RootStore';
 import { MinimalRepositoryModel, normalizeMinimalRepository, SimpleUserModel } from 'store/models';
 import { parseGitHubLinkHeader, clamp, META, IPaginationStore } from 'utils/';

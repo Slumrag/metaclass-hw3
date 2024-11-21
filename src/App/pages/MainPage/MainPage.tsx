@@ -1,8 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import React, { useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
-import { OrgReposOptions } from 'App/api';
-import { RepoTypeOptions } from 'App/api/githubApi/types';
+import { OrgReposOptions, RepoTypeOptions } from 'App/api';
 import { Container, ErrorText, Loader, Text } from 'components/';
 import { rootStore } from 'store/';
 import { META } from 'utils/const';

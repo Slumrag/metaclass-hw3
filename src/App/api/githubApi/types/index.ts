@@ -1,5 +1,3 @@
-export type { MinimalRepository } from './MinimalRepository';
+export type * from './schema';
 export type * from './RequestPaginationOptions';
-export type * from './FullRepository';
-export type * from './ContentFile';
-export type * from './RepositoryLanguages';
+export type * from './RequestRepositoryTypeOptions';

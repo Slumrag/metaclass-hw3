@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { observer } from 'mobx-react-lite';
 import React, { useEffect, useState } from 'react';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -12,7 +13,7 @@ export type DisplayReadMeProps = {
   className?: string;
 };
 
-const DisplayReadMe: React.FC<DisplayReadMeProps> = ({ src, className }) => {
+const DisplayReadMe: React.FC<DisplayReadMeProps> = observer(({ src, className }) => {
   const [markdown, setMarkdown] = useState('');
 
   useEffect(() => {
@@ -39,6 +40,6 @@ const DisplayReadMe: React.FC<DisplayReadMeProps> = ({ src, className }) => {
       )}
     </>
   );
-};
+});
 
 export default DisplayReadMe;

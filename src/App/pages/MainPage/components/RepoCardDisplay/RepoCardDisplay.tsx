@@ -1,30 +1,32 @@
 import classNames from 'classnames';
+import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { MinimalRepositoryDisplayProps } from '../../types';
+import { MinimalRepositoryModel } from 'store/models';
 import RepoCard from '../RepoCard';
 import style from './RepoCardDisplay.module.scss';
 
 export type RepoCardDisplayProps = {
   className?: string;
-  data: MinimalRepositoryDisplayProps[];
+  data: MinimalRepositoryModel[];
   onClick?: (name: string) => void;
 };
 
-const RepoCardDisplay: React.FC<RepoCardDisplayProps> = ({ data, className, onClick }) => {
+const RepoCardDisplay: React.FC<RepoCardDisplayProps> = observer(({ data, className, onClick }) => {
   return (
     <div className={classNames(style.cardDisplay, className)}>
-      {data.map(({ id, title, subtitle, starCount, updateTimestamp }) => (
+      {data.map(({ id, name, description, stargazersCount, updatedAt, owner: { avatarUrl } }) => (
         <RepoCard
           key={id}
-          title={title}
-          subtitle={subtitle!}
-          updateTimestamp={updateTimestamp!}
-          starCount={starCount!}
+          title={name}
+          image={avatarUrl}
+          subtitle={description!}
+          updateTimestamp={updatedAt}
+          starCount={stargazersCount!}
           onClick={onClick}
         />
       ))}
     </div>
   );
-};
+});
 
 export default RepoCardDisplay;

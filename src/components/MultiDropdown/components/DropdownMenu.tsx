@@ -29,9 +29,11 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({ className, options, value, 
           </li>
         ))
       ) : (
-        <Text color="secondary" view="p-16">
-          Пусто
-        </Text>
+        <li className={style.item}>
+          <Text color="secondary" view="p-16">
+            Пусто
+          </Text>
+        </li>
       )}
     </menu>
   );

@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.scss';
-
 import { RouterProvider } from 'react-router-dom';
 import { router } from './router';
 

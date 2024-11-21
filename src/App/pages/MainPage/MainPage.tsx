@@ -1,31 +1,52 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useLoaderData } from 'react-router-typesafe';
+import { observer } from 'mobx-react-lite';
+import React, { useEffect } from 'react';
+import { Outlet, useNavigate } from 'react-router-dom';
+import { OrgReposOptions } from 'App/api';
+import { RepoTypeOptions } from 'App/api/githubApi/types';
+import { Container, ErrorText, Loader, Text } from 'components/';
+import { rootStore } from 'store/';
+import { META } from 'utils/const';
 
-import { Container, Text } from 'components/';
-
-import Pagination from './components/Pagination';
-import RepoCardDisplay from './components/RepoCardDisplay';
 import SearchRepo, { type SearchParameters } from './components/SearchRepo';
-import { loader } from './loader/loader';
 import style from './MainPage.module.scss';
 
-const MainPage: React.FC<React.ComponentProps<'div'>> = () => {
-  // const ITEMS_PER_PAGE = 9;
+const MainPage: React.FC<React.ComponentProps<'div'>> = observer(() => {
+  const { organization, query } = rootStore;
   const navigate = useNavigate();
-  const { repos } = useLoaderData<typeof loader>();
 
-  const handlePage = (page: number): void => {
-    console.log('page', page);
-    throw new Error('Function not implemented.');
-  };
+  useEffect(() => {
+    const org = query.getRouterParam('org');
+    const type = query.getSearchParm('type') as RepoTypeOptions;
+    const page = query.getSearchParm('page');
+    const params: OrgReposOptions = {
+      type,
+      page: page ? Number(page) : undefined,
+    };
+    if (org && organization.meta === META.INITIAL) {
+      organization.getRepos(org, params);
+    }
+  }, []);
+
+  const typeFilterOptions: { key: RepoTypeOptions; value: string }[] = [
+    { key: RepoTypeOptions.all, value: 'all' },
+    { key: RepoTypeOptions.private, value: 'private' },
+    { key: RepoTypeOptions.public, value: 'public' },
+    { key: RepoTypeOptions.forks, value: 'forks' },
+    { key: RepoTypeOptions.sources, value: 'sources' },
+    { key: RepoTypeOptions.member, value: 'member' },
+  ];
 
   const handleSubmit = function (search: SearchParameters): void {
-    throw new Error('Function not implemented.');
-  };
-
-  const handleRepo = function (name: string): void {
-    navigate(name);
+    if (search.organization) {
+      organization.getRepos(search.organization, { type: search?.type as RepoTypeOptions, page: 1 }).then(() => {
+        navigate(`/${search.organization!}`);
+        if (search?.type) {
+          query.setSearchParams({
+            type: search?.type,
+          });
+        }
+      });
+    }
   };
 
   return (
@@ -33,11 +54,18 @@ const MainPage: React.FC<React.ComponentProps<'div'>> = () => {
       <Text view="title" tag="h2" className={style.title}>
         List of organization repositories
       </Text>
-      <SearchRepo className={style.search} onSubmit={handleSubmit} />
-      <RepoCardDisplay data={repos} onClick={handleRepo} />
-      <Pagination className={style.pagination} pages={10} onClick={handlePage} />
+      <SearchRepo
+        className={style.search}
+        input={query.getRouterParam('org')}
+        typeVal={{ key: query.getSearchParm('type') as string, value: query.getSearchParm('type') as string }}
+        onSubmit={handleSubmit}
+        typeOptions={typeFilterOptions}
+      />
+      {organization.meta === META.LOADING && <Loader />}
+      {organization.meta === META.SUCCESS && <Outlet />}
+      {organization.meta === META.ERROR && <ErrorText>{organization.error?.message}</ErrorText>}
     </Container>
   );
-};
+});
 
 export default MainPage;

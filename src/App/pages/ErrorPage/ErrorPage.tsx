@@ -1,12 +1,14 @@
 import { AxiosError } from 'axios';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useRouteError } from 'react-router-dom';
 import { Container, Text } from 'components/';
 import style from './ErrorPage.module.scss';
 
 const ErrorPage: React.FC = () => {
   const error = useRouteError() as AxiosError;
-  console.error(error);
+  useEffect(() => {
+    console.error(error);
+  }, [error]);
 
   return (
     <Container className={style.container}>

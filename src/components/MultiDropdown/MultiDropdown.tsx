@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { ArrowDownIcon, Input } from 'components/';
 import { useClickOutside } from 'utils/hooks';
 import DropdownMenu from './components/DropdownMenu';
@@ -13,24 +13,35 @@ export type Option = {
 };
 
 /** Пропсы, которые принимает компонент Dropdown */
-export type MultiDropdownProps = {
+export type MultiDropdownProps<T extends Option = Option> = {
   className?: string;
   /** Массив возможных вариантов для выбора */
-  options: Option[];
+  options: T[];
   /** Текущие выбранные значения поля, может быть пустым */
-  value: Option[];
+  value: T[];
+  /** Выбирается ли несколько вариантов или один*/
+  multiple?: boolean;
   /** Callback, вызываемый при выборе варианта */
-  onChange: (value: Option[]) => void;
+  onChange: (value: T[]) => void;
   /** Заблокирован ли дропдаун */
   disabled?: boolean;
   /** Возвращает строку которая будет выводится в инпуте. В случае если опции не выбраны, строка должна отображаться как placeholder. */
-  getTitle: (value: Option[]) => string;
+  getTitle: (value: T[]) => string;
 };
 
-const MultiDropdown: React.FC<MultiDropdownProps> = ({ className, options, value, onChange, disabled, getTitle }) => {
-  const [inputValue, setInputValue] = useState('');
+const MultiDropdown: React.FC<MultiDropdownProps> = ({
+  className,
+  options,
+  value,
+  onChange,
+  disabled,
+  multiple = false,
+  getTitle,
+}) => {
+  const [inputValue, setInputValue] = useState<string>('');
+
   const [selectedOptions, setSelectedOptions] = useState(value);
-  const [isMenuVisible, setIsMenuVisible] = useState(false);
+  const [isMenuVisible, setIsMenuVisible] = useState<boolean>(false);
 
   const removeOption = (opts: Option[], removedIndex: number) => {
     const newOpts = [...opts];
@@ -38,30 +49,32 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({ className, options, value
     return newOpts;
   };
 
-  const handleOption = (option: Option) => {
-    const optionIndex = selectedOptions.findIndex((e) => e.key === option.key);
+  const handleOptionMultiple = useCallback(
+    (option: Option) => {
+      const optionIndex = selectedOptions.findIndex((e) => e.key === option.key);
+      if (optionIndex > -1) {
+        const newOptions = removeOption(selectedOptions, optionIndex);
+        setSelectedOptions(newOptions);
+      } else {
+        setSelectedOptions([...selectedOptions, option]);
+      }
+    },
+    [selectedOptions],
+  );
 
-    if (optionIndex > -1) {
-      const newOptions = removeOption(selectedOptions, optionIndex);
-      onChange(newOptions);
-      return newOptions;
-    }
+  const handleOptionSingle = useCallback((option: Option) => {
+    setSelectedOptions([option]);
+  }, []);
 
-    onChange([...selectedOptions, option]);
-    return [...selectedOptions, option];
-  };
+  const showMenu = useCallback(() => !disabled && setIsMenuVisible(true), [disabled]);
+  const hideMenu = useCallback(() => setIsMenuVisible(false), []);
+  const toggleMenu = useCallback(() => !disabled && setIsMenuVisible((s) => !s), [disabled]);
 
-  const showMenu = () => !disabled && setIsMenuVisible(true);
-  const hideMenu = () => setIsMenuVisible(false);
-  const toggleMenu = () => !disabled && setIsMenuVisible((s) => !s);
-
-  const constructInputValue = (): string => (selectedOptions.length > 0 ? getTitle(selectedOptions) : '');
-
-  const filterOptions = (opt: Option) => opt.value.includes(inputValue);
+  const filterOptions = useCallback((opt: Option) => opt.value.includes(inputValue), [inputValue]);
 
   useEffect(() => {
-    setInputValue(getTitle(selectedOptions));
-  }, []);
+    onChange(selectedOptions);
+  }, [onChange, selectedOptions]);
 
   useEffect(() => {
     if (disabled) {
@@ -70,8 +83,8 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({ className, options, value
   }, [disabled]);
 
   useEffect(() => {
-    setInputValue(constructInputValue());
-  }, [selectedOptions]);
+    setInputValue(selectedOptions.length > 0 ? getTitle(selectedOptions) : '');
+  }, [getTitle, selectedOptions]);
 
   const ref = useRef<HTMLDivElement>(null);
 
@@ -106,9 +119,7 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({ className, options, value
           className={style.menu}
           options={options}
           value={selectedOptions}
-          onClick={(option) => {
-            setSelectedOptions(handleOption(option));
-          }}
+          onClick={multiple ? handleOptionMultiple : handleOptionSingle}
           filterCb={filterOptions}
         />
       )}

@@ -1,6 +1,6 @@
 import classNames from 'classnames';
+import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { LanguagesTuple } from 'App/pages/RepoPage/types';
 
 import { ProgressBar, Text } from 'components/';
 import colorMapping from 'styles/githubColors.json';
@@ -12,11 +12,11 @@ type mapping = Record<string, { color: null | string }>;
 
 export type LanguageStatsProps = {
   className?: string;
-  languages: LanguagesTuple[];
+  languages: [string, number][];
   title: string;
 };
 
-const LanguageStats: React.FC<LanguageStatsProps> = ({ className, languages, title }) => {
+const LanguageStats: React.FC<LanguageStatsProps> = observer(({ className, languages, title }) => {
   const MAX_ITEMS = 6;
   const THRESHOLD = 0.2;
   const DEFAULT_COLOR = '#EDEDED';
@@ -62,6 +62,6 @@ const LanguageStats: React.FC<LanguageStatsProps> = ({ className, languages, tit
       <Legend items={progressItems} />
     </div>
   );
-};
+});
 
 export default LanguageStats;

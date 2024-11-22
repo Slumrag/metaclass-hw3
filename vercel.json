@@ -1,0 +1,13 @@
+{
+  "outputDirectory": "dist",
+  "rewrites": [
+    { "source": "/githubApi/:match*", "destination": "https://api.github.com/:match*" },
+    { "source": "/githubDownload/:match*", "destination": "https://raw.githubusercontent.com/:match*" },
+
+    { "source": "(.*)/([\\w.-]+\\.\\w+(?=$))", "destination": "/$2" },
+    {
+      "source": "/((?!.+\\.).*)",
+      "destination": "/index.html"
+    }
+  ]
+}

@@ -14,3 +14,4 @@ export { default as Container } from './Container';
 export { default as IconButton } from './IconButton';
 export { default as ProgressBar } from './ProgressBar';
 export { default as ErrorText } from './ErrorText';
+export { default as Skeleton } from './Skeleton';

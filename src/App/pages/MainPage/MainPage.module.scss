@@ -1,10 +1,18 @@
+@use "styles/variables.module" as v;
+@use "src/components/Text/Text.module" as text;
+
 .container {
   padding-top: 30px;
   padding-bottom: 22px;
 }
 .title {
   margin-bottom: 60px;
+  @media (max-width: v.$bp-mobile) {
+    margin-bottom: 30px;
+    font-size: 35px;
+  }
 }
+
 .search {
   align-self: stretch;
   margin-bottom: 36px;

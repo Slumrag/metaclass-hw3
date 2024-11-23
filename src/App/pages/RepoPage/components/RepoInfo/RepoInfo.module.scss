@@ -10,6 +10,7 @@ $max-languages-width: 273px;
 .topics {
   display: flex;
   gap: v.$space-xxs;
+  flex-wrap: wrap;
 }
 
 .stats {
@@ -20,8 +21,10 @@ $max-languages-width: 273px;
 
 .body {
   display: flex;
-  gap: 50px;
+  gap: v.$space-s 50px;
+  flex-wrap: wrap;
 }
+
 .languages {
-  width: $max-languages-width;
+  max-width: $max-languages-width;
 }

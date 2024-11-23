@@ -29,11 +29,11 @@ const RepoPage: React.FC = observer(() => {
           <IconButton
             className={style.backButton}
             variant="transparent"
-            icon={<ArrowLeftIcon width={32} height={32} />}
+            icon={<ArrowLeftIcon />}
             onClick={() => navigate(-1)}
           />
           <Avatar src={repoStore.repo?.owner.avatarUrl ?? '/placeholder.png'} alt="" variant="rounded" />
-          <Text tag={'h2'} view="title">
+          <Text tag={'h2'} view="title" className={style.text}>
             {repoStore.repo?.name}
           </Text>
         </div>

@@ -1,4 +1,6 @@
 @use "src/components/variables.module" as *;
+@use "styles/variables.module" as v;
+
 .header {
   display: flex;
   justify-content: center;
@@ -12,6 +14,10 @@
   justify-content: space-between;
   padding: $space-m;
   flex: 1;
+  @media (max-width: v.$bp-mobile) {
+    padding-top: $space-s;
+    padding-bottom: $space-s;
+  }
 }
 
 .title {
@@ -19,4 +25,10 @@
   align-items: center;
   justify-content: space-between;
   gap: $space-xl;
+  @media (max-width: v.$bp-mobile) {
+    gap: $space-xs;
+    h1 {
+      font-size: 20px;
+    }
+  }
 }

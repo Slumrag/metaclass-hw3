@@ -1,5 +1,8 @@
 @use "src/components/variables.module" as *;
+@use "styles/variables.module" as v;
+
 $max-width: 300px;
+$min-height: 40px;
 
 .search {
   display: flex;
@@ -9,14 +12,27 @@ $max-width: 300px;
 
 .dropdown {
   max-width: $max-width;
+  div,
+  input {
+    min-width: 0;
+    @media (max-width: v.$bp-mobile) {
+      max-height: $min-height;
+    }
+  }
 }
 
 .searchBar {
   display: flex;
   align-items: stretch;
   gap: $space-l;
+  @media (max-width: v.$bp-mobile) {
+    max-height: $min-height;
+  }
 }
+
 .input {
   height: auto;
   flex: 1;
+  min-width: 0;
+  overflow: hidden;
 }

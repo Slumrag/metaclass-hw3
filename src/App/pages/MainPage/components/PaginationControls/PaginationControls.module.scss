@@ -1,28 +1,51 @@
+@use "styles/variables.module" as v;
+@use "src/components/mixins.module" as m;
+
 $control-width: 38px;
 $control-height: 42px;
+$icon-size: 32px;
 
 .pagination {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 15px;
+  @media (max-width: v.$bp-mobile) {
+    gap: 0;
+    // align-self: stretch;
+  }
 }
 
 .pageControls {
   display: flex;
   align-items: baseline;
+  @media (max-width: v.$bp-mobile) {
+    span {
+      font-size: 14px;
+    }
+    // gap: 2px;
+  }
 }
 
 .controls {
-  padding: 0;
-  width: $control-width;
-  height: $control-height;
+  padding: 5px;
+  // gap: 5px;
+  max-width: min-content;
+  min-width: $control-width;
+  min-height: $control-height;
   border-radius: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   svg {
-    width: 32px;
-    height: 32px;
+    @include m.square($icon-size);
+  }
+
+  @media (max-width: v.$bp-mobile) {
+    svg {
+      @include m.square(calc($icon-size * 0.8));
+    }
+    min-width: calc($control-width * 0.8);
+    min-height: calc($control-height * 0.8);
   }
 }

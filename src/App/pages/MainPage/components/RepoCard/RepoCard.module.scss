@@ -1,8 +1,12 @@
-@use "src/styles/variables.module.scss" as *;
+@use "styles/variables.module.scss" as v;
+@use "src/components/mixins.module.scss" as m;
 @use "src/components/variables.module.scss" as *;
 
+$max-width: 360px;
+$star-size: 14px;
+
 .repoCard {
-  max-width: 360px;
+  max-width: $max-width;
 }
 
 .caption {
@@ -11,9 +15,9 @@
   }
   svg {
     margin-right: 2px;
-    width: 14px;
-    height: 14px;
-    fill: $star-accent;
+    @include m.square($star-size);
+
+    fill: v.$star-accent;
   }
 }
 

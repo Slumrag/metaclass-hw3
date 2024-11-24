@@ -1,5 +1,7 @@
 import classNames from 'classnames';
-import React from 'react';
+import React, { useRef } from 'react';
+import { useOnImageLoad } from 'utils/';
+import Skeleton from '../Skeleton';
 import Text from '../Text';
 import style from './Card.module.scss';
 
@@ -32,10 +34,13 @@ const Card: React.FC<CardProps> = ({
   onClick,
   actionSlot,
 }) => {
+  const imgRef = useRef<HTMLImageElement>(null);
+  const isImageLoaded = useOnImageLoad(imgRef);
   return (
     <div className={classNames(style.card, className)} onClick={onClick}>
       <div className={style.header}>
-        <img className={style.image} src={image} alt="" />
+        <img className={style.image} src={image} ref={imgRef} style={{ display: isImageLoaded ? 'block' : 'none' }} />
+        {!isImageLoaded && <Skeleton variant="rectangle" />}
       </div>
       <div className={style.body}>
         <div className={style.main}>

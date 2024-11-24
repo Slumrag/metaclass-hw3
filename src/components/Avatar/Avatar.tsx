@@ -1,5 +1,7 @@
 import classNames from 'classnames';
-import React from 'react';
+import React, { useRef } from 'react';
+import { Skeleton } from 'components/';
+import { useOnImageLoad } from 'utils/';
 import style from './Avatar.module.scss';
 
 export type AvatarProps = React.ComponentProps<'img'> & {
@@ -16,12 +18,15 @@ const Avatar: React.FC<AvatarProps> = ({
   hasBorder = false,
   ...props
 }) => {
+  const imgRef = useRef<HTMLImageElement>(null);
+  const isLoaded = useOnImageLoad(imgRef);
+  const skeletonVariant: 'circle' | 'rectangle' | 'rounded' = variant === 'square' ? 'rectangle' : variant;
+
   return (
-    <img
-      className={classNames(style.avatar, { [style.border]: hasBorder }, style[variant], style[size], className)}
-      src={src}
-      {...props}
-    />
+    <div className={classNames(style.avatar, { [style.border]: hasBorder }, style[variant], style[size], className)}>
+      {!isLoaded && <Skeleton variant={skeletonVariant} className={style.skeleton} />}
+      <img className={style.image} src={src} {...props} ref={imgRef} />
+    </div>
   );
 };
 

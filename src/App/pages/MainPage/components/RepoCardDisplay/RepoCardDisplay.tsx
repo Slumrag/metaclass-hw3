@@ -1,9 +1,11 @@
 import classNames from 'classnames';
 import { observer } from 'mobx-react-lite';
-import React from 'react';
+import React, { Suspense } from 'react';
 import { MinimalRepositoryModel } from 'store/models';
-import RepoCard from '../RepoCard';
+import RepoCardSkeleton from '../RepoCard/RepoCardSkeleton';
 import style from './RepoCardDisplay.module.scss';
+
+const RepoCard = React.lazy(() => import('../RepoCard'));
 
 export type RepoCardDisplayProps = {
   className?: string;
@@ -15,15 +17,17 @@ const RepoCardDisplay: React.FC<RepoCardDisplayProps> = observer(({ data, classN
   return (
     <div className={classNames(style.cardDisplay, className)}>
       {data.map(({ id, name, description, stargazersCount, updatedAt, owner: { avatarUrl } }) => (
-        <RepoCard
-          key={id}
-          title={name}
-          image={avatarUrl}
-          subtitle={description!}
-          updateTimestamp={updatedAt}
-          starCount={stargazersCount!}
-          onClick={onClick}
-        />
+        <Suspense key={id} fallback={<RepoCardSkeleton />}>
+          <RepoCard
+            key={id}
+            title={name}
+            image={avatarUrl}
+            subtitle={description!}
+            updateTimestamp={updatedAt}
+            starCount={stargazersCount!}
+            onClick={onClick}
+          />
+        </Suspense>
       ))}
     </div>
   );

@@ -1,10 +1,9 @@
-@use "sass:color";
 @use "src/components/variables.module" as *;
-@use "src/components/animations.module";
+@use "src/components/animations.module" as a;
 
 .skeleton {
   background: $skeleton-bg;
-  animation: pulse 2s infinite;
+  animation: pulseColor 2s infinite;
 }
 .text {
   display: block;
@@ -20,23 +19,9 @@
 .rounded {
   border-radius: $border-radius;
 }
+
 .circle {
   border-radius: 50%;
 }
 
-@keyframes pulse {
-  0% {
-    background-color: color.scale($skeleton-bg, $lightness: 0%);
-  }
-
-  25% {
-    background-color: color.scale($skeleton-bg, $lightness: 20%);
-  }
-
-  75% {
-    background-color: color.scale($skeleton-bg, $lightness: 20%);
-  }
-  100% {
-    background-color: color.scale($skeleton-bg, $lightness: 0%);
-  }
-}
+@include a.pulseColor($skeleton-bg);

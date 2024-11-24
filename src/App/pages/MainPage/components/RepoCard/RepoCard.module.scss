@@ -7,18 +7,25 @@ $star-size: 14px;
 
 .repoCard {
   max-width: $max-width;
+  width: 100%;
+  height: auto;
 }
 
 .caption {
   span:has(svg) {
     vertical-align: middle;
   }
-  svg {
-    margin-right: 2px;
-    @include m.square($star-size);
+}
 
-    fill: v.$star-accent;
-  }
+.starIcon {
+  margin-right: 2px;
+  @include m.square($star-size);
+
+  fill: v.$star-accent;
+}
+
+.captionSkeleton {
+  display: flex;
 }
 
 .starCounter {

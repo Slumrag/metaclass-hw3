@@ -9,7 +9,9 @@ export type CardProps = {
   /** Дополнительный classname */
   className?: string;
   /** URL изображения */
-  image: string;
+  image?: string;
+  /** Компоненнт, заменяющий изображение при отсутствие URL */
+  imageFallback?: React.ReactNode;
   /** Слот над заголовком */
   captionSlot?: React.ReactNode;
   /** Заголовок карточки */
@@ -27,6 +29,7 @@ export type CardProps = {
 const Card: React.FC<CardProps> = ({
   className,
   image,
+  imageFallback = '',
   captionSlot,
   title,
   subtitle,
@@ -39,7 +42,11 @@ const Card: React.FC<CardProps> = ({
   return (
     <div className={classNames(style.card, className)} onClick={onClick}>
       <div className={style.header}>
-        <img className={style.image} src={image} ref={imgRef} style={{ display: isImageLoaded ? 'block' : 'none' }} />
+        {image ? (
+          <img className={style.image} src={image} ref={imgRef} style={{ display: isImageLoaded ? 'block' : 'none' }} />
+        ) : (
+          imageFallback
+        )}
         {!isImageLoaded && <Skeleton variant="rectangle" />}
       </div>
       <div className={style.body}>

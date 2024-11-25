@@ -29,7 +29,7 @@ const PaginationDisplay: React.FC<PaginationDisplayProps> = observer(() => {
   return (
     <>
       <Suspense fallback={<RepoCardDisplaySkeleton />}>
-        <RepoCardDisplay data={organization.data} onClick={handleRepo} />
+        {organization.meta === META.SUCCESS && <RepoCardDisplay data={organization.data} onClick={handleRepo} />}
       </Suspense>
       {(organization.meta === META.SUCCESS && organization.data.length) === 0 && (
         <ErrorText>No repositories were found</ErrorText>

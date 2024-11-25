@@ -1,13 +1,11 @@
 import React, { Suspense } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 import { MainPage, RepoPage } from 'App/pages';
-import { PaginationDisplaySkeleton } from 'App/pages/MainPage/components/PaginationDisplay';
+import PaginationDisplay from 'App/pages/MainPage/components/PaginationDisplay';
 
 import Root from './Root';
 
 const ErrorPage = React.lazy(() => import('App/pages/ErrorPage'));
-
-const PaginationDisplay = React.lazy(() => import('App/pages/MainPage/components/PaginationDisplay'));
 
 export const router = createBrowserRouter([
   {
@@ -30,11 +28,7 @@ export const router = createBrowserRouter([
         children: [
           {
             path: ':org',
-            element: (
-              <Suspense fallback={<PaginationDisplaySkeleton />}>
-                <PaginationDisplay />
-              </Suspense>
-            ),
+            element: <PaginationDisplay />,
           },
         ],
       },

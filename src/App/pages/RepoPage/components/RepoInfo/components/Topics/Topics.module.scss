@@ -1,0 +1,7 @@
+@use "src/components/variables.module" as v;
+
+.topics {
+  display: flex;
+  gap: v.$space-xxs;
+  flex-wrap: wrap;
+}

@@ -1,12 +1,12 @@
 import classNames from 'classnames';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { Token } from 'components/';
 import { FullRepositoryModel } from 'store/models';
 import EngagementStats from './components/EngagementStats';
 import HomePageLink from './components/HomePageLink';
 
 import LanguageStats from './components/LanguageStats';
+import Topics from './components/Topics';
 import UserDisplay from './components/UserDisplay';
 import style from './RepoInfo.module.scss';
 
@@ -20,7 +20,7 @@ const RepoInfo: React.FC<RepoInfoProps> = observer(({ className, repo }) => {
     <div className={classNames(style.container, className)}>
       {repo?.homepage && <HomePageLink href={repo.homepage} />}
 
-      {repo?.topics && <div className={style.topics}>{repo.topics?.map((el, i) => <Token key={i}>{el}</Token>)}</div>}
+      {repo?.topics && <Topics topics={repo.topics} />}
 
       <EngagementStats stargazers={repo.stargazersCount} watchers={repo.watchers} forks={repo.forks} />
 

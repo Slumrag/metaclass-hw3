@@ -1,11 +1,13 @@
 import { observer } from 'mobx-react-lite';
-import React, { useEffect } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import { Container } from 'components/';
 import { RepoPageStore, rootStore } from 'store/';
 import { useLocalStore } from 'utils/';
-import DisplayReadMe from './components/DisplayReadMe';
 import RepoInfo from './components/RepoInfo';
+import RepoNav from './components/RepoNav';
 import style from './RepoPage.module.scss';
+
+const DisplayReadMe = React.lazy(() => import('./components/DisplayReadMe'));
 
 const RepoPage: React.FC = observer(() => {
   const { query } = rootStore;
@@ -23,9 +25,11 @@ const RepoPage: React.FC = observer(() => {
   return (
     <div className={style.wrapper}>
       <Container className={style.container} align="start">
-      <RepoNav avatarUrl={repoStore.repo?.owner.avatarUrl} name={repoStore.repo?.name} />
-        {repoStore.repo && <RepoInfo className={style.info} repo={repoStore.repo} />}
-        {repoStore.readme && <DisplayReadMe src={repoStore.readme} className={style.markdown} />}
+        <RepoNav avatarUrl={repoStore.repo?.owner.avatarUrl} name={repoStore.repo?.name} />
+
+        <RepoInfo className={style.info} repo={repoStore.repo!} />
+
+        <Suspense>{repoStore.readme && <DisplayReadMe src={repoStore.readme} className={style.markdown} />}</Suspense>
       </Container>
     </div>
   );

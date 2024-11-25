@@ -1,4 +1,3 @@
-import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { Skeleton } from 'components/';
 import { range } from 'utils/';
@@ -8,7 +7,7 @@ export type TopicsSkeletonProps = {
   count?: number;
 };
 
-const TopicsSkeleton: React.FC<TopicsSkeletonProps> = observer(({ count = 3 }) => {
+const TopicsSkeleton: React.FC<TopicsSkeletonProps> = ({ count = 3 }) => {
   return (
     <div className={style.topics}>
       {range(1, count)?.map((el) => (
@@ -16,6 +15,6 @@ const TopicsSkeleton: React.FC<TopicsSkeletonProps> = observer(({ count = 3 }) =
       ))}
     </div>
   );
-});
+};
 
 export default TopicsSkeleton;

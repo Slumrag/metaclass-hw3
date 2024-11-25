@@ -1,5 +1,8 @@
 @use "src/components/variables.module" as *;
+@use "src/components/animations.module" as a;
+@include a.spin();
 
 .loader {
   fill: $loader-bg;
+  animation: spin 1s infinite;
 }

@@ -1,0 +1,31 @@
+@use "sass:color";
+@mixin pulseColor($color) {
+  @keyframes pulseColor {
+    0% {
+      background-color: color.scale($color, $lightness: 0%);
+    }
+
+    25% {
+      background-color: color.scale($color, $lightness: 20%);
+    }
+
+    75% {
+      background-color: color.scale($color, $lightness: 20%);
+    }
+    100% {
+      background-color: color.scale($color, $lightness: 0%);
+    }
+  }
+}
+
+@mixin spin {
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+}

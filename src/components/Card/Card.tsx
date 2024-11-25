@@ -1,5 +1,7 @@
 import classNames from 'classnames';
-import React from 'react';
+import React, { useRef } from 'react';
+import { useOnImageLoad } from 'utils/';
+import Skeleton from '../Skeleton';
 import Text from '../Text';
 import style from './Card.module.scss';
 
@@ -7,7 +9,9 @@ export type CardProps = {
   /** Дополнительный classname */
   className?: string;
   /** URL изображения */
-  image: string;
+  image?: string;
+  /** Компоненнт, заменяющий изображение при отсутствие URL */
+  imageFallback?: React.ReactNode;
   /** Слот над заголовком */
   captionSlot?: React.ReactNode;
   /** Заголовок карточки */
@@ -25,6 +29,7 @@ export type CardProps = {
 const Card: React.FC<CardProps> = ({
   className,
   image,
+  imageFallback = '',
   captionSlot,
   title,
   subtitle,
@@ -32,10 +37,17 @@ const Card: React.FC<CardProps> = ({
   onClick,
   actionSlot,
 }) => {
+  const imgRef = useRef<HTMLImageElement>(null);
+  const isImageLoaded = useOnImageLoad(imgRef);
   return (
     <div className={classNames(style.card, className)} onClick={onClick}>
       <div className={style.header}>
-        <img className={style.image} src={image} alt="" />
+        {image ? (
+          <img className={style.image} src={image} ref={imgRef} style={{ display: isImageLoaded ? 'block' : 'none' }} />
+        ) : (
+          imageFallback
+        )}
+        {!isImageLoaded && <Skeleton variant="rectangle" />}
       </div>
       <div className={style.body}>
         <div className={style.main}>

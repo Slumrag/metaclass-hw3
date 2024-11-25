@@ -1,13 +1,20 @@
 import classNames from 'classnames';
 import { observer } from 'mobx-react-lite';
-import React from 'react';
-import { EyeIcon, ForkIcon, StarIcon, Token } from 'components/';
+import React, { Suspense } from 'react';
 import { FullRepositoryModel } from 'store/models';
-import HomePageLink from './components/HomePageLink';
-import IconStat from './components/IconStat';
-import LanguageStats from './components/LanguageStats';
-import UserList from './components/UserList';
+import { EngagementStatsSkeleton } from './components/EngagementStats';
+import { HomePageLinkSkeleton } from './components/HomePageLink';
+
+import { LanguageStatsSkeleton } from './components/LanguageStats';
+import { TopicsSkeleton } from './components/Topics';
+import { UserDisplaySkeleton } from './components/UserDisplay';
 import style from './RepoInfo.module.scss';
+
+const HomePageLink = React.lazy(() => import('./components/HomePageLink'));
+const Topics = React.lazy(() => import('./components/Topics'));
+const EngagementStats = React.lazy(() => import('./components/EngagementStats'));
+const UserDisplay = React.lazy(() => import('./components/UserDisplay'));
+const LanguageStats = React.lazy(() => import('./components/LanguageStats'));
 
 export type RepoInfoProps = {
   className?: string;
@@ -17,23 +24,27 @@ export type RepoInfoProps = {
 const RepoInfo: React.FC<RepoInfoProps> = observer(({ className, repo }) => {
   return (
     <div className={classNames(style.container, className)}>
-      {repo.homepage && <HomePageLink href={repo.homepage} />}
+      <Suspense fallback={<HomePageLinkSkeleton />}>{repo?.homepage && <HomePageLink href={repo.homepage} />}</Suspense>
 
-      {repo.topics && <div className={style.topics}>{repo.topics?.map((el, i) => <Token key={i}>{el}</Token>)}</div>}
+      <Suspense fallback={<TopicsSkeleton />}>{repo?.topics && <Topics topics={repo.topics} />}</Suspense>
 
-      <div className={style.stats}>
-        <IconStat icon={<StarIcon />} count={repo.stargazersCount} title="stars" />
-        <IconStat icon={<EyeIcon />} count={repo.watchers} title="watching" />
-        <IconStat icon={<ForkIcon />} count={repo.forks} title="forks" />
-      </div>
+      <Suspense fallback={<EngagementStatsSkeleton />}>
+        {repo?.stargazersCount && (
+          <EngagementStats stargazers={repo?.stargazersCount} watchers={repo?.watchers} forks={repo?.forks} />
+        )}
+      </Suspense>
+
       <div className={style.body}>
-        {repo.contributors && repo.contributors?.length > 0 && (
-          <UserList title="Contributors" users={repo.contributors} count={repo.contributorsCount} />
-        )}
-
-        {repo.languages && repo.languages?.length > 0 && (
-          <LanguageStats title="Languages" className={style.languages} languages={repo.languages} />
-        )}
+        <Suspense fallback={<UserDisplaySkeleton />}>
+          {repo?.contributors && repo.contributors?.length > 0 && (
+            <UserDisplay title="Contributors" users={repo.contributors} count={repo.contributorsCount} />
+          )}
+        </Suspense>
+        <Suspense fallback={<LanguageStatsSkeleton />}>
+          {repo?.languages && repo.languages?.length > 0 && (
+            <LanguageStats title="Languages" className={style.languages} languages={repo.languages} />
+          )}
+        </Suspense>
       </div>
     </div>
   );

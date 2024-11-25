@@ -1,25 +1,45 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
-import { MainPage, RepoPage, ErrorPage } from 'App/pages';
+import { MainPage, RepoPage } from 'App/pages';
 import PaginationDisplay from 'App/pages/MainPage/components/PaginationDisplay';
+
 import Root from './Root';
+
+const ErrorPage = React.lazy(() => import('App/pages/ErrorPage'));
 
 export const router = createBrowserRouter([
   {
     path: '/',
     element: <Root />,
-    errorElement: <ErrorPage />,
+    errorElement: (
+      <Suspense fallback={'loading error page'}>
+        <ErrorPage />
+      </Suspense>
+    ),
     children: [
       {
-        errorElement: <ErrorPage />,
+        errorElement: (
+          <Suspense fallback={'loading error page'}>
+            <ErrorPage />
+          </Suspense>
+        ),
         path: '',
         element: <MainPage />,
-        children: [{ path: ':org', element: <PaginationDisplay /> }],
+        children: [
+          {
+            path: ':org',
+            element: <PaginationDisplay />,
+          },
+        ],
       },
 
       {
         path: ':org/:repo',
-        errorElement: <ErrorPage />,
+        errorElement: (
+          <Suspense fallback={'loading error page'}>
+            <ErrorPage />
+          </Suspense>
+        ),
         element: <RepoPage />,
       },
     ],

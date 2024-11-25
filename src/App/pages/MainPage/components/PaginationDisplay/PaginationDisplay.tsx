@@ -1,11 +1,14 @@
 import { observer } from 'mobx-react-lite';
-import React from 'react';
+import React, { Suspense } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ErrorText } from 'components/';
 import { rootStore } from 'store/';
+import { META } from 'utils/';
 import PaginationControls from '../PaginationControls';
-import RepoCardDisplay from '../RepoCardDisplay';
+import { RepoCardDisplaySkeleton } from '../RepoCardDisplay';
 import style from './PaginationDisplay.module.scss';
+
+const RepoCardDisplay = React.lazy(() => import('../RepoCardDisplay'));
 
 export type PaginationDisplayProps = React.ComponentProps<'div'>;
 
@@ -25,11 +28,13 @@ const PaginationDisplay: React.FC<PaginationDisplayProps> = observer(() => {
 
   return (
     <>
-      {organization.data.length > 0 ? (
-        <RepoCardDisplay data={organization.data} onClick={handleRepo} />
-      ) : (
-        <ErrorText>Not found</ErrorText>
+      <Suspense fallback={<RepoCardDisplaySkeleton />}>
+        {organization.meta === META.SUCCESS && <RepoCardDisplay data={organization.data} onClick={handleRepo} />}
+      </Suspense>
+      {(organization.meta === META.SUCCESS && organization.data.length) === 0 && (
+        <ErrorText>No repositories were found</ErrorText>
       )}
+
       {organization.pages && organization.pages > 1 && (
         <PaginationControls
           className={style.pagination}

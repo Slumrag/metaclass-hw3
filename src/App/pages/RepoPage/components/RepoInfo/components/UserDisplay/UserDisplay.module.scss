@@ -1,7 +1,44 @@
 @use "src/components/variables.module" as v;
+@use "src/components/mixins.module" as m;
 
-.body {
-  display: inline-flex;
-  align-items: center;
+$badge-color-text: rgba(0, 0, 0, 0.62);
+$badge-color-bg: #d9d9d9;
+$badge-size: 16px;
+
+$font-size: 10px;
+
+.container {
+  display: flex;
+  flex-direction: column;
   gap: v.$space-xxs;
+}
+.header {
+  display: flex;
+  gap: 2px;
+}
+.title {
+  position: relative;
+  width: fit-content;
+  overflow: visible;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.counter {
+  align-items: end;
+  padding: 5px;
+  display: flex;
+  height: $badge-size;
+  width: fit-content;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: $font-size;
+  color: $badge-color-text;
+  background: $badge-color-bg;
+  border-radius: $badge-size;
 }

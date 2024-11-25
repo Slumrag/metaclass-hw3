@@ -1,0 +1,27 @@
+@use "src/components/variables.module" as *;
+@use "src/components/animations.module" as a;
+
+.skeleton {
+  background: $skeleton-bg;
+  animation: pulseColor 2s infinite;
+}
+.text {
+  display: block;
+  font-size: 1em;
+  height: 1em;
+  width: 100%;
+  border-radius: $border-radius;
+}
+
+.rectangle {
+  border-radius: 0;
+}
+.rounded {
+  border-radius: $border-radius;
+}
+
+.circle {
+  border-radius: 50%;
+}
+
+@include a.pulseColor($skeleton-bg);

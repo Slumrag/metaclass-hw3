@@ -3,7 +3,9 @@ $row-gap: 80px;
 $column-gap: 80px;
 
 .cardDisplay {
+  width: 100%;
   display: grid;
+  justify-items: center;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: auto;
   grid-auto-flow: row;

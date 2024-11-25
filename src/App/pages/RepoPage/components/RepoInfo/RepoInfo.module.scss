@@ -7,18 +7,6 @@ $max-languages-width: 273px;
   gap: v.$space-l;
 }
 
-.topics {
-  display: flex;
-  gap: v.$space-xxs;
-  flex-wrap: wrap;
-}
-
-.stats {
-  display: flex;
-  flex-direction: column;
-  gap: v.$space-xxs;
-}
-
 .body {
   display: flex;
   gap: v.$space-s 50px;

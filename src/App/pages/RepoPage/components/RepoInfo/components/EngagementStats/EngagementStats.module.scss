@@ -1,0 +1,7 @@
+@use "src/components/variables.module" as v;
+
+.stats {
+  display: flex;
+  flex-direction: column;
+  gap: v.$space-xxs;
+}

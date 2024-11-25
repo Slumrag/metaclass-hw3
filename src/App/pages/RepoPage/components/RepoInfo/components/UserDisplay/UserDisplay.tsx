@@ -4,9 +4,9 @@ import React from 'react';
 import { Text } from 'components/';
 import { SimpleUserModel } from 'store/';
 import UserListItem from '../UserListItem';
-import style from './UserList.module.scss';
+import style from './UserDisplay.module.scss';
 
-export type UserListProps = {
+export type UserDisplayProps = {
   className?: string;
   title?: string;
   users: SimpleUserModel[];
@@ -15,7 +15,7 @@ export type UserListProps = {
   maxCount?: number;
 };
 
-const UserList: React.FC<UserListProps> = observer(
+const UserDisplay: React.FC<UserDisplayProps> = observer(
   ({ className, title, users, count, showCounter = true, maxCount = 5 }) => {
     const localCount = count ?? users.length;
     return (
@@ -43,4 +43,4 @@ const UserList: React.FC<UserListProps> = observer(
   },
 );
 
-export default UserList;
+export default UserDisplay;

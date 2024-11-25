@@ -6,7 +6,7 @@ import { FullRepositoryModel } from 'store/models';
 import HomePageLink from './components/HomePageLink';
 import IconStat from './components/IconStat';
 import LanguageStats from './components/LanguageStats';
-import UserList from './components/UserList';
+import UserDisplay from './components/UserDisplay';
 import style from './RepoInfo.module.scss';
 
 export type RepoInfoProps = {
@@ -28,7 +28,7 @@ const RepoInfo: React.FC<RepoInfoProps> = observer(({ className, repo }) => {
       </div>
       <div className={style.body}>
         {repo.contributors && repo.contributors?.length > 0 && (
-          <UserList title="Contributors" users={repo.contributors} count={repo.contributorsCount} />
+          <UserDisplay title="Contributors" users={repo.contributors} count={repo.contributorsCount} />
         )}
 
         {repo.languages && repo.languages?.length > 0 && (

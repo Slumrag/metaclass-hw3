@@ -9,19 +9,26 @@ export type SkeletonProps = React.ComponentProps<'div'> & {
   height?: number;
 };
 
-const Skeleton: React.FC<SkeletonProps> = ({ variant = 'text', width, height, className, ...props }) => {
+const Skeleton: React.FC<SkeletonProps> = ({
+  variant = 'text',
+  width,
+  height,
+  className,
+  style: styleProp,
+  ...props
+}) => {
   const components = {
     div: (
       <div
         className={classNames(style.skeleton, style[variant], className)}
-        style={width || height ? { width, height } : {}}
+        style={width || height ? { ...styleProp, width, height } : styleProp}
         {...props}
       ></div>
     ),
     span: (
       <span
         className={classNames(style.skeleton, style.text, className)}
-        style={width || height ? { width, height } : {}}
+        style={width || height ? { ...styleProp, width, height } : styleProp}
         {...props}
       ></span>
     ),

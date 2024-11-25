@@ -1,48 +1,20 @@
 @use "src/components/variables.module" as c;
-@use "src/components/mixins.module" as m;
+
 @use "styles/variables.module" as v;
 
 $background: #ffffff;
 $vertical-padding: 40px;
-$icon-size: 32px;
 
-.wrapper {
-  background: $background;
-}
 .container {
+  background: $background;
   padding-top: $vertical-padding;
   padding-bottom: $vertical-padding;
   gap: c.$space-xl;
+
   @media (max-width: v.$bp-mobile) {
     gap: c.$space-xs;
     padding-top: calc($vertical-padding * 0.6);
     padding-bottom: calc($vertical-padding * 0.6);
-  }
-}
-
-.title {
-  display: flex;
-  align-items: center;
-  gap: c.$space-m;
-  margin-bottom: c.$space-m;
-  @media (max-width: v.$bp-mobile) {
-    gap: c.$space-xxs;
-    margin-bottom: 0;
-  }
-}
-.text {
-  @media (max-width: v.$bp-mobile) {
-    font-size: 32px;
-    line-height: 1.2;
-  }
-}
-.backButton {
-  padding: 0;
-  svg {
-    @include m.square($icon-size);
-  }
-  @media (max-width: v.$bp-mobile) {
-    @include m.square(24px);
   }
 }
 

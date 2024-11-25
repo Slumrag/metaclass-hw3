@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink, useParams } from 'react-router-dom';
-import { IconButton, ArrowLeftIcon, Avatar, Text } from 'components/';
+import { IconButton, ArrowLeftIcon, Avatar, Text, Skeleton } from 'components/';
 import style from './RepoNav.module.scss';
 
 export type RepoNavProps = {
@@ -16,7 +16,7 @@ const RepoNav: React.FC<RepoNavProps> = ({ avatarUrl, name }) => {
       </NavLink>
       <Avatar src={avatarUrl} alt="organization avatar" variant="rounded" />
       <Text tag={'h2'} view="title" className={style.text}>
-        {name}
+        {name ? name : <Skeleton width={100} />}
       </Text>
     </div>
   );

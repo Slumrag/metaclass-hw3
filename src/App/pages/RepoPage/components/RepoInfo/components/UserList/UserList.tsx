@@ -3,7 +3,7 @@ import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { Text } from 'components/';
 import { SimpleUserModel } from 'store/';
-import UserDisplay from '../UserDisplay';
+import UserListItem from '../UserListItem';
 import style from './UserList.module.scss';
 
 export type UserListProps = {
@@ -29,7 +29,7 @@ const UserList: React.FC<UserListProps> = observer(
         <ul className={style.list}>
           {users.slice(0, maxCount).map((el) => (
             <li key={el.id}>
-              <UserDisplay login={el.login} name={el.name!} avatar={el.avatarUrl} />
+              <UserListItem login={el.login} name={el.name!} avatar={el.avatarUrl} />
             </li>
           ))}
           {localCount > maxCount && (

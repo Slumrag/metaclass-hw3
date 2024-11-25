@@ -6,12 +6,12 @@ import EngagementStats from './components/EngagementStats';
 import { HomePageLinkSkeleton } from './components/HomePageLink';
 
 import LanguageStats from './components/LanguageStats';
-import Topics from './components/Topics';
+import { TopicsSkeleton } from './components/Topics';
 import UserDisplay from './components/UserDisplay';
 import style from './RepoInfo.module.scss';
 
 const HomePageLink = React.lazy(() => import('./components/HomePageLink'));
-
+const Topics = React.lazy(() => import('./components/Topics'));
 export type RepoInfoProps = {
   className?: string;
   repo: FullRepositoryModel;
@@ -22,7 +22,7 @@ const RepoInfo: React.FC<RepoInfoProps> = observer(({ className, repo }) => {
     <div className={classNames(style.container, className)}>
       <Suspense fallback={<HomePageLinkSkeleton />}>{repo?.homepage && <HomePageLink href={repo.homepage} />}</Suspense>
 
-      {repo?.topics && <Topics topics={repo.topics} />}
+      <Suspense fallback={<TopicsSkeleton />}>{repo?.topics && <Topics topics={repo.topics} />}</Suspense>
 
       <EngagementStats stargazers={repo.stargazersCount} watchers={repo.watchers} forks={repo.forks} />
 

@@ -14,7 +14,7 @@ const RepoNav: React.FC<RepoNavProps> = ({ avatarUrl, name }) => {
       <NavLink to={'/' + params.org}>
         <IconButton className={style.backButton} variant="transparent" icon={<ArrowLeftIcon />} />
       </NavLink>
-      <Avatar src={avatarUrl} alt="organization avatar" variant="rounded" />
+      <Avatar src={avatarUrl} alt="organization avatar" variant="rounded" size="large" />
       <Text tag={'h2'} view="title" className={style.text}>
         {name ? name : <Skeleton width={100} />}
       </Text>

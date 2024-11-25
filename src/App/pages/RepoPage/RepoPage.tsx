@@ -21,11 +21,13 @@ const RepoPage: React.FC = observer(() => {
   }, []);
 
   return (
+    <div className={style.wrapper}>
       <Container className={style.container} align="start">
       <RepoNav avatarUrl={repoStore.repo?.owner.avatarUrl} name={repoStore.repo?.name} />
         {repoStore.repo && <RepoInfo className={style.info} repo={repoStore.repo} />}
         {repoStore.readme && <DisplayReadMe src={repoStore.readme} className={style.markdown} />}
       </Container>
+    </div>
   );
 });
 

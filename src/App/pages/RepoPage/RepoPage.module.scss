@@ -4,9 +4,10 @@
 
 $background: #ffffff;
 $vertical-padding: 40px;
-
-.container {
+.wrapper {
   background: $background;
+}
+.container {
   padding-top: $vertical-padding;
   padding-bottom: $vertical-padding;
   gap: c.$space-xl;

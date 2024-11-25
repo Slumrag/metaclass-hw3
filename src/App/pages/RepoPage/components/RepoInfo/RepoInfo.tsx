@@ -1,14 +1,16 @@
 import classNames from 'classnames';
 import { observer } from 'mobx-react-lite';
-import React from 'react';
+import React, { Suspense } from 'react';
 import { FullRepositoryModel } from 'store/models';
 import EngagementStats from './components/EngagementStats';
-import HomePageLink from './components/HomePageLink';
+import { HomePageLinkSkeleton } from './components/HomePageLink';
 
 import LanguageStats from './components/LanguageStats';
 import Topics from './components/Topics';
 import UserDisplay from './components/UserDisplay';
 import style from './RepoInfo.module.scss';
+
+const HomePageLink = React.lazy(() => import('./components/HomePageLink'));
 
 export type RepoInfoProps = {
   className?: string;
@@ -18,7 +20,7 @@ export type RepoInfoProps = {
 const RepoInfo: React.FC<RepoInfoProps> = observer(({ className, repo }) => {
   return (
     <div className={classNames(style.container, className)}>
-      {repo?.homepage && <HomePageLink href={repo.homepage} />}
+      <Suspense fallback={<HomePageLinkSkeleton />}>{repo?.homepage && <HomePageLink href={repo.homepage} />}</Suspense>
 
       {repo?.topics && <Topics topics={repo.topics} />}
 

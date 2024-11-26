@@ -36,16 +36,18 @@ const MainPage: React.FC<React.ComponentProps<'div'>> = observer(() => {
   }, []);
 
   const handleSubmit = function (search: SearchParameters): void {
-    if (search.organization) {
-      organization.getRepos(search.organization, { type: search?.type as RepoTypeOptions, page: 1 }).then(() => {
-        navigate(`/${search.organization!}`);
-        if (search?.type) {
-          query.setSearchParams({
-            type: search?.type,
-          });
-        }
-      });
-    }
+    if (!search.organization) return;
+
+    organization.getRepos(search.organization, { type: search?.type as RepoTypeOptions, page: 1 }).then(() => {
+      organization.addToHistory(search.organization!);
+
+      navigate(`/${search.organization!}`);
+      if (search?.type) {
+        query.setSearchParams({
+          type: search?.type,
+        });
+      }
+    });
   };
 
   return (

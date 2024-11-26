@@ -16,11 +16,19 @@ class OrganizationStore implements IPaginationStore<MinimalRepositoryModel> {
   private _perPage: number = 30;
   private _type: RepoTypeOptions = RepoTypeOptions.all;
   private _error: AxiosError | null = null;
+  private _searchHistory: string[] = [];
+  private _maxHistoryLength = 5;
   readonly root: RootStore;
 
   constructor(root: RootStore) {
     makeAutoObservable<OrganizationStore, PrivateFields>(this);
     this.root = root;
+  }
+
+  init() {
+    const search = this.root.localStorage.get('search') as string[];
+    if (!search) return;
+    this._searchHistory = [...search];
   }
 
   get data() {
@@ -49,6 +57,10 @@ class OrganizationStore implements IPaginationStore<MinimalRepositoryModel> {
     return this._type;
   }
 
+  get searchHistory(): string[] {
+    return this._searchHistory;
+  }
+
   get error() {
     return this._error;
   }
@@ -61,6 +73,17 @@ class OrganizationStore implements IPaginationStore<MinimalRepositoryModel> {
 
   set currentPage(page: number) {
     this._currentPage = clamp(1, page, this.pages);
+  }
+
+  addToHistory(entry: string) {
+    if (this.searchHistory.includes(entry)) return;
+
+    this._searchHistory.unshift(entry);
+    if (this._searchHistory.length > this._maxHistoryLength) {
+      this._searchHistory.pop();
+    }
+
+    this.root.localStorage.set('search', this._searchHistory);
   }
 
   public async goToPage(page: number) {

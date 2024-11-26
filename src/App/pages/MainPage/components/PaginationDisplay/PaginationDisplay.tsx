@@ -30,12 +30,13 @@ const PaginationDisplay: React.FC<PaginationDisplayProps> = observer(() => {
     <>
       <Suspense fallback={<RepoCardDisplaySkeleton />}>
         {organization.meta === META.SUCCESS && <RepoCardDisplay data={organization.data} onClick={handleRepo} />}
+        {organization.meta === META.LOADING && <RepoCardDisplaySkeleton />}
       </Suspense>
       {(organization.meta === META.SUCCESS && organization.data.length) === 0 && (
         <ErrorText>No repositories were found</ErrorText>
       )}
 
-      {organization.pages && organization.pages > 1 && (
+      {organization.meta === META.SUCCESS && organization.pages > 1 && (
         <PaginationControls
           className={style.pagination}
           pages={organization.pages}

@@ -29,9 +29,7 @@ const RepoInfo: React.FC<RepoInfoProps> = observer(({ className, repo }) => {
       <Suspense fallback={<TopicsSkeleton />}>{repo?.topics && <Topics topics={repo.topics} />}</Suspense>
 
       <Suspense fallback={<EngagementStatsSkeleton />}>
-        {repo?.stargazersCount && (
-          <EngagementStats stargazers={repo?.stargazersCount} watchers={repo?.watchers} forks={repo?.forks} />
-        )}
+        <EngagementStats stargazers={repo?.stargazersCount} watchers={repo?.watchers} forks={repo?.forks} />
       </Suspense>
 
       <div className={style.body}>

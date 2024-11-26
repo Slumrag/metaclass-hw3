@@ -9,6 +9,7 @@ type PrivateFields = '_repos' | '_meta' | '_organization' | '_currentPage' | '_p
 
 class OrganizationStore implements IPaginationStore<MinimalRepositoryModel> {
   private _data: MinimalRepositoryModel[] = [];
+  private _reposCount: number = 0;
   private _meta: META = META.INITIAL;
   private _organization: SimpleUserModel | null = null;
   private _currentPage: number = 1;
@@ -16,6 +17,8 @@ class OrganizationStore implements IPaginationStore<MinimalRepositoryModel> {
   private _perPage: number = 30;
   private _type: RepoTypeOptions = RepoTypeOptions.all;
   private _error: AxiosError | null = null;
+  private _searchHistory: string[] = [];
+  private _maxHistoryLength = 5;
   readonly root: RootStore;
 
   constructor(root: RootStore) {
@@ -23,9 +26,20 @@ class OrganizationStore implements IPaginationStore<MinimalRepositoryModel> {
     this.root = root;
   }
 
+  init() {
+    const search = this.root.localStorage.get('search') as string[];
+    if (!search) return;
+    this._searchHistory = [...search];
+  }
+
   get data() {
     return this._data;
   }
+
+  get reposCount(): number {
+    return this._reposCount;
+  }
+
   get meta() {
     return this._meta;
   }
@@ -49,6 +63,10 @@ class OrganizationStore implements IPaginationStore<MinimalRepositoryModel> {
     return this._type;
   }
 
+  get searchHistory(): string[] {
+    return this._searchHistory;
+  }
+
   get error() {
     return this._error;
   }
@@ -63,6 +81,17 @@ class OrganizationStore implements IPaginationStore<MinimalRepositoryModel> {
     this._currentPage = clamp(1, page, this.pages);
   }
 
+  addToHistory(entry: string) {
+    if (this.searchHistory.includes(entry)) return;
+
+    this._searchHistory.unshift(entry);
+    if (this._searchHistory.length > this._maxHistoryLength) {
+      this._searchHistory.pop();
+    }
+
+    this.root.localStorage.set('search', this._searchHistory);
+  }
+
   public async goToPage(page: number) {
     if (this.login) {
       await this.getRepos(this.login, { page });
@@ -74,22 +103,24 @@ class OrganizationStore implements IPaginationStore<MinimalRepositoryModel> {
     if (!org) {
       return;
     }
-
+    this.clear();
     this._error = null;
     this._meta = META.LOADING;
 
     try {
-      const defaultOptions: OrgReposOptions = { type: this.type, per_page: this.perPage, page: this.currentPage };
-
-      const newOptions: OrgReposOptions = options !== undefined ? { ...defaultOptions, ...options } : defaultOptions;
-
+      const newOptions: OrgReposOptions = this._handleSearchOptions(options);
       const response = await getOrgRepos(org, newOptions);
+      const responseTotal = await getOrgRepos(org, { ...newOptions, per_page: 1 });
 
       runInAction(() => {
         this._meta = META.SUCCESS;
 
         const linkParams = response.headers?.link ? parseGitHubLinkHeader(response.headers?.link) : null;
-
+        const linkParamsTotal = responseTotal.headers?.link ? parseGitHubLinkHeader(responseTotal.headers?.link) : null;
+        if (linkParamsTotal) {
+          const reposCount = linkParamsTotal.last.searchParams.get('page');
+          this._reposCount = reposCount ? Number(reposCount) : 0;
+        }
         if (linkParams) {
           if (linkParams?.last) {
             const page = linkParams.last.searchParams.get('page');
@@ -118,6 +149,38 @@ class OrganizationStore implements IPaginationStore<MinimalRepositoryModel> {
       });
       console.error(error);
     }
+  }
+  private _handleSearchOptions(options: OrgReposOptions | undefined) {
+    const defaultOptions: OrgReposOptions = { type: this.type, per_page: this.perPage, page: this.currentPage };
+
+    const newOptions: OrgReposOptions = options !== undefined ? { ...defaultOptions, ...options } : defaultOptions;
+    return newOptions;
+  }
+
+  clearData() {
+    this._data = [];
+    this._reposCount = 0;
+  }
+  clearSearch() {
+    this._organization = null;
+    this._type = RepoTypeOptions.all;
+  }
+  resetPagination() {
+    this._pages = 1;
+    this._currentPage = 1;
+  }
+  clearError() {
+    this._error = null;
+  }
+  clearSearchHistory() {
+    this._searchHistory = [];
+    this.root.localStorage.delete('search');
+  }
+  clear() {
+    this._meta = META.INITIAL;
+    this.clearData();
+    this.resetPagination();
+    this.clearError();
   }
 }
 

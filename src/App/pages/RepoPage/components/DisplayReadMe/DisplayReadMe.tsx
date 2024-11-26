@@ -37,40 +37,45 @@ const DisplayReadMe: React.FC<DisplayReadMeProps> = observer(({ src, className }
           <Text className={style.title} weight="bold">
             README.md
           </Text>
-          <div className={style.markdownWrapper}>
-            <Suspense fallback={<Loader size="l" />}>
-              <Markdown
-                className={style.markdown}
-                remarkPlugins={[remarkGfm]}
-                rehypePlugins={[rehypeRaw]}
-                components={{
-                  code(props) {
-                    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                    const { children, className, node, ...rest } = props;
-                    const match = /language-(\w+)/.exec(className || '');
-                    return match ? (
-                      <Suspense fallback={<Skeleton height={56} />}>
-                        <SyntaxHighlighter
-                          // {...rest}
-                          PreTag="div"
-                          language={match[1]}
-                          style={highlightStyle}
-                        >
-                          {String(children).replace(/\n$/, '')}
-                        </SyntaxHighlighter>
-                      </Suspense>
-                    ) : (
-                      <code {...rest} className={className}>
-                        {children}
-                      </code>
-                    );
-                  },
-                }}
-              >
-                {markdown}
-              </Markdown>
-            </Suspense>
-          </div>
+
+          <Suspense
+            fallback={
+              <div className={style.loaderWrapper}>
+                <Loader size="l" />
+              </div>
+            }
+          >
+            <Markdown
+              className={style.markdown}
+              remarkPlugins={[remarkGfm]}
+              rehypePlugins={[rehypeRaw]}
+              components={{
+                code(props) {
+                  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                  const { children, className, node, ...rest } = props;
+                  const match = /language-(\w+)/.exec(className || '');
+                  return match ? (
+                    <Suspense fallback={<Skeleton height={56} />}>
+                      <SyntaxHighlighter
+                        // {...rest}
+                        PreTag="div"
+                        language={match[1]}
+                        style={highlightStyle}
+                      >
+                        {String(children).replace(/\n$/, '')}
+                      </SyntaxHighlighter>
+                    </Suspense>
+                  ) : (
+                    <code {...rest} className={className}>
+                      {children}
+                    </code>
+                  );
+                },
+              }}
+            >
+              {markdown}
+            </Markdown>
+          </Suspense>
         </div>
       )}
     </>

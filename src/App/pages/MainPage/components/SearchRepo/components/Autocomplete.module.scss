@@ -1,0 +1,19 @@
+@use "src/components/variables.module" as *;
+.autocomplete {
+  display: flex;
+  position: relative;
+  flex: 1;
+}
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + $space-xxs);
+  width: 100%;
+}
+
+.input {
+  height: auto;
+  min-width: 0;
+  overflow: hidden;
+  flex: 1;
+}

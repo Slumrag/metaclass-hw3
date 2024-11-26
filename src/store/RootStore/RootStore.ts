@@ -1,15 +1,16 @@
 import { makeAutoObservable } from 'mobx';
+import LocalStorageStore from './LocalStorageStore';
 import OrganizationStore from './OrganizationStore';
 import QueryParamsStore from './QueryParamsStore';
-
-type PrivateFields = '_organizationStore' | '_queryParamsStore';
 
 class RootStore {
   constructor(
     readonly organization = new OrganizationStore(this),
     readonly query = new QueryParamsStore(this),
+    readonly localStorage = new LocalStorageStore(this),
   ) {
-    makeAutoObservable<RootStore, PrivateFields>(this);
+    makeAutoObservable<RootStore>(this);
+    this.organization.init();
   }
 }
 

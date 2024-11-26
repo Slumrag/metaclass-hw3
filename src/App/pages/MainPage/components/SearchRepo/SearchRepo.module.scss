@@ -11,6 +11,8 @@ $min-height: 40px;
 }
 
 .dropdown {
+  position: relative;
+  z-index: 5;
   max-width: $max-width;
   div,
   input {
@@ -30,9 +32,9 @@ $min-height: 40px;
   }
 }
 
-.input {
-  height: auto;
-  flex: 1;
-  min-width: 0;
-  overflow: hidden;
+.repoCount {
+  margin-top: -10px;
+  margin-left: $space-s;
+  display: flex;
+  gap: $space-xxs;
 }

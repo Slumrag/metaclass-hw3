@@ -1,17 +1,10 @@
 import classNames from 'classnames';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { ArrowDownIcon, Input } from 'components/';
+import DropdownMenu from 'components/DropdownMenu';
+import { type Option } from 'components/types';
 import { useClickOutside } from 'utils/hooks';
-import DropdownMenu from './components/DropdownMenu';
 import style from './MultiDropdown.module.scss';
-
-export type Option = {
-  /** Ключ варианта, используется для отправки на бек/использования в коде */
-  key: string;
-  /** Значение варианта, отображается пользователю */
-  value: string;
-};
-
 /** Пропсы, которые принимает компонент Dropdown */
 export type MultiDropdownProps<T extends Option = Option> = {
   className?: string;
@@ -19,8 +12,12 @@ export type MultiDropdownProps<T extends Option = Option> = {
   options: T[];
   /** Текущие выбранные значения поля, может быть пустым */
   value: T[];
+  /** Значение в поле Input */
+  inputValue?: string;
   /** Выбирается ли несколько вариантов или один*/
   multiple?: boolean;
+  /** Callback, вызываемый при  вводе символов в строку*/
+  onInput?: (input: string) => void;
   /** Callback, вызываемый при выборе варианта */
   onChange: (value: T[]) => void;
   /** Заблокирован ли дропдаун */
@@ -33,12 +30,14 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
   className,
   options,
   value,
+  inputValue = '',
+  onInput,
   onChange,
   disabled,
   multiple = false,
   getTitle,
 }) => {
-  const [inputValue, setInputValue] = useState<string>('');
+  const [input, setInputValue] = useState<string>(inputValue);
 
   const [selectedOptions, setSelectedOptions] = useState(value);
   const [isMenuVisible, setIsMenuVisible] = useState<boolean>(false);
@@ -101,12 +100,17 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
       }}
     >
       <Input
-        value={inputValue}
+        value={input}
         onChange={(value: string) => {
           if (!isMenuVisible) {
             showMenu();
           }
           setInputValue(value);
+        }}
+        onInput={(e) => {
+          if (onInput) {
+            onInput((e.target as HTMLInputElement).value);
+          }
         }}
         onFocus={showMenu}
         placeholder={getTitle(selectedOptions)}

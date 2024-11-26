@@ -2,16 +2,9 @@ import classNames from 'classnames';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { ArrowDownIcon, Input } from 'components/';
 import DropdownMenu from 'components/DropdownMenu';
+import { type Option } from 'components/types';
 import { useClickOutside } from 'utils/hooks';
 import style from './MultiDropdown.module.scss';
-
-export type Option = {
-  /** Ключ варианта, используется для отправки на бек/использования в коде */
-  key: string;
-  /** Значение варианта, отображается пользователю */
-  value: string;
-};
-
 /** Пропсы, которые принимает компонент Dropdown */
 export type MultiDropdownProps<T extends Option = Option> = {
   className?: string;

@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import React from 'react';
+import Button from 'components/Button';
 import Text from 'components/Text';
 import { type Option } from 'components/types';
 import style from './DropdownMenu.module.scss';
@@ -25,7 +26,11 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({ className, options, value, 
             className={classNames(style.item, { [style.item_selected]: value.includes(e) })}
             onClick={() => onClick(e)}
           >
-            <Text view="p-16">{e.value}</Text>
+            <Button variant="transparent" style={{ padding: 0 }}>
+              <Text tag="span" className={style.text}>
+                {e.value}
+              </Text>
+            </Button>
           </li>
         ))
       ) : (

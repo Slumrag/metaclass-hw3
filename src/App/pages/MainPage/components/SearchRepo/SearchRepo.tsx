@@ -1,9 +1,11 @@
 import classNames from 'classnames';
 import { observer } from 'mobx-react-lite';
 import React, { useCallback, useState } from 'react';
-import { MultiDropdown, SearchIcon, IconButton } from 'components/';
+import { MultiDropdown, SearchIcon, IconButton, Skeleton } from 'components/';
 import Text from 'components/Text';
 import { type Option } from 'components/types';
+import { rootStore } from 'store/';
+import { META } from 'utils/';
 import Autocomplete from './components';
 import style from './SearchRepo.module.scss';
 
@@ -24,6 +26,7 @@ export type SearchRepoProps = {
 
 const SearchRepo: React.FC<SearchRepoProps> = observer(
   ({ className, typeOptions, typeValue, input = '', history = [], count, onSubmit }) => {
+    const { organization } = rootStore;
     const [organizationName, setOrganizationName] = useState(input);
     const initialVal = typeOptions.find((el) => el.key === typeValue?.key);
 
@@ -82,11 +85,15 @@ const SearchRepo: React.FC<SearchRepoProps> = observer(
           />
           <IconButton type="submit" disabled={!organizationName} icon={<SearchIcon />} />
         </div>
-        {count > 0 && (
+        {organization.meta === META.LOADING ? (
+          <Skeleton width={200} className={style.repoCount} />
+        ) : (
           <Text color="secondary" tag="span" className={style.repoCount}>
-            <Text tag="span" weight="bold">
-              {count.toLocaleString()}
-            </Text>
+            {
+              <Text tag="span" weight="bold">
+                {count.toLocaleString()}
+              </Text>
+            }
             repositories were found
           </Text>
         )}

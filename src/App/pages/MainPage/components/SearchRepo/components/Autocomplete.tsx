@@ -77,7 +77,13 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
         onFocus={handleInputFocus}
       />
       {isDropdownVisible && (
-        <DropdownMenu className={style.dropdown} options={options} value={[value]} onClick={handleDropdownChange} />
+        <DropdownMenu
+          className={style.dropdown}
+          options={options}
+          value={[]}
+          onClick={handleDropdownChange}
+          filterCb={(opt) => opt.value.includes(input)}
+        />
       )}
     </div>
   );

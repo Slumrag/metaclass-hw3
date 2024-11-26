@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { ArrowDownIcon, Input } from 'components/';
+import DropdownMenu from 'components/DropdownMenu';
 import { useClickOutside } from 'utils/hooks';
-import DropdownMenu from './components/DropdownMenu';
 import style from './MultiDropdown.module.scss';
 
 export type Option = {

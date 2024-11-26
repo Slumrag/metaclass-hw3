@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
 import Text from 'components/Text';
-import { type Option } from '../MultiDropdown';
+import { type Option } from '../MultiDropdown/MultiDropdown';
 import style from './DropdownMenu.module.scss';
 
 export type DropdownMenuProps = {

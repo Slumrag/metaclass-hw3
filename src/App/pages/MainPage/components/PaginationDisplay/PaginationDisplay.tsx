@@ -35,7 +35,7 @@ const PaginationDisplay: React.FC<PaginationDisplayProps> = observer(() => {
         <ErrorText>No repositories were found</ErrorText>
       )}
 
-      {organization.pages && organization.pages > 1 && (
+      {organization.meta === META.SUCCESS && organization.pages > 1 && (
         <PaginationControls
           className={style.pagination}
           pages={organization.pages}

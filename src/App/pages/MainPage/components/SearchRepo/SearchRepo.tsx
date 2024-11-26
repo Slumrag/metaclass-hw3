@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { observer } from 'mobx-react-lite';
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { MultiDropdown, SearchIcon, IconButton } from 'components/';
 import { type Option } from 'components/types';
 import Autocomplete from './components';
@@ -26,7 +26,7 @@ const SearchRepo: React.FC<SearchRepoProps> = observer(
     const initialVal = typeOptions.find((el) => el.key === typeValue?.key);
 
     const [type, setType] = useState<Option[]>(initialVal ? [initialVal] : []);
-    const historyOptions: Option[] = useMemo(() => history.map((el) => ({ key: el, value: el })), [history]);
+    const historyOptions: Option[] = history?.map((el) => ({ key: el, value: el }));
 
     const [historyValue, setHistoryValue] = useState(historyOptions[0]);
     const getTitle = useCallback((value: Option[]) => {
@@ -44,8 +44,10 @@ const SearchRepo: React.FC<SearchRepoProps> = observer(
       setOrganization(value);
     }, []);
     const handleHistory = useCallback((option: Option): void => {
+      if (option?.key) {
       setHistoryValue(option);
-      setOrganization(option.key);
+        setOrganization(option?.key);
+      }
     }, []);
 
     const handleSubmit = useCallback(

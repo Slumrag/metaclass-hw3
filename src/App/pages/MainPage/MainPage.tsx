@@ -58,7 +58,8 @@ const MainPage: React.FC<React.ComponentProps<'div'>> = observer(() => {
       <SearchRepo
         className={style.search}
         input={query.getRouterParam('org')}
-        typeVal={{ key: query.getSearchParm('type') as string, value: query.getSearchParm('type') as string }}
+        typeValue={{ key: query.getSearchParm('type') as string, value: query.getSearchParm('type') as string }}
+        history={organization.searchHistory}
         onSubmit={handleSubmit}
         typeOptions={typeFilterOptions}
       />

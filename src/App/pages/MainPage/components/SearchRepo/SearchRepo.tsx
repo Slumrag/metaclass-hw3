@@ -1,8 +1,9 @@
 import classNames from 'classnames';
 import { observer } from 'mobx-react-lite';
-import React, { useCallback, useState } from 'react';
-import { MultiDropdown, Input, SearchIcon, IconButton } from 'components/';
-import { type Option } from 'components/MultiDropdown';
+import React, { useCallback, useMemo, useState } from 'react';
+import { MultiDropdown, SearchIcon, IconButton } from 'components/';
+import { type Option } from 'components/types';
+import Autocomplete from './components';
 import style from './SearchRepo.module.scss';
 
 export type SearchParameters = {
@@ -13,62 +14,73 @@ export type SearchParameters = {
 export type SearchRepoProps = {
   className?: string;
   typeOptions: Option[];
-  typeVal?: Option;
+  typeValue?: Option;
   input?: string;
+  history?: string[];
   onSubmit: (search: SearchParameters) => void;
 };
 
-const SearchRepo: React.FC<SearchRepoProps> = observer(({ className, typeOptions, typeVal, input, onSubmit }) => {
-  const [organization, setOrganization] = useState(input ?? '');
-  const initialVal = typeOptions.find((el) => el.key === typeVal?.key);
+const SearchRepo: React.FC<SearchRepoProps> = observer(
+  ({ className, typeOptions, typeValue, input = '', history = [], onSubmit }) => {
+    const [organization, setOrganization] = useState(input);
+    const initialVal = typeOptions.find((el) => el.key === typeValue?.key);
 
-  const [type, setType] = useState<Option[]>(initialVal ? [initialVal] : []);
+    const [type, setType] = useState<Option[]>(initialVal ? [initialVal] : []);
+    const historyOptions: Option[] = useMemo(() => history.map((el) => ({ key: el, value: el })), [history]);
 
-  const getTitle = useCallback((value: Option[]) => {
-    if (value.length === 0) {
-      return 'Type';
-    }
-    return value.map((e) => e.value).join(', ');
-  }, []);
+    const [historyValue, setHistoryValue] = useState(historyOptions[0]);
+    const getTitle = useCallback((value: Option[]) => {
+      if (value.length === 0) {
+        return 'Type';
+      }
+      return value.map((e) => e.value).join(', ');
+    }, []);
 
-  const handleDropdownChange = useCallback((value: Option[]): void => {
-    setType(value);
-  }, []);
+    const handleDropdownChange = useCallback((value: Option[]): void => {
+      setType(value);
+    }, []);
 
-  const handleInput = useCallback((value: string): void => {
-    setOrganization(value);
-  }, []);
+    const handleInput = useCallback((value: string): void => {
+      setOrganization(value);
+    }, []);
+    const handleHistory = useCallback((option: Option): void => {
+      setHistoryValue(option);
+      setOrganization(option.key);
+    }, []);
 
-  const handleSubmit = useCallback(
-    (e: React.FormEvent<HTMLFormElement>): void => {
-      e.preventDefault();
-      const searchParams = { type: type[0]?.value, organization };
-      // console.log(searchParams);
-      onSubmit(searchParams);
-    },
-    [onSubmit, type, organization],
-  );
+    const handleSubmit = useCallback(
+      (e: React.FormEvent<HTMLFormElement>): void => {
+        e.preventDefault();
+        const searchParams = { type: type[0]?.value, organization };
+        onSubmit(searchParams);
+      },
+      [onSubmit, type, organization],
+    );
 
-  return (
-    <form className={classNames(style.search, className)} onSubmit={handleSubmit}>
-      <MultiDropdown
-        className={style.dropdown}
-        options={typeOptions}
-        value={type}
-        onChange={handleDropdownChange}
-        getTitle={getTitle}
-      />
-      <div className={style.searchBar}>
-        <Input
-          className={style.input}
-          value={organization}
-          placeholder="Enter organization name"
-          onChange={handleInput}
+    return (
+      <form className={classNames(style.search, className)} onSubmit={handleSubmit}>
+        <MultiDropdown
+          className={style.dropdown}
+          options={typeOptions}
+          value={type}
+          onChange={handleDropdownChange}
+          getTitle={getTitle}
         />
-        <IconButton type="submit" disabled={!organization} icon={<SearchIcon />} />
-      </div>
-    </form>
-  );
-});
+        <div className={style.searchBar}>
+          <Autocomplete
+            className={style.autocomplete}
+            options={historyOptions}
+            value={historyValue}
+            inputValue={input}
+            placeholder="Enter organization name"
+            onChange={handleHistory}
+            onInputChange={handleInput}
+          />
+          <IconButton type="submit" disabled={!organization} icon={<SearchIcon />} />
+        </div>
+      </form>
+    );
+  },
+);
 
 export default SearchRepo;

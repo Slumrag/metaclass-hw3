@@ -60,6 +60,7 @@ const MainPage: React.FC<React.ComponentProps<'div'>> = observer(() => {
         input={query.getRouterParam('org')}
         typeValue={{ key: query.getSearchParm('type') as string, value: query.getSearchParm('type') as string }}
         history={organization.searchHistory}
+        count={organization.reposCount}
         onSubmit={handleSubmit}
         typeOptions={typeFilterOptions}
       />

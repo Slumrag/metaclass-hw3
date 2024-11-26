@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import { observer } from 'mobx-react-lite';
 import React, { useCallback, useState } from 'react';
 import { MultiDropdown, SearchIcon, IconButton } from 'components/';
+import Text from 'components/Text';
 import { type Option } from 'components/types';
 import Autocomplete from './components';
 import style from './SearchRepo.module.scss';
@@ -17,12 +18,13 @@ export type SearchRepoProps = {
   typeValue?: Option;
   input?: string;
   history?: string[];
+  count: number;
   onSubmit: (search: SearchParameters) => void;
 };
 
 const SearchRepo: React.FC<SearchRepoProps> = observer(
-  ({ className, typeOptions, typeValue, input = '', history = [], onSubmit }) => {
-    const [organization, setOrganization] = useState(input);
+  ({ className, typeOptions, typeValue, input = '', history = [], count, onSubmit }) => {
+    const [organizationName, setOrganizationName] = useState(input);
     const initialVal = typeOptions.find((el) => el.key === typeValue?.key);
 
     const [type, setType] = useState<Option[]>(initialVal ? [initialVal] : []);
@@ -41,22 +43,22 @@ const SearchRepo: React.FC<SearchRepoProps> = observer(
     }, []);
 
     const handleInput = useCallback((value: string): void => {
-      setOrganization(value);
+      setOrganizationName(value);
     }, []);
     const handleHistory = useCallback((option: Option): void => {
       if (option?.key) {
-      setHistoryValue(option);
-        setOrganization(option?.key);
+        setHistoryValue(option);
+        setOrganizationName(option?.key);
       }
     }, []);
 
     const handleSubmit = useCallback(
       (e: React.FormEvent<HTMLFormElement>): void => {
         e.preventDefault();
-        const searchParams = { type: type[0]?.value, organization };
+        const searchParams = { type: type[0]?.value, organization: organizationName };
         onSubmit(searchParams);
       },
-      [onSubmit, type, organization],
+      [onSubmit, type, organizationName],
     );
 
     return (
@@ -78,8 +80,16 @@ const SearchRepo: React.FC<SearchRepoProps> = observer(
             onChange={handleHistory}
             onInputChange={handleInput}
           />
-          <IconButton type="submit" disabled={!organization} icon={<SearchIcon />} />
+          <IconButton type="submit" disabled={!organizationName} icon={<SearchIcon />} />
         </div>
+        {count > 0 && (
+          <Text color="secondary" tag="span" className={style.repoCount}>
+            <Text tag="span" weight="bold">
+              {count.toLocaleString()}
+            </Text>
+            repositories were found
+          </Text>
+        )}
       </form>
     );
   },

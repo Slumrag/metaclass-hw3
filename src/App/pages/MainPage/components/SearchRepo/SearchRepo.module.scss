@@ -31,3 +31,10 @@ $min-height: 40px;
     max-height: $min-height;
   }
 }
+
+.repoCount {
+  margin-top: -10px;
+  margin-left: $space-s;
+  display: flex;
+  gap: $space-xxs;
+}

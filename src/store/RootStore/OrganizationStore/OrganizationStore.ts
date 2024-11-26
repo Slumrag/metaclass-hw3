@@ -9,6 +9,7 @@ type PrivateFields = '_repos' | '_meta' | '_organization' | '_currentPage' | '_p
 
 class OrganizationStore implements IPaginationStore<MinimalRepositoryModel> {
   private _data: MinimalRepositoryModel[] = [];
+  private _reposCount: number = 0;
   private _meta: META = META.INITIAL;
   private _organization: SimpleUserModel | null = null;
   private _currentPage: number = 1;
@@ -34,6 +35,11 @@ class OrganizationStore implements IPaginationStore<MinimalRepositoryModel> {
   get data() {
     return this._data;
   }
+
+  get reposCount(): number {
+    return this._reposCount;
+  }
+
   get meta() {
     return this._meta;
   }
@@ -103,14 +109,18 @@ class OrganizationStore implements IPaginationStore<MinimalRepositoryModel> {
 
     try {
       const newOptions: OrgReposOptions = this._handleSearchOptions(options);
-
       const response = await getOrgRepos(org, newOptions);
+      const responseTotal = await getOrgRepos(org, { per_page: 1 });
 
       runInAction(() => {
         this._meta = META.SUCCESS;
 
         const linkParams = response.headers?.link ? parseGitHubLinkHeader(response.headers?.link) : null;
-
+        const linkParamsTotal = responseTotal.headers?.link ? parseGitHubLinkHeader(responseTotal.headers?.link) : null;
+        if (linkParamsTotal) {
+          const reposCount = linkParamsTotal.last.searchParams.get('page');
+          this._reposCount = reposCount ? Number(reposCount) : 0;
+        }
         if (linkParams) {
           if (linkParams?.last) {
             const page = linkParams.last.searchParams.get('page');
@@ -149,6 +159,7 @@ class OrganizationStore implements IPaginationStore<MinimalRepositoryModel> {
 
   clearData() {
     this._data = [];
+    this._reposCount = 0;
   }
   clearSearch() {
     this._organization = null;

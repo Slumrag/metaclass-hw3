@@ -110,7 +110,7 @@ class OrganizationStore implements IPaginationStore<MinimalRepositoryModel> {
     try {
       const newOptions: OrgReposOptions = this._handleSearchOptions(options);
       const response = await getOrgRepos(org, newOptions);
-      const responseTotal = await getOrgRepos(org, { per_page: 1 });
+      const responseTotal = await getOrgRepos(org, { ...newOptions, per_page: 1 });
 
       runInAction(() => {
         this._meta = META.SUCCESS;

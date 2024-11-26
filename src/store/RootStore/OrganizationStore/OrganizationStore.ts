@@ -97,14 +97,12 @@ class OrganizationStore implements IPaginationStore<MinimalRepositoryModel> {
     if (!org) {
       return;
     }
-
+    this.clear();
     this._error = null;
     this._meta = META.LOADING;
 
     try {
-      const defaultOptions: OrgReposOptions = { type: this.type, per_page: this.perPage, page: this.currentPage };
-
-      const newOptions: OrgReposOptions = options !== undefined ? { ...defaultOptions, ...options } : defaultOptions;
+      const newOptions: OrgReposOptions = this._handleSearchOptions(options);
 
       const response = await getOrgRepos(org, newOptions);
 
@@ -141,6 +139,37 @@ class OrganizationStore implements IPaginationStore<MinimalRepositoryModel> {
       });
       console.error(error);
     }
+  }
+  private _handleSearchOptions(options: OrgReposOptions | undefined) {
+    const defaultOptions: OrgReposOptions = { type: this.type, per_page: this.perPage, page: this.currentPage };
+
+    const newOptions: OrgReposOptions = options !== undefined ? { ...defaultOptions, ...options } : defaultOptions;
+    return newOptions;
+  }
+
+  clearData() {
+    this._data = [];
+  }
+  clearSearch() {
+    this._organization = null;
+    this._type = RepoTypeOptions.all;
+  }
+  resetPagination() {
+    this._pages = 1;
+    this._currentPage = 1;
+  }
+  clearError() {
+    this._error = null;
+  }
+  clearSearchHistory() {
+    this._searchHistory = [];
+    this.root.localStorage.delete('search');
+  }
+  clear() {
+    this._meta = META.INITIAL;
+    this.clearData();
+    this.resetPagination();
+    this.clearError();
   }
 }
 

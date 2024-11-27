@@ -50,25 +50,20 @@ const DisplayReadMe: React.FC<DisplayReadMeProps> = observer(({ src, className }
               remarkPlugins={[remarkGfm]}
               rehypePlugins={[rehypeRaw]}
               components={{
-                code(props) {
-                  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                  const { children, className, node, ...rest } = props;
+                code({ children, className }) {
+                  const isMultiline = children?.toString().includes('\n');
                   const match = /language-(\w+)/.exec(className || '');
-                  return match ? (
-                    <Suspense fallback={<Skeleton height={56} />}>
+                  return (
+                    <Suspense fallback={<Skeleton />}>
                       <SyntaxHighlighter
-                        // {...rest}
-                        PreTag="div"
-                        language={match[1]}
+                        PreTag={isMultiline ? 'div' : 'span'}
+                        language={match?.[1] ?? ''}
                         style={highlightStyle}
+                        customStyle={!isMultiline ? { padding: 5 } : {}}
                       >
                         {String(children).replace(/\n$/, '')}
                       </SyntaxHighlighter>
                     </Suspense>
-                  ) : (
-                    <code {...rest} className={className}>
-                      {children}
-                    </code>
                   );
                 },
               }}

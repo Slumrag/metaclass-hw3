@@ -44,7 +44,16 @@ class LocalStorageStore {
   private _parseStorage() {
     this._getStorageKeys();
     for (const key of this.keys) {
-      setMobx(this._data, { [key]: JSON.parse(this.localStorage.getItem(key)!) });
+      const item = this.localStorage.getItem(key);
+      if (item === null) {
+        return;
+      }
+      try {
+        const parsedValue = JSON.parse(item);
+        setMobx(this._data, { [key]: parsedValue });
+      } catch {
+        setMobx(this._data, { [key]: item });
+      }
     }
   }
 

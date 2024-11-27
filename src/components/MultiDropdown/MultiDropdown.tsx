@@ -42,6 +42,10 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
   const [selectedOptions, setSelectedOptions] = useState(value);
   const [isMenuVisible, setIsMenuVisible] = useState<boolean>(false);
 
+  const showMenu = useCallback(() => !disabled && setIsMenuVisible(true), [disabled]);
+  const hideMenu = useCallback(() => setIsMenuVisible(false), []);
+  const toggleMenu = useCallback(() => !disabled && setIsMenuVisible((s) => !s), [disabled]);
+
   const removeOption = (opts: Option[], removedIndex: number) => {
     const newOpts = [...opts];
     newOpts.splice(removedIndex, 1);
@@ -63,11 +67,8 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
 
   const handleOptionSingle = useCallback((option: Option) => {
     setSelectedOptions([option]);
+    hideMenu();
   }, []);
-
-  const showMenu = useCallback(() => !disabled && setIsMenuVisible(true), [disabled]);
-  const hideMenu = useCallback(() => setIsMenuVisible(false), []);
-  const toggleMenu = useCallback(() => !disabled && setIsMenuVisible((s) => !s), [disabled]);
 
   const filterOptions = useCallback((opt: Option) => opt.value.includes(inputValue), [inputValue]);
 

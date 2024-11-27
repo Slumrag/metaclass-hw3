@@ -1,0 +1,21 @@
+.errorElement {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.title {
+  font-size: 64px;
+}
+.subtitle {
+  font-size: 24px;
+}
+
+.link {
+  margin-top: 20px;
+  text-decoration: none;
+  font-size: 20px;
+  * {
+    text-decoration: underline;
+  }
+}

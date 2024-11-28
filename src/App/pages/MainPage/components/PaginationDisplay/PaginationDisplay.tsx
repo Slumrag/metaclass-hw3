@@ -1,7 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import React, { Suspense } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ErrorText } from 'components/';
 import { rootStore } from 'store/';
 import { META } from 'utils/';
 import PaginationControls from '../PaginationControls';
@@ -32,9 +31,6 @@ const PaginationDisplay: React.FC<PaginationDisplayProps> = observer(() => {
         {organization.meta === META.SUCCESS && <RepoCardDisplay data={organization.data} onClick={handleRepo} />}
         {organization.meta === META.LOADING && <RepoCardDisplaySkeleton />}
       </Suspense>
-      {(organization.meta === META.SUCCESS && organization.data.length) === 0 && (
-        <ErrorText>No repositories were found</ErrorText>
-      )}
 
       {organization.meta === META.SUCCESS && organization.pages > 1 && (
         <PaginationControls

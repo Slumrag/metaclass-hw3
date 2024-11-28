@@ -26,7 +26,7 @@ export type SearchRepoProps = {
 
 const SearchRepo: React.FC<SearchRepoProps> = observer(
   ({ className, typeOptions, typeValue, input = '', history = [], count, onSubmit }) => {
-    const { organization } = rootStore;
+    const { organization, query } = rootStore;
     const [organizationName, setOrganizationName] = useState(input);
     const initialVal = typeOptions.find((el) => el.key === typeValue?.key);
 
@@ -85,17 +85,21 @@ const SearchRepo: React.FC<SearchRepoProps> = observer(
           />
           <IconButton type="submit" disabled={!organizationName} icon={<SearchIcon />} />
         </div>
-        {organization.meta === META.LOADING ? (
-          <Skeleton width={200} className={style.repoCount} />
-        ) : (
-          <Text color="secondary" tag="span" className={style.repoCount}>
-            {
-              <Text tag="span" weight="bold">
-                {count.toLocaleString()}
+        {query.getRouterParam('org') && (
+          <>
+            {organization.meta === META.LOADING ? (
+              <Skeleton width={200} className={style.repoCount} />
+            ) : (
+              <Text color="secondary" tag="span" className={style.repoCount}>
+                {
+                  <Text tag="span" weight="bold">
+                    {count.toLocaleString()}
+                  </Text>
+                }
+                repositories were found
               </Text>
-            }
-            repositories were found
-          </Text>
+            )}
+          </>
         )}
       </form>
     );

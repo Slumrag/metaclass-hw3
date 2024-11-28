@@ -16,7 +16,7 @@ class OrganizationStore implements IPaginationStore<MinimalRepositoryModel> {
   private _pages: number = 1;
   private _perPage: number = 30;
   private _type: RepoTypeOptions = RepoTypeOptions.all;
-  private _error: AxiosError | null = null;
+  private _error: Error | AxiosError | null = null;
   private _searchHistory: string[] = [];
   private _maxHistoryLength = 5;
   readonly root: RootStore;
@@ -145,7 +145,25 @@ class OrganizationStore implements IPaginationStore<MinimalRepositoryModel> {
     } catch (error) {
       runInAction(() => {
         this._meta = META.ERROR;
-        this._error = error as AxiosError;
+        if (error instanceof AxiosError) {
+          switch (error?.status) {
+            case 404:
+              error.message = 'Organization not found. Try a different name.';
+              break;
+            case 403:
+              error.message = "Can't access this organization.";
+              break;
+            case 500:
+              error.message = 'Server is not responding. Try again later.';
+              break;
+
+            default:
+              break;
+          }
+          this._error = error;
+        } else {
+          this._error = error as Error;
+        }
       });
       console.error(error);
     }

@@ -25,6 +25,8 @@
   align-items: center;
   justify-content: space-between;
   gap: $space-xl;
+  text-decoration: none;
+  color: inherit;
   @media (max-width: v.$bp-mobile) {
     gap: $space-xs;
     h1 {

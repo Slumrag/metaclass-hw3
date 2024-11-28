@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import avatar from 'assets/avatar.png';
 import { Avatar, Text } from 'components/';
 import { GithubIcon } from 'components/icons';
@@ -8,12 +9,12 @@ const Header: React.FC = () => {
   return (
     <header className={style.header}>
       <div className={style.content}>
-        <div className={style.title}>
+        <NavLink to={'/'} className={style.title}>
           <GithubIcon color="primary" />
           <Text tag="h1" weight="bold" view="p-20">
             GitHub Client
           </Text>
-        </div>
+        </NavLink>
         {/* <Avatar variant="circle" hasBorder src={avatar} /> */}
       </div>
     </header>
